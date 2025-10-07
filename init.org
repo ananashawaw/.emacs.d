@@ -663,11 +663,14 @@ TODO : Finish navigator and face customization.
 #+end_src
 ** Programming Languages !
 *** C !
-**** Test-c !
-
-- Dependencies : (Emacs 24.3)
-- Usage : From the README
-  
+**** Test-c
+:PROPERTIES:
+:EMACS: 24.3
+:EXT: None
+:INT: None 
+:END:
+***** Notes
+From the README :
 #+begin_src markdown :tangle "no"
   Call M-x `test-c` to open a temporary `*test-c*` buffer. It is
   prefilled with a skeleton C program (customized through
@@ -699,7 +702,7 @@ TODO : Finish navigator and face customization.
 
   You can save the file and keep using Test-C afterwards.
 #+end_src
-
+***** Config
 #+begin_src elisp :tangle "yes"
     (use-package test-c
       :ensure (test-c :host github :repo "aaptel/test-c")
@@ -708,6 +711,7 @@ TODO : Finish navigator and face customization.
       (test-c-default-run-command "$exe ; echo $?")
       (test-c-default-code "
   #include <stdio.h>
+  #include <stdint.h<
   #include <stddef.h>
 
   int main()
