@@ -38,10 +38,18 @@
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
   - [[#programming-languages-][Programming Languages !]]
     - [[#c-][C !]]
-      - [[#test-c-][Test-c !]]
+      - [[#clangd-][Clangd !]]
+      - [[#test-c][Test-c]]
+        - [[#notes][Notes]]
+        - [[#config-1][Config]]
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
     - [[#latex-][LATEX !]]
+      - [[#auctex][Auctex]]
+      - [[#latexmk][LatexMK]]
+      - [[#cd-latex][CD-latex]]
+      - [[#xenops][Xenops]]
+      - [[#texlab-lsp][Texlab (LSP)]]
     - [[#ocaml-][OCAML !]]
       - [[#opam-][Opam !]]
       - [[#opam-switch-][Opam-Switch !]]
@@ -319,12 +327,13 @@ yaml : npm install -g yaml-language-server
     (lsp-bridge-c-lsp-server "clangd")
     (lsp-bridge-python-multi-lsp-server "pylsp_ruff")
     (lsp-bridge-python-lsp-server "pylsp")
+  	(lsp-bridge-tex-lsp-server "texlab")
     ;;(lsp-bridge-markdown-lsp-server )
     (lsp-bridge-cmake-lsp-server "cmake-language-server")
   	;;; Variables.
   	(lsp-bridge-enable-inlay-hint t) ;; to test
   	(lsp-bridge-enable-hover-diagnostic t) ;; to test
-  	(lsp-bridge-enable-debug nil) ;; to test
+  	(lsp-bridge-enable-debug t) ;; to test
   	(acm-backend-lsp-candidate-max-length 200) ;; fuck java, to test
   	(lsp-bridge-signature-show-with-frame-position "point") ;; testing to see if pop up works
     :config
@@ -1007,21 +1016,52 @@ From the README :
 #+end_src
 
 *** LATEX !
+https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/, it also talks of "calc", seems interesting.
+packages stared on github to look at, also this on gitlab
+https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8fa5147a14c/consult-tex.el
+https://gitlab.com/slotThe/change-env/tree/c39f8fbc6c378e6969bd94a19213f548c88a949c
+https://gitlab.com/matsievskiysv/math-preview/tree/a2ca3c175468ceaf02bab6cdfd8ef016bda2b98d
+https://www.emacswiki.org/emacs/XSymbolMode
+www.emacswiki.org/emacs/WhizzyTeX
+https://gitlab.com/latex-rubber/rubber/
+https://www.emacswiki.org/emacs/InverseDviSearch
+**** Auctex
 #+begin_src elisp :tangle "yes"
-  ;; gotta custom it
-  (use-package auctex
-    :ensure (auctex :repo "https://git.savannah.gnu.org/git/auctex.git" :branch "main"
-                    :pre-build (("make" "elpa"))
-                    :build (:not elpaca--compile-info) ;; Make will take care of this step
-                    :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
-                    :version (lambda (_) (require 'auctex) AUCTeX-version)))
+        ;; gotta custom it
+        (use-package auctex
+          :ensure (auctex :repo "https://git.savannah.gnu.org/git/auctex.git" :branch "main"
+                          :pre-build (("make" "elpa"))
+                          :build (:not elpaca--compile-info) ;; Make will take care of this step
+                          :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
+                          :version (lambda (_) (require 'auctex) AUCTeX-version))
 
-  (use-package auctex-latexmk
-    :ensure t
-    :custom
-    (auctex-latexmk-inherit-TeX-PDF-mode t))
+    			:hook (LaTeX-mode-hook . LaTeX-math-mode)
+  )
 #+end_src
-
+**** LatexMK
+#+begin_src elisp :tangle "yes"
+  ; we also need to install normal latexmk I think.
+  (use-package auctex-latexmk
+      :ensure t
+      :custom
+      (auctex-latexmk-inherit-TeX-PDF-mode t))
+#+end_src
+**** CD-latex
+#+begin_src elisp :tangle "no"
+  ...
+#+end_src
+**** Xenops
+#+begin_src elisp :tangle "no"
+  ...
+#+end_src
+**** Texlab (LSP)
+Needs Cargo, if outdated do : "rustup update"
+#+begin_src shell :tangle "no"
+  git clone https://github.com/latex-lsp/texlab.git ~/.cache/texlab # could be another dest but this is a practical one.
+    cd ~/.cache/texlab
+    cargo build --release # Remove the --release for a debug build.
+  	# Add it to path by modifying .bashrc or .profile or smth, it'd look like : export PATH=$PATH:~/.cache/texlab/target/release
+#+end_src
 *** OCAML !
 **** Opam !
 #+begin_src elisp :tangle "yes"
