@@ -649,6 +649,17 @@ TODO : Finish navigator and face customization.
 #+end_src
 ** Programming Languages !
 *** C !
+**** Clangd !
+(need to check for all build options.
+#+begin_src shell :tangle "no"
+  git clone --depth 1 https://github.com/llvm/llvm-project.git
+  mkdir ~/.cache/llvm # just any dest basically
+  cd ~/.cache/llvm
+  cmake ~/llvm-project/llvm/ -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld" -DCMAKE_BUILD_TYPE=Release
+  # if lld is already installed, add -DLLVM_USE_LINKER=lld
+  cd
+  cmake --build ~/.cache/llvm #SLOW
+#+end_src
 **** Test-c
 :PROPERTIES:
 :EMACS: 24.3
