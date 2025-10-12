@@ -307,7 +307,7 @@ When running latest (no need to upgrade eldoc)
 #+end_src
 *** LSP-bridge !
 Install Python dependencies: pip3 install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
-
+for cargo : curl https://sh.rustup.rs -sSf | sh
 yaml : npm install -g yaml-language-server
 #+begin_src elisp :tangle "yes"
   (use-package lsp-bridge
@@ -348,9 +348,6 @@ yaml : npm install -g yaml-language-server
    ;; If you edit it by hand, you could mess it up, so be careful.
    ;; Your init file should contain only one such instance.
    ;; If there is more than one, they won't work right.
-   '(LaTeX-default-author "Ana")
-   '(TeX-complete-expert-commands t)
-   '(TeX-electric-escape t)
    '(abbrev-suggest t)
    '(align-indent-before-aligning t)
    '(auto-image-file-mode t)
@@ -414,15 +411,14 @@ yaml : npm install -g yaml-language-server
                         flycheck-clang-analyzer flycheck-clangcheck
                         flycheck-cython flycheck-ocaml
                         flycheck-pycheckers ggtags git
-                        git-auto-commit-mode git-backup git-blamed magit
+                        git-auto-commit-mode git-backup git-blamed
                         magit-annex magit-commit-mark magit-delta
                         magit-file-icons magit-find-file magit-gh-pulls
                         magit-gitlab magit-org-todos magit-todos
                         highlight idlwave indent-guide gh-md vmd-mode
-                        flymd org org-sql pdf-tools preview-tailor prism
+                        flymd org-sql pdf-tools prism
                         pydoc python python-mode elpy anaconda-mode
-                        treemacs-magit undo-tree yasnippet-snippets
-                        yatex))
+                        treemacs-magit undo-tree yasnippet-snippets))
    '(prog-mode-hook '( abbrev-mode))
    '(py-auto-complete-p t)
    '(py-auto-fill-mode nil)
@@ -445,13 +441,6 @@ yaml : npm install -g yaml-language-server
                                            global-semantic-show-unmatched-syntax-mode
                                            global-semantic-show-parser-state-mode))
    '(semantic-mode t)
-   '(sh-basic-offset 2)
-   '(sh-indent-after-case '+)
-   '(sh-indent-after-do '+)
-   '(sh-indent-after-else '+)
-   '(sh-indent-after-function '+)
-   '(sh-indent-after-if '+)
-   '(sh-indent-for-case-alt '+)
    '(show-paren-context-when-offscreen 'overlay)
    '(show-paren-delay 0)
    '(show-paren-style 'mixed)
@@ -463,9 +452,6 @@ yaml : npm install -g yaml-language-server
    '(treesit-fold-on-next-line t)
    '(treesit-fold-summary-show nil)
    '(treesit-font-lock-level 4)
-   '(undo-no-redo t)
-   '(undo-tree-visualizer-diff t)
-   '(undo-tree-visualizer-timestamps t)
    '(use-package-check-before-init t)
    '(utop-load-packages-without-asking t)
    '(vc-make-backup-files t)
@@ -720,10 +706,9 @@ From the README :
 #+end_src
 
 **** Gobolt !
-
 #+begin_src elisp :tangle "yes"
   (use-package compiler-explorer
-    :ensure t
+    :ensure (compiler-explorer :host github :repo "mkcms/compiler-explorer.el")
     :bind (("M-g " . compiler-explorer)
            :map compiler-explorer-mode-map
            ("M-g c" . compiler-explorer-set-compiler)
