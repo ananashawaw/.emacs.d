@@ -180,12 +180,17 @@ None, elpaca has very sane defaults.
   (use-package magit
     :ensure (magit :host github :repo "magit/magit"))
 #+end_src
-#+begin_src elisp :tangle "no"
-    (use-package forge
-  	:demand nil
-  	:ensure nil
-  	;; :ensure (forge :host github :repo "magit/forge")
-  	)
+#+begin_src elisp :tangle "yes"
+  (use-package sqlite3
+  	:ensure (sqlite3 :host github :repo "pekingduck/emacs-sqlite3-api"))
+
+  (use-package yaml
+  	:ensure (yaml :host github :repo "zkry/yaml.el" ))
+  
+  (use-package forge
+    	;;:ensure nil
+    	:ensure (forge :host github :repo "magit/forge")
+    	)
 #+end_src
 
 **** Magit commit mark !
@@ -333,7 +338,7 @@ yaml : npm install -g yaml-language-server
   	;;; Variables.
   	(lsp-bridge-enable-inlay-hint t) ;; to test
   	(lsp-bridge-enable-hover-diagnostic t) ;; to test
-  	(lsp-bridge-enable-debug t) ;; to test
+  	(lsp-bridge-enable-debug nil) ;; to test
   	(acm-backend-lsp-candidate-max-length 200) ;; fuck java, to test
   	(lsp-bridge-signature-show-with-frame-position "point") ;; testing to see if pop up works
     :config
@@ -1060,7 +1065,8 @@ Needs Cargo, if outdated do : "rustup update"
   git clone https://github.com/latex-lsp/texlab.git ~/.cache/texlab # could be another dest but this is a practical one.
     cd ~/.cache/texlab
     cargo build --release # Remove the --release for a debug build.
-  	# Add it to path by modifying .bashrc or .profile or smth, it'd look like : export PATH=$PATH:~/.cache/texlab/target/release
+  	# Add it to path by modifying .bashrc or .profile or smth,
+  	#it'd look like : export PATH=$PATH:~/.cache/texlab/target/release
 #+end_src
 *** OCAML !
 **** Opam !
@@ -1163,9 +1169,9 @@ external : merlin (opam install merlin
       :ensure t)
 #+end_src
 **** Merlin-Iedit !
-#+begin_src elisp :tangle "no"
+#+begin_src elisp :tangle "yes"
     (use-package merlin-iedit
-      :disabled
+      ;;:disabled
       :ensure t)
 #+end_src
 **** Ocamlformat !
@@ -1209,9 +1215,9 @@ external : merlin (opam install merlin
 *** Coq !
 **** Proof General !
 TODO : CONFIGURE
-#+begin_src elisp :tangle "no"
-  (use-package PG
-  	:ensure (PG :host github :repo "ProofGeneral/PG"))
+#+begin_src elisp :tangle "yes"
+  (use-package proof-general
+  	:ensure (proof-general :host github :repo "ProofGeneral/PG"))
 #+end_src
 *** Lolcode !
 #+begin_src elisp :tangle "yes"
@@ -1232,8 +1238,7 @@ TODO : CONFIGURE
 **** Yaml-pro !
 yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
 #+begin_src elisp :tangle "yes"
-  (use-package yaml
-  	:ensure (yaml :host github :repo "zkry/yaml.el" ))
+  
   								
   (use-package yaml-pro
   	:ensure (yaml-pro :host github :repo "zkry/yaml-pro")
@@ -1273,8 +1278,8 @@ yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
 *** Java !
 **** Gradle !
 #+begin_src elisp :tangle "yes"
-  (use-package emacs-gradle-mode
-  	:ensure (emacs-gradle-mode :host github :repo "scubacabra/emacs-gradle-mode"))
+  (use-package gradle-mode
+  	:ensure (gradle-mode :host github :repo "scubacabra/emacs-gradle-mode"))
 #+end_src
 **** JDTLS
 How to install the java lsp , note you need a jdk about java 21 as of september 2025:
