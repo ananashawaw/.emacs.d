@@ -540,7 +540,6 @@ We mainly use it with dashboard, but it can look good in other buffers.
 #+end_src
 
 *** Dashboard !
-TODO : Make it auto download the banner on first install.
 TODO : Finish navigator and face customization.
 #+begin_src elisp :tangle "yes"
   (use-package dashboard
@@ -552,7 +551,7 @@ TODO : Finish navigator and face customization.
     :custom
     (dashboard-buffer-name "Welcome !")
     (dashboard-banner-ascii "KIGOTH")
-    (dashboard-startup-banner "~/Pictures/council.jpeg" 'ascii 0)
+    (dashboard-startup-banner "~/.emacs.d/council.jpeg" 'ascii 0)
     (dashboard-banner-logo-title "Hello Dearest Ana, may you have a good time !")
     (dashboard-items '((recents   . 10)
   										 (bookmarks . 5)
