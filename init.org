@@ -418,21 +418,20 @@ yaml : npm install -g yaml-language-server
    '(kept-old-versions 5)
    '(linum-format 'dynamic)
    '(package-selected-packages
-     '(latex-change-env latex-table-wizard cdlatex tex-item tex-parens laas
-                        xenops magic-latex-buffer auto-header
-                        auto-virtualenv c-eldoc demangle-mode disaster
-                        context-coloring utop ejc-sql emacsql sql-indent
-                        flycheck-clang-analyzer flycheck-clangcheck
-                        flycheck-cython flycheck-ocaml
-                        flycheck-pycheckers ggtags git
-                        git-auto-commit-mode git-backup git-blamed
-                        magit-annex magit-commit-mark magit-delta
-                        magit-file-icons magit-find-file magit-gh-pulls
-                        magit-gitlab magit-org-todos magit-todos
-                        highlight idlwave indent-guide gh-md vmd-mode
-                        flymd org-sql pdf-tools prism
-                        pydoc python python-mode elpy anaconda-mode
-                        treemacs-magit undo-tree yasnippet-snippets))
+     '( auto-header
+        auto-virtualenv c-eldoc demangle-mode disaster
+        context-coloring utop ejc-sql emacsql sql-indent
+        flycheck-clang-analyzer flycheck-clangcheck
+        flycheck-cython flycheck-ocaml
+        flycheck-pycheckers ggtags git
+        git-auto-commit-mode git-backup git-blamed
+        magit-annex magit-commit-mark magit-delta
+        magit-file-icons magit-find-file magit-gh-pulls
+        magit-gitlab magit-org-todos magit-todos
+        highlight idlwave indent-guide gh-md vmd-mode
+        flymd org-sql pdf-tools prism
+        pydoc python python-mode elpy anaconda-mode
+        treemacs-magit undo-tree yasnippet-snippets))
    '(prog-mode-hook '( abbrev-mode))
    '(py-auto-complete-p t)
    '(py-auto-fill-mode nil)
@@ -643,7 +642,7 @@ TODO : Finish navigator and face customization.
 #+end_src
 
 *** Consult + Vertico + embark
-
+https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8fa5147a14c/consult-tex.el
 #+begin_src elisp :tangle "no"
   ;; todo
   (use-package consult
@@ -1021,15 +1020,8 @@ From the README :
 
 *** LATEX !
 https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/, it also talks of "calc", seems interesting.
-packages stared on github to look at, also this on gitlab
-https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8fa5147a14c/consult-tex.el
-https://gitlab.com/slotThe/change-env/tree/c39f8fbc6c378e6969bd94a19213f548c88a949c
-https://gitlab.com/matsievskiysv/math-preview/tree/a2ca3c175468ceaf02bab6cdfd8ef016bda2b98d
-https://www.emacswiki.org/emacs/XSymbolMode
 www.emacswiki.org/emacs/WhizzyTeX
-https://gitlab.com/latex-rubber/rubber/
-https://www.emacswiki.org/emacs/InverseDviSearch
-**** Auctex
+**** Auctex !
 #+begin_src elisp :tangle "yes"
         ;; gotta custom it
         (use-package auctex
@@ -1042,7 +1034,7 @@ https://www.emacswiki.org/emacs/InverseDviSearch
     			:hook (LaTeX-mode-hook . LaTeX-math-mode)
   )
 #+end_src
-**** LatexMK
+**** LatexMK !
 #+begin_src elisp :tangle "yes"
   ; we also need to install normal latexmk I think.
   (use-package auctex-latexmk
@@ -1050,15 +1042,71 @@ https://www.emacswiki.org/emacs/InverseDviSearch
       :custom
       (auctex-latexmk-inherit-TeX-PDF-mode t))
 #+end_src
-**** CD-latex
-#+begin_src elisp :tangle "no"
-  ...
+**** CDlatex !
+#+begin_src elisp :tangle "yes"
+  (use-package cdlatex
+  	:ensure (cdlatex :host github :repo "cdominik/cdlatex"))
 #+end_src
-**** Xenops
-#+begin_src elisp :tangle "no"
-  ...
+**** Xenops !
+#+begin_src elisp :tangle "yes"
+  (use-package xenops
+  	:ensure (xenops :host github :repo "dandavison/xenops"))
 #+end_src
-**** Texlab (LSP)
+**** Laas
+#+begin_src elisp :tangle "yes"
+  (use-package laas
+  	:ensure (laas :host github repo: "tecosaur/LaTeX-auto-activating-snippets"))
+#+end_src
+**** amsreftex
+#+begin_src elisp :tangle "yes"
+  (use-package amsreftex
+  	:ensure (amsreftex :host github :repo "franburstall/amsreftex"))
+#+end_src
+**** Magic-latex-buffer !
+faces to customize.
+#+begin_src elisp :tangle "yes"
+  (use-package magic-latex-buffer
+  	:ensure (magic-latex-buffer :host github :repo "zk-phi/magic-latex-buffer"))
+#+end_src
+**** Latex-preview-pane
+#+begin_src elisp :tangle "yes"
+  (use-package latex-preview-pane
+   :ensure (latex-preview-pane :host github :repo "singlet/latex-preview-pane")
+   :custom
+   (pdf-latex-command "pdflatex") ;; default but specified in case I want to use luatex or xetex
+   (preview-orientation 'right) ;; can be any of : above, left, below and right.
+   (latex-preview-pane-use-frame nil) ;; default but specified in case I want to go for OneOnOneEmacs
+   (latex-preview-pane-multifile-mode 'auctex))
+#+end_src
+**** Litex
+#+begin_src elisp :tangle "yes"
+  (use-package litex-mode
+  	:ensure (litex-mode :host github :repo "Atreyagaurav/litex-mode")
+#+end_src
+**** tex-item
+#+begin_src elisp :tangle "yes"
+  (use-package tex-item
+  	:ensure (tex-item :host github :repo "ultronozm/tex-item.el"))
+#+end_src
+**** tex-parens !
+#+begin_src elisp :tangle "yes"
+  (use-package tex-parens
+  	:ensure (tex-parens :host github :repo "ultronozm/tex-parens.el"))
+#+end_src
+**** latex-table-wizard !
+need to custom faces
+#+begin_src elisp :tangle "yes"
+  (use-package latex-table-wizard
+  	:ensure (latex-table-wizard :host github :repo "enricoflor/latex-table-wizard")
+  	:custom
+  	(latex-table-wizard-allow-detached-args t))
+#+end_src
+**** preview-latex
+#+begin_src elisp :tangle "yes"
+  (use-package preview-latex
+  	:ensure (preview-latex :host github :repo "aaptel/preview-latex"))
+#+end_src
+**** Texlab (LSP) !
 Needs Cargo, if outdated do : "rustup update"
 #+begin_src shell :tangle "no"
   git clone https://github.com/latex-lsp/texlab.git ~/.cache/texlab # could be another dest but this is a practical one.
