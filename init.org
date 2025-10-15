@@ -1081,7 +1081,7 @@ faces to customize.
 **** Litex
 #+begin_src elisp :tangle "yes"
   (use-package litex-mode
-  	:ensure (litex-mode :host github :repo "Atreyagaurav/litex-mode")
+  	:ensure (litex-mode :host github :repo "Atreyagaurav/litex-mode"))
 #+end_src
 **** tex-item
 #+begin_src elisp :tangle "yes"
@@ -1103,8 +1103,8 @@ need to custom faces
 #+end_src
 **** preview-latex
 #+begin_src elisp :tangle "yes"
-  (use-package preview-latex
-  	:ensure (preview-latex :host github :repo "aaptel/preview-latex"))
+  (use-package px
+  	:ensure (px :host github :repo "aaptel/preview-latex"))
 #+end_src
 **** Texlab (LSP) !
 Needs Cargo, if outdated do : "rustup update"
