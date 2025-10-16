@@ -754,12 +754,15 @@ From the README :
 #+end_src
 
 **** CC-mode !
+TODO :
+- customize C ts Mode.
+- customize C face.
 #+begin_src elisp :tangle "yes"
   (use-package cc-mode
     :ensure nil
     :hook ((c-initialization . (lambda () (c-set-style "ana")))
   				 (java-mode . (lambda () (c-set-style "ana"))))
-
+  	
    :init
     (c-add-style "ana" '(;; Comments
                          (c-comment-only-line-offset 0)
