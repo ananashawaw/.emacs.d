@@ -1071,7 +1071,7 @@ faces to customize.
 **** Latex-preview-pane
 #+begin_src elisp :tangle "yes"
   (use-package latex-preview-pane
-   :ensure (latex-preview-pane :host github :repo "singlet/latex-preview-pane")
+   :ensure (latex-preview-pane :host github :repo "jsinglet/latex-preview-pane")
    :custom
    (pdf-latex-command "pdflatex") ;; default but specified in case I want to use luatex or xetex
    (preview-orientation 'right) ;; can be any of : above, left, below and right.
