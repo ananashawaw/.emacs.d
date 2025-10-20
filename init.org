@@ -45,11 +45,20 @@
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
     - [[#latex-][LATEX !]]
-      - [[#auctex][Auctex]]
-      - [[#latexmk][LatexMK]]
-      - [[#cd-latex][CD-latex]]
-      - [[#xenops][Xenops]]
-      - [[#texlab-lsp][Texlab (LSP)]]
+      - [[#auctex-][Auctex !]]
+      - [[#latexmk-][LatexMK !]]
+      - [[#cdlatex-][CDlatex !]]
+      - [[#xenops-][Xenops !]]
+      - [[#laas][Laas]]
+      - [[#amsreftex][amsreftex]]
+      - [[#magic-latex-buffer-][Magic-latex-buffer !]]
+      - [[#latex-preview-pane][Latex-preview-pane]]
+      - [[#litex][Litex]]
+      - [[#tex-item][tex-item]]
+      - [[#tex-parens-][tex-parens !]]
+      - [[#latex-table-wizard-][latex-table-wizard !]]
+      - [[#preview-latex][preview-latex]]
+      - [[#texlab-lsp-][Texlab (LSP) !]]
     - [[#ocaml-][OCAML !]]
       - [[#opam-][Opam !]]
       - [[#opam-switch-][Opam-Switch !]]
@@ -1269,10 +1278,11 @@ TODO : CONFIGURE
   (use-package proof-general
   	:ensure (proof-general :host github :repo "ProofGeneral/PG"))
 #+end_src
-*** Lolcode !
+*** Lolcode
+Contribute to it by letting users change the fonts ?
 #+begin_src elisp :tangle "yes"
   (use-package lolcode-mode
-    :ensure t)
+    :ensure (lolcode-mode :host github :repo "bodil/lolcode-mode"))
 #+end_src
 *** Yaml !
 **** Yaml-mode !
