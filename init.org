@@ -27,7 +27,7 @@
     - [[#arxiv-][ARXIV !]]
     - [[#treesit-][treesit !]]
   - [[#visuals-][Visuals !]]
-    - [[#page-break-lines-][Page Break Lines !]]
+    - [[#page-break-lines][Page Break Lines]]
     - [[#dashboard-][Dashboard !]]
     - [[#window-scrolls-][Window Scrolls !]]
       - [[#poke-line-][Poke-line !]]
@@ -75,7 +75,7 @@
       - [[#learn-ocaml-][Learn-ocaml !]]
     - [[#coq-][Coq !]]
       - [[#proof-general-][Proof General !]]
-    - [[#lolcode-][Lolcode !]]
+    - [[#lolcode][Lolcode]]
     - [[#yaml-][Yaml !]]
       - [[#yaml-mode-][Yaml-mode !]]
       - [[#yaml-pro-][Yaml-pro !]]
@@ -536,7 +536,12 @@ yaml : npm install -g yaml-language-server
   		:ensure (treesit-fold :host github :repo "emacs-tree-sitter/treesit-fold"))
 #+end_src
 ** Visuals !
-*** Page Break Lines !
+*** Page Break Lines
+:PROPERTIES:
+:EMACS: 25.1
+:EXT: None
+:INT: None
+:END:
 We mainly use it with dashboard, but it can look good in other buffers.
 #+begin_src elisp :tangle "yes"
   (use-package page-break-lines
@@ -546,7 +551,6 @@ We mainly use it with dashboard, but it can look good in other buffers.
   	(page-break-lines-lighter "^L")
   	(page-break-lines-modes '(prog-mode text-mode special-mode)))
 #+end_src
-
 *** Dashboard !
 TODO : Finish navigator and face customization.
 #+begin_src elisp :tangle "yes"
@@ -1029,7 +1033,6 @@ TODO :
                                  (pike-mode . t)
                                  (awk-mode . t))))
 #+end_src
-
 *** LATEX !
 https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/, it also talks of "calc", seems interesting.
 www.emacswiki.org/emacs/WhizzyTeX
