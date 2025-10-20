@@ -85,7 +85,7 @@
       - [[#jdtls][JDTLS]]
     - [[#ebuilds-][Ebuilds !]]
   - [[#org-][Org !]]
-    - [[#toc-org-][toc-org !]]
+    - [[#toc-org][toc-org]]
     - [[#org-modern-][org-modern !]]
     - [[#org-popup-posframe-][org-popup-posframe !]]
 
@@ -1365,7 +1365,12 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :EXT: None
 :INT: org
 :END:
-*** toc-org !
+*** toc-org
+:PROPERTIES:
+:EMACS: 0 (none specified)
+:EXT: None
+:INT: None
+:END:
 #+begin_src elisp :tangle "yes"
   (use-package toc-org
     :ensure (toc-org :host github :repo "snosov1/toc-org")
