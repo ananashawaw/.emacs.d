@@ -1346,17 +1346,20 @@ yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
 #+end_src
 **** JDTLS
 How to install the java lsp , note you need a jdk about java 21 as of september 2025:
-1. git clone https://github.com/eclipse-jdtls/eclipse.jdt.ls.git {DEST}
-   {DEST} could be ~/.cache/ for example
-2. cd {DEST}
-3. export JAVA_HOME={PATH TO JDK}
-    jdk, not jre, for openjdk, this is usually /usr/lib/jvm/java-{VERSION}-openjdk-{architecture : arm64, amd64,...}/
-    if maven (mvnw) complains about JAVA_HOME being poorly configured / missing, this is what to fix.
-4. ./mvnw clean verify -U -DskipTests=true
-5. echo "export PATH=$PATH:{DEST}/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/" >> .bashrc
-   you could also use, say, bash.profile, the important part is for it to be in your path.
-6. source .bashrc
-   or you can just restart the shell
+#+begin_src bash :tangle "no"
+  export DEST= ...
+  # {DEST} could be ~/.cache/ for example.
+  export JAVA_HOME=...
+  # jdk, not jre, for openjdk, this is usually /usr/lib/jvm/java-{VERSION}-openjdk-{architecture : arm64, amd64,...}
+  # if maven (mvnw) complains about JAVA_HOME being poorly configured / missing, this is what to fix.
+  git clone https://github.com/eclipse-jdtls/eclipse.jdt.ls.git $(DEST)
+  cd $(DEST)
+  ./mvnw clean verify -U -DskipTests=true
+  echo "export PATH=$PATH:$(DEST)/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/" >> .bashrc
+  #  you could also use, say, bash.profile, the important part is for it to be in your path.
+  source .bashrc
+  # Same comment as above. You could also just restart the shell.
+#+end_src
 *** Ebuilds !
 #+begin_src elisp :tangle "yes"
   (use-package ebuild-mode
