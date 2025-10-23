@@ -81,7 +81,9 @@
       - [[#yaml-pro-][Yaml-pro !]]
     - [[#other-handlers-][other handlers !]]
     - [[#java-][Java !]]
-      - [[#gradle-][Gradle !]]
+      - [[#gradle][Gradle]]
+        - [[#gradle-installation][Gradle Installation]]
+        - [[#gradle-mode][Gradle-mode]]
       - [[#jdtls][JDTLS]]
     - [[#ebuilds-][Ebuilds !]]
   - [[#org-][Org !]]
@@ -1355,7 +1357,29 @@ yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
     (call-graph-display-func-args t))
 #+end_src
 *** Java !
-**** Gradle !
+**** Gradle
+***** Gradle Installation
+Requires jdk 17+.
+#+begin_src bash :tangle "no"
+  # Navigate to "https://gradle.org/install/" and install the binary.
+  export DEST=...
+  # {DEST} could be ~/opt/gradle for example.
+  export VERSION=...
+  # {VERSION} is of the fomat \d\.\d\.\d, example : 9.1.0 at time of writing.
+  mkdir $(DEST)
+  unzip -d $(DEST) ~/Downloads/gradle-$(VERSION)-bin.zip
+  ls $(DEST)/gradle-$(VERSION)
+  export PATH=$PATH:$(DEST)/gradle-$(VERSION)/bin
+  gradle -v
+#+end_src
+***** Gradle-mode
+:PROPERTIES:
+:EMACS: None specified.
+:REQ_EXT: gradle
+:REQ_INT: ("s" "1.8.0")
+:OPT_EXT: None
+:OPT_INT: None
+:END:
 #+begin_src elisp :tangle "yes"
   (use-package gradle-mode
   	:ensure (gradle-mode :host github :repo "scubacabra/emacs-gradle-mode"))
