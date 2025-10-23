@@ -91,14 +91,16 @@
 
 * Setup !
 :PROPERTIES:
-:COLUMNS: %ITEM %EMACS %EXT %INT
+:COLUMNS: %ITEM %EMACS %REQ_EXT %REQ_INT %OPT_EXT $OPT_INT
 :END:
 ** Basics !
 *** Preface !
 :PROPERTIES:
 :EMACS: 24.1
-:EXT: None
-:INT: None 
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
 :END:
 We have to turn off `Package.el` because it'll autoload all packages, which goes against elpaca's methodology.
 #+begin_src elisp :tangle "yes"
@@ -109,8 +111,10 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
 **** Elpaca Installation  !
 :PROPERTIES:
 :EMACS: 27.1
-:EXT: None
-:INT: None
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
 :END:
 #+begin_src elisp :tangle "yes"
   (defvar elpaca-installer-version 0.11)
@@ -539,8 +543,10 @@ yaml : npm install -g yaml-language-server
 *** Page Break Lines
 :PROPERTIES:
 :EMACS: 25.1
-:EXT: None
-:INT: None
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
 :END:
 We mainly use it with dashboard, but it can look good in other buffers.
 #+begin_src elisp :tangle "yes"
@@ -687,9 +693,11 @@ https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8
 #+end_src
 **** Test-c
 :PROPERTIES:
-:EMACS: 24.3
-:EXT: None
-:INT: None 
+:EMACS: 23.3
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
 :END:
 ***** Notes
 From the README :
@@ -1368,15 +1376,19 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 #+end_src
 ** Org !
 :PROPERTIES:
-:EMACS: None
-:EXT: None
-:INT: org
+:EMACS: 0 (None specified ?)
+:REQ_EXT: None
+:REQ_INT: Org-mode
+:OPT_EXT: None
+:OPT_INT: None
 :END:
 *** toc-org
 :PROPERTIES:
-:EMACS: 0 (none specified)
-:EXT: None
-:INT: None
+:EMACS: 0 (None spécified ?)
+:REQ_EXT: None
+:REQ_INT: Org-mode
+:OPT_EXT: None
+:OPT_INT: None
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package toc-org
@@ -1398,8 +1410,10 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 *** org-popup-posframe !
 :PROPERTIES:
 :EMACS: 28.1
-:EXT: None
-:INT+: ("postframe" "1.4.2")
+:REQ_EXT: None
+:REQ_INT: ("postframe" "1.4.2"), Org-mode
+:OPT_EXT: None
+:OPT_INT: None
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package org-popup-posframe
