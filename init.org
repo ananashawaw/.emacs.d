@@ -60,7 +60,7 @@
       - [[#preview-latex][preview-latex]]
       - [[#texlab-lsp-][Texlab (LSP) !]]
     - [[#ocaml-][OCAML !]]
-      - [[#opam-][Opam !]]
+      - [[#opam][Opam]]
       - [[#opam-switch-][Opam-Switch !]]
       - [[#caml-][Caml !]]
       - [[#tuareg-][Tuareg !]]
@@ -1131,14 +1131,15 @@ Needs Cargo, if outdated do : "rustup update"
   	#it'd look like : export PATH=$PATH:~/.cache/texlab/target/release
 #+end_src
 *** OCAML !
-**** Opam !
+**** Opam
+:PROPERTIES:
+:EMACS: 24.1
+:EXT: Opam
+:INT: None
+:END:
+Idea : Take ownership of the repo (it is orphaned), and make it a real opam repo instead of just a script for init ?
+Would need to see the overlaps between say, this, and  [[Opam-Switch !]].
 #+begin_src elisp :tangle "yes"
-  (defun opam-env ()
-    (interactive nil)
-    (dolist (var (car (read-from-string (shell-command-to-string "opam config env --sexp"))))
-      (setenv (car var) (cadr var))))
-    
-  ;;fully done
   (use-package opam
     :ensure (opam :host github :repo "emacsorphanage/opam")
     :hook ((merlin-mode tuareg-mode caml-mode) . opam-init))
