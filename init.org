@@ -80,7 +80,7 @@
       - [[#yaml-mode-][Yaml-mode !]]
       - [[#yaml-pro-][Yaml-pro !]]
     - [[#other-handlers-][other handlers !]]
-    - [[#java-][Java !]]
+    - [[#java][Java]]
       - [[#gradle][Gradle]]
         - [[#gradle-installation][Gradle Installation]]
         - [[#gradle-mode][Gradle-mode]]
@@ -1356,7 +1356,7 @@ yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
     (call-graph-ignore-invalid-reference t)
     (call-graph-display-func-args t))
 #+end_src
-*** Java !
+*** Java
 **** Gradle
 ***** Gradle Installation
 Requires jdk 17+.
