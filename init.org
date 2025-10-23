@@ -61,7 +61,7 @@
       - [[#texlab-lsp-][Texlab (LSP) !]]
     - [[#ocaml-][OCAML !]]
       - [[#opam][Opam]]
-      - [[#opam-switch-][Opam-Switch !]]
+      - [[#opam-switch][Opam-Switch]]
       - [[#caml-][Caml !]]
       - [[#tuareg-][Tuareg !]]
       - [[#merlin-][Merlin !]]
@@ -1142,23 +1142,30 @@ Needs Cargo, if outdated do : "rustup update"
 **** Opam
 :PROPERTIES:
 :EMACS: 24.1
-:EXT: Opam
-:INT: None
+:REQ_EXT: Opam
+:REQ_INT: None
+:OPT_EXT: Ocaml, Coq, Merlin
+:OPT_INT: Merlin-mode, Tuareg-mode, Caml-mode, Coq-mode
 :END:
 Idea : Take ownership of the repo (it is orphaned), and make it a real opam repo instead of just a script for init ?
 Would need to see the overlaps between say, this, and  [[Opam-Switch !]].
 #+begin_src elisp :tangle "yes"
   (use-package opam
     :ensure (opam :host github :repo "emacsorphanage/opam")
-    :hook ((merlin-mode tuareg-mode caml-mode) . opam-init))
+    :hook ((coq-mode merlin-mode tuareg-mode caml-mode) . opam-init))
 #+end_src
-**** Opam-Switch !
+**** Opam-Switch
+:PROPERTIES:
+:EMACS: 25.1
+:REQ_EXT: Opam
+:REQ_INT: None
+:OPT_EXT: Ocaml, Coq, Merlin
+:OPT_INT: Tuareg, Merlin-mode, Coq-mode, Caml-mode
+:END:
 #+begin_src elisp :tangle "yes"
-  ;; fully done
   (use-package opam-switch-mode
     :ensure (opam-switch-mode :host github :repo "ProofGeneral/opam-switch-mode")
-    :hook
-    ((merlin-mode tuareg-mode caml-mode) . opam-switch-mode))
+    :hook ((coq-mode tuareg-mode merlin-mode  caml-mode) . opam-switch-mode))
 #+end_src
 **** Caml !
 #+begin_src elisp :tangle "yes"
