@@ -31,8 +31,8 @@
     - [[#dashboard-][Dashboard !]]
     - [[#window-scrolls-][Window Scrolls !]]
       - [[#poke-line-][Poke-line !]]
-    - [[#colors-][Colors !]]
-      - [[#colorful-mode-][Colorful-mode !]]
+    - [[#colors][Colors]]
+      - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
     - [[#themes-][Themes !]]
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
@@ -620,16 +620,17 @@ TODO : Finish navigator and face customization.
   	(poke-line-global-mode 1)
   	(poke-line-set-pokemon "pachirisu"))
 #+end_src
-*** Colors !
-**** Colorful-mode !
+*** Colors
+**** Colorful-mode
+face : colorful-base, proposal : remove the bold.
 #+begin_src elisp :tangle "yes"
-(use-package colorful-mode
-    :ensure t
-    :config
-    (global-colorful-mode t)
-    (global-unset-key (kbd "C-x c x"))
-    (global-unset-key (kbd "C-x c c"))
-    (global-unset-key (kbd "C-x c r")))
+  (use-package colorful-mode
+      :ensure t
+      :config
+      (global-colorful-mode t)
+      (global-unset-key (kbd "C-x c x"))
+      (global-unset-key (kbd "C-x c c"))
+      (global-unset-key (kbd "C-x c r")))
 #+end_src
 *** Ascii table !
 #+begin_src elisp :tangle "yes"
