@@ -1269,6 +1269,7 @@ external : merlin (opam install merlin
     :ensure (utop :host github :repo "ocaml-community/utop"))
 #+end_src
 **** Learn-ocaml !
+I only need to customize the face, but it is only available on x86_64.
 #+begin_src elisp :tangle "no"
     (use-package learn-ocaml
     	:ensure (learn-ocaml :host github :repo "pfitaxel/learn-ocaml.el"))
