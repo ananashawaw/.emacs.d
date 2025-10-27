@@ -1387,7 +1387,7 @@ Requires jdk 17+.
 #+end_src
 ***** Gradle-mode
 :PROPERTIES:
-:EMACS: None specified.
+:EMACS: Unspecified
 :REQ_EXT: gradle
 :REQ_INT: ("s" "1.8.0")
 :OPT_EXT: None
@@ -1420,7 +1420,7 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 #+end_src
 ** Org !
 :PROPERTIES:
-:EMACS: 0 (None specified ?)
+:EMACS: Unspecified
 :REQ_EXT: None
 :REQ_INT: Org-mode
 :OPT_EXT: None
@@ -1428,7 +1428,7 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :END:
 *** toc-org
 :PROPERTIES:
-:EMACS: 0 (None spécified ?)
+:EMACS: Unspecified
 :REQ_EXT: None
 :REQ_INT: Org-mode
 :OPT_EXT: None
