@@ -35,6 +35,7 @@
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
     - [[#themes-][Themes !]]
+    - [[#screenshots][Screenshots]]
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
   - [[#programming-languages-][Programming Languages !]]
     - [[#c-][C !]]
@@ -660,8 +661,19 @@ face : colorful-base, proposal : remove the bold.
 
   (use-package girly-notebook-theme
     :ensure t)
+*** Screenshots
+#+begin_src elisp :tangle "yes"
+  (defun screenshot-svg ()
+  "Save a screenshot of the current frame as an SVG image.
+Saves to a temp file and puts the filename in the kill ring."
+  (interactive)
+  (let* ((filename (make-temp-file "Emacs" nil ".svg"))
+         (data (x-export-frames nil 'svg)))
+    (with-temp-file filename
+      (insert data))
+    (kill-new filename)
+    (message filename)))
 #+end_src
-
 *** Consult + Vertico + embark
 https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8fa5147a14c/consult-tex.el
 #+begin_src elisp :tangle "no"
