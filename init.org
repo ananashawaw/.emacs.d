@@ -33,6 +33,9 @@
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
     - [[#themes-][Themes !]]
+      - [[#pink-bliss-uwu-][Pink Bliss UwU !]]
+      - [[#shades-of-purple][Shades Of Purple]]
+      - [[#girly-notebook][Girly Notebook]]
     - [[#screenshots][Screenshots]]
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
   - [[#programming-languages-][Programming Languages !]]
@@ -628,26 +631,49 @@ face : colorful-base, proposal : remove the bold.
   	(ascii-table-initial-control nil)
   	(ascii-table-initial-escape t))
 #+end_src
-*** Themes !
-#+begin_src elisp :tangle "yes"
-  (use-package shades-of-purple-theme
-    :ensure t
-    :config
-    ;;(load-theme 'shades-of-purple t)
-  	)
 
+*** Themes !
+**** Pink Bliss UwU !
+#+begin_src elisp :tangle "yes"
   (use-package pink-bliss-uwu-theme
-    :ensure (pink-bliss-uwu-theme
-             :host github :repo "themkat/pink-bliss-uwu"
-  					 :build (:not elpaca--byte-compile))
-    :config
+  	:ensure (pink-bliss-uwu-theme
+  					 :host github :repo "themkat/pink-bliss-uwu"
+  					 :remotes ("ana" :repo "ananashawaw/pink-bliss-uwu"))
+  	:config
   	(load-theme 'pink-bliss-uwu t)
   	:custom
-  	(pink-bliss-uwu-use-custom-font t)
-  	)
-
+  	(pink-bliss-uwu-use-custom-font t))
+#+end_src
+**** Shades Of Purple
+:PROPERTIES:
+:EMACS: Unspecified
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:END:
+The best dark theme in emacs.
+#+begin_src elisp :tangle "yes"
+   (use-package shades-of-purple-theme
+     :ensure (shades-of-purple-theme :host github :repo "arturovm/shades-of-purple-emacs")
+     :config
+     (load-theme 'shades-of-purple t t))
+#+end_src
+**** Girly Notebook
+:PROPERTIES:
+:EMACS: 26.1
+:REQ_EXT: Iosevka SS05, Iosevka Aile, Victor Mono
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:END:
+Not used but, it looks very good with the fonts, and it can be a great source of inspiration.
+#+begin_src elisp :tangle "yes"
   (use-package girly-notebook-theme
-    :ensure t)
+  	:ensure (girly-notebook-theme :host github :repo "melissaboiko/girly-notebook-theme")
+  	:config
+  	(load-theme 'girly-notebook t t))
+#+end_src
 *** Screenshots
 #+begin_src elisp :tangle "yes"
   (defun screenshot-svg ()
