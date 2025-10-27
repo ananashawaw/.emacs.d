@@ -1,13 +1,13 @@
 * Table of contents                                                     :TOC:
 - [[#setup-][Setup !]]
   - [[#basics-][Basics !]]
-    - [[#preface-][Preface !]]
-    - [[#package-manager-][Package Manager !]]
-      - [[#elpaca-installation--][Elpaca Installation  !]]
-      - [[#elpaca-use-package-integration-][Elpaca use-package Integration !]]
-      - [[#melpulls-][Melpulls !]]
-      - [[#elpaca-build-if-new-][Elpaca build if new !]]
-      - [[#elpaca-customisation-][Elpaca Customisation !]]
+    - [[#preface][Preface]]
+    - [[#package-manager][Package Manager]]
+      - [[#elpaca-installation][Elpaca Installation]]
+      - [[#elpaca-use-package-integration][Elpaca use-package Integration]]
+      - [[#melpulls][Melpulls]]
+      - [[#elpaca-build-if-new][Elpaca build if new]]
+      - [[#elpaca-customisation][Elpaca Customisation]]
         - [[#config][Config]]
     - [[#magit-][Magit !]]
       - [[#magit-commit-mark-][Magit commit mark !]]
@@ -96,7 +96,7 @@
 :COLUMNS: %ITEM %EMACS %REQ_EXT %REQ_INT %OPT_EXT $OPT_INT
 :END:
 ** Basics !
-*** Preface !
+*** Preface
 :PROPERTIES:
 :EMACS: 24.1
 :REQ_EXT: None
@@ -109,11 +109,11 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
   ;; -*- lexical-binding: t; -*-
   (setq package-enable-at-startup nil)
 #+end_src
-*** Package Manager !
-**** Elpaca Installation  !
+*** Package Manager
+**** Elpaca Installation
 :PROPERTIES:
 :EMACS: 27.1
-:REQ_EXT: None
+:REQ_EXT: git
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
@@ -158,18 +158,17 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
   (add-hook 'after-init-hook #'elpaca-process-queues)
   (elpaca `(,@elpaca-order))
 #+end_src
-**** Elpaca use-package Integration !
+**** Elpaca use-package Integration
 #+begin_src elisp :tangle "yes"
   (elpaca elpaca-use-package
-    ;; Enable Elpaca support for use-package's :ensure keyword.
     (elpaca-use-package-mode))
 #+end_src
-**** Melpulls !
+**** Melpulls
 #+begin_src elisp :tangle "yes"
   (elpaca-queue (elpaca '(melpulls :host github :repo "progfolio/melpulls")
                   (add-to-list 'elpaca-menu-functions #'melpulls)))
 #+end_src
-**** Elpaca build if new !
+**** Elpaca build if new
 #+begin_src elisp :tangle "yes"
   (defun +elpaca/build-if-new (e)
     (setf (elpaca<-build-steps e)
@@ -184,7 +183,7 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
                                  (file-exists-p (elpaca<-repo-dir e)))))
     (elpaca--continue-build e))
 #+end_src
-**** Elpaca Customisation !
+**** Elpaca Customisation
 ***** Config
 None, elpaca has very sane defaults.
 *** Magit !
