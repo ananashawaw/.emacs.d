@@ -10,6 +10,8 @@
       - [[#elpaca-customisation][Elpaca Customisation]]
         - [[#config][Config]]
     - [[#magit-][Magit !]]
+      - [[#with-editor][With-Editor]]
+      - [[#magit--1][Magit !]]
       - [[#magit-commit-mark-][Magit commit mark !]]
       - [[#magit-others-][Magit others !]]
     - [[#eshell-][Eshell !]]
@@ -189,6 +191,24 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
 ***** Config
 None, elpaca has very sane defaults.
 *** Magit !
+**** With-Editor
+:PROPERTIES:
+:EMACS: 26.1
+:REQ_EXT: None
+:REQ_INT: ("Compat" "30.1") which requires ("seq" "2.23") but this is covered by the emacs version.
+:OPT_EXT: None
+:OPT_INT: None
+:END:
+#+begin_src elisp :tangle "yes"
+  (use-package with-editor
+  	:ensure (with-editor :host github :repo "magit/with-editor")
+  	:hook (eshell-mode . with-editor-export-editor) ;; should this be defined in eshell instead?
+  	:config
+  	(shell-command-with-editor-mode)
+  	:custom
+  	(with-editor-mode-lighter " w.ed"))
+#+end_src
+**** Magit !
 #+begin_src elisp :tangle "yes"
   (use-package transient
   	:ensure (transient :host github :repo "magit/transient"))
