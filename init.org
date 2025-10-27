@@ -29,8 +29,6 @@
   - [[#visuals-][Visuals !]]
     - [[#page-break-lines][Page Break Lines]]
     - [[#dashboard-][Dashboard !]]
-    - [[#window-scrolls-][Window Scrolls !]]
-      - [[#poke-line-][Poke-line !]]
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
@@ -608,17 +606,6 @@ TODO : Finish navigator and face customization.
   			 (lambda (&rest _) (browse-url "https://github.com/ananashawaw?tab=repositories"))
   			 warning)
   	    ("?" "" "?/h" #'show-help nil "<" ">")))))
-#+end_src
-*** Window Scrolls !
-**** Poke-line !
-#+begin_src elisp :tangle "yes"
-    ;; to contribute
-  (use-package poke-line
-  	:disabled
-    :ensure (poke-line :host github :repo "RyanMillerC/poke-line")
-  	:config
-  	(poke-line-global-mode 1)
-  	(poke-line-set-pokemon "pachirisu"))
 #+end_src
 *** Colors
 **** Colorful-mode
