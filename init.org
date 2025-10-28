@@ -794,14 +794,13 @@ From the README :
       (test-c-default-run-command "$exe ; echo $?")
       (test-c-default-code "
   #include <stdio.h>
-  #include <stdint.h<
+  #include <stdint.h>
   #include <stddef.h>
 
   int main()
     {int uwu = 17;
      printf(\"%d\\n\", uwu);};"))
 #+end_src
-
 **** Gobolt !
 #+begin_src elisp :tangle "yes"
   (use-package compiler-explorer
