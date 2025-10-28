@@ -38,6 +38,8 @@
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
+      - [[#config-1][Config]]
+      - [[#faces--1][Faces !]]
     - [[#themes-][Themes !]]
       - [[#pink-bliss-uwu-][Pink Bliss UwU !]]
       - [[#shades-of-purple][Shades Of Purple]]
@@ -826,6 +828,14 @@ face : colorful-base, proposal : remove the bold.
       (global-unset-key (kbd "C-x c r")))
 #+end_src
 *** Ascii table !
+:PROPERTIES:
+:EMACS: 24.3
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: 33ea429123f251a760aa13c9fb18ea1bc602dad4
+:END:
+**** Config
 #+begin_src elisp :tangle "yes"
   (use-package ascii-table
   	:ensure (ascii-table :host github :repo "ananashawaw/emacs-ascii-table")
@@ -834,7 +844,32 @@ face : colorful-base, proposal : remove the bold.
   	(ascii-table-initial-control nil)
   	(ascii-table-initial-escape t))
 #+end_src
+**** Faces !
+#+begin_src elisp :tangle "no"
+  (defface ascii-table-control '((t (:inherit font-lock-keyword-face)))
+  	"face used for control characters."
+  	:group 'ascii-table)
 
+  (defface ascii-table-punctuation '((t (:inherit font-lock-preprocessor-face)))
+  	"face used for punctuation characters."
+  	:group 'ascii-table)
+
+  (defface ascii-table-space '((t (:inherit font-lock-string-face)))
+  	"face used for space characters."
+  	:group 'ascii-table)
+
+  (defface ascii-table-digit '((t (:inherit font-lock-function-name-face)))
+  	"face used for digit characters."
+  	:group 'ascii-table)
+
+  (defface ascii-table-uppercase '((t (:inherit font-lock-variable-name)))
+  	"face used for uppercase letter characters."
+  	:group 'ascii-table)
+
+  (defface ascii-table-lowercase '((t (:inherit font-lock-variable-name)))
+  	"face used for lowercase letter characters."
+  	:group 'ascii-table)
+#+end_src
 *** Themes !
 **** Pink Bliss UwU !
 #+begin_src elisp :tangle "yes"
