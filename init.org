@@ -32,6 +32,7 @@
     - [[#idk-][IDK !]]
     - [[#arxiv-][ARXIV !]]
     - [[#treesit-][treesit !]]
+    - [[#novice][Novice]]
   - [[#visuals-][Visuals !]]
     - [[#page-break-lines][Page Break Lines]]
     - [[#dashboard-][Dashboard !]]
@@ -738,6 +739,21 @@ yaml : npm install -g yaml-language-server
   																				 
   	(use-package treesit-fold
   		:ensure (treesit-fold :host github :repo "emacs-tree-sitter/treesit-fold"))
+#+end_src
+*** Novice
+:PROPERTIES:
+:EMACS: 22.1
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: 30.0.50
+:END:
+#+begin_src elisp :tangle "yes"
+  (use-package novice
+  	:ensure nil
+  	:custom
+  	(disabled-command-function nil))
 #+end_src
 ** Visuals !
 *** Page Break Lines
