@@ -9,6 +9,7 @@
       - [[#elpaca-build-if-new][Elpaca build if new]]
       - [[#elpaca-customisation][Elpaca Customisation]]
         - [[#config][Config]]
+    - [[#init-benchmark-][init benchmark !]]
     - [[#magit-][Magit !]]
       - [[#with-editor][With-Editor]]
       - [[#transient-][Transient !]]
@@ -197,6 +198,14 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
 **** Elpaca Customisation
 ***** Config
 None, elpaca has very sane defaults.
+*** init benchmark !
+#+begin_src elisp :tangle "yes"
+(use-package benchmark-init
+  :ensure t
+  :config
+  ;; To disable collection of benchmark data after init is done.
+  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+#+end_src
 *** Magit !
 **** With-Editor
 :PROPERTIES:
