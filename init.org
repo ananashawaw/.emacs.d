@@ -48,7 +48,7 @@
       - [[#clangd-][Clangd !]]
       - [[#test-c][Test-c]]
         - [[#notes][Notes]]
-        - [[#config-1][Config]]
+        - [[#config-2][Config]]
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
     - [[#latex-][LATEX !]]
@@ -56,15 +56,15 @@
       - [[#latexmk-][LatexMK !]]
       - [[#cdlatex-][CDlatex !]]
       - [[#xenops-][Xenops !]]
-      - [[#laas][Laas]]
-      - [[#amsreftex][amsreftex]]
+      - [[#laas-][Laas !]]
+      - [[#amsreftex-][amsreftex !]]
       - [[#magic-latex-buffer-][Magic-latex-buffer !]]
-      - [[#latex-preview-pane][Latex-preview-pane]]
-      - [[#litex][Litex]]
-      - [[#tex-item][tex-item]]
+      - [[#latex-preview-pane-][Latex-preview-pane !]]
+      - [[#litex-][Litex !]]
+      - [[#tex-item-][tex-item !]]
       - [[#tex-parens-][tex-parens !]]
       - [[#latex-table-wizard-][latex-table-wizard !]]
-      - [[#preview-latex][preview-latex]]
+      - [[#preview-latex-][preview-latex !]]
       - [[#texlab-lsp-][Texlab (LSP) !]]
     - [[#ocaml-][OCAML !]]
       - [[#opam][Opam]]
@@ -1299,12 +1299,12 @@ www.emacswiki.org/emacs/WhizzyTeX
   (use-package xenops
   	:ensure (xenops :host github :repo "dandavison/xenops"))
 #+end_src
-**** Laas
+**** Laas !
 #+begin_src elisp :tangle "yes"
   (use-package laas
   	:ensure (laas :host github repo: "tecosaur/LaTeX-auto-activating-snippets"))
 #+end_src
-**** amsreftex
+**** amsreftex !
 #+begin_src elisp :tangle "yes"
   (use-package amsreftex
   	:ensure (amsreftex :host github :repo "franburstall/amsreftex"))
@@ -1315,7 +1315,7 @@ faces to customize.
   (use-package magic-latex-buffer
   	:ensure (magic-latex-buffer :host github :repo "zk-phi/magic-latex-buffer"))
 #+end_src
-**** Latex-preview-pane
+**** Latex-preview-pane !
 #+begin_src elisp :tangle "yes"
   (use-package latex-preview-pane
    :ensure (latex-preview-pane :host github :repo "jsinglet/latex-preview-pane")
@@ -1325,12 +1325,12 @@ faces to customize.
    (latex-preview-pane-use-frame nil) ;; default but specified in case I want to go for OneOnOneEmacs
    (latex-preview-pane-multifile-mode 'auctex))
 #+end_src
-**** Litex
+**** Litex !
 #+begin_src elisp :tangle "yes"
   (use-package litex-mode
   	:ensure (litex-mode :host github :repo "Atreyagaurav/litex-mode"))
 #+end_src
-**** tex-item
+**** tex-item !
 #+begin_src elisp :tangle "yes"
   (use-package tex-item
   	:ensure (tex-item :host github :repo "ultronozm/tex-item.el"))
@@ -1348,7 +1348,7 @@ need to custom faces
   	:custom
   	(latex-table-wizard-allow-detached-args t))
 #+end_src
-**** preview-latex
+**** preview-latex !
 #+begin_src elisp :tangle "yes"
   (use-package px
   	:ensure (px :host github :repo "aaptel/preview-latex"))
