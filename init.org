@@ -1475,12 +1475,15 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :REQ_INT: Org-mode
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: 6d3ae0fc47ce79b1ea06cabe21a3c596395409cd
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package toc-org
     :ensure (toc-org :host github :repo "snosov1/toc-org")
     :hook (((org-mode markdown-mode) . toc-org-mode)
   				 (toc-org-mode . (lambda () (toc-org-insert-toc))))
+  	:init
+  	(org-mode)
     :custom
     (toc-org-max-depth 100) ;; it'll never go that deep but at least it covers all use cases.
     (toc-org-hrefify-default "gh") ;; "gh" and "org" are the only options
