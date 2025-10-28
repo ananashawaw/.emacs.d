@@ -11,6 +11,9 @@
         - [[#config][Config]]
     - [[#magit-][Magit !]]
       - [[#with-editor][With-Editor]]
+      - [[#transient-][Transient !]]
+        - [[#config-][Config !]]
+        - [[#faces-][Faces !]]
       - [[#magit--1][Magit !]]
       - [[#magit-commit-mark-][Magit commit mark !]]
       - [[#magit-others-][Magit others !]]
@@ -210,11 +213,173 @@ None, elpaca has very sane defaults.
   	:custom
   	(with-editor-mode-lighter " w.ed"))
 #+end_src
-**** Magit !
+**** Transient !
+:PROPERTIES:
+:EMACS: 28.1
+:REQ_EXT: None
+:REQ_INT: ("Compat" "30.1"), ("seq" "2.24"), ("cond-let" "0.1")
+:OPT_EXT: None
+:OPT_INT: None
+:END:
+***** Config !
 #+begin_src elisp :tangle "yes"
   (use-package transient
-  	:ensure (transient :host github :repo "magit/transient"))
+  	:ensure (transient :host github :repo "magit/transient")
+  	:custom
+  	(transient-highlight-mismatched-keys t) ;; this is for customizing the faces, unless I grow to like it
+  	(transient-highlight-higher-levels t) ;; same as above
+  	(transient-default-level 7) ;; same as above
+  	)
+#+end_src
+***** Faces !
+Need to customize these faces.
+#+begin_src elisp :tangle "no"
+(defface transient-heading '((t :inherit font-lock-keyword-face))
+  "Face used for headings."
+  :group 'transient-faces)
 
+(defface transient-argument '((t :inherit font-lock-string-face :weight bold))
+  "Face used for enabled arguments."
+  :group 'transient-faces)
+
+(defface transient-inactive-argument '((t :inherit shadow))
+  "Face used for inactive arguments."
+  :group 'transient-faces)
+
+(defface transient-inapt-argument '((t :inherit shadow :weight bold))
+  "Face used for inapt arguments with a (currently ignored) value.
+Depending on the type this is used for the argument and/or value."
+  :group 'transient-faces)
+
+(defface transient-value '((t :inherit font-lock-string-face :weight bold))
+  "Face used for values."
+  :group 'transient-faces)
+
+(defface transient-inactive-value '((t :inherit shadow))
+  "Face used for inactive values."
+  :group 'transient-faces)
+
+(defface transient-unreachable '((t :inherit shadow))
+  "Face used for suffixes unreachable from the current prefix sequence."
+  :group 'transient-faces)
+
+(defface transient-inapt-suffix '((t :inherit shadow :slant italic))
+  "Face used for suffixes that are inapt at this time."
+  :group 'transient-faces)
+
+(defface transient-active-infix '((t :inherit highlight))
+  "Face used for the infix for which the value is being read."
+  :group 'transient-faces)
+
+(defface transient-enabled-suffix
+  '((t :background "green" :foreground "black" :weight bold))
+  "Face used for enabled levels while editing suffix levels.
+See info node `(transient)Enabling and Disabling Suffixes'."
+  :group 'transient-faces)
+
+(defface transient-disabled-suffix
+  '((t :background "red" :foreground "black" :weight bold))
+  "Face used for disabled levels while editing suffix levels.
+See info node `(transient)Enabling and Disabling Suffixes'."
+  :group 'transient-faces)
+
+(defface transient-higher-level
+  (let* ((color (face-attribute 'shadow :foreground t t))
+         (color (if (eq color 'unspecified) "grey60" color)))
+    `((t :box (:line-width (-1 . -1) :color ,color))))
+  "Face optionally used to highlight suffixes on higher levels.
+See also option `transient-highlight-higher-levels'."
+  :group 'transient-faces)
+
+(defface transient-delimiter '((t :inherit shadow))
+  "Face used for delimiters and separators.
+This includes the parentheses around values and the pipe
+character used to separate possible values from each other."
+  :group 'transient-faces)
+
+(defface transient-key '((t :inherit font-lock-builtin-face))
+  "Face used for keys."
+  :group 'transient-faces)
+
+(defface transient-key-stay
+  `((((class color) (background light))
+     :inherit transient-key
+     :foreground "#22aa22")
+    (((class color) (background dark))
+     :inherit transient-key
+     :foreground "#ddffdd"))
+  "Face used for keys of suffixes that don't exit the menu."
+  :group 'transient-faces)
+
+(defface transient-key-noop
+  `((((class color) (background light))
+     :inherit transient-key
+     :foreground "grey80")
+    (((class color) (background dark))
+     :inherit transient-key
+     :foreground "grey30"))
+  "Face used for keys of suffixes that currently cannot be invoked."
+  :group 'transient-faces)
+
+(defface transient-key-return
+  `((((class color) (background light))
+     :inherit transient-key
+     :foreground "#aaaa11")
+    (((class color) (background dark))
+     :inherit transient-key
+     :foreground "#ffffcc"))
+  "Face used for keys of suffixes that return to the parent menu."
+  :group 'transient-faces)
+
+(defface transient-key-recurse
+  `((((class color) (background light))
+     :inherit transient-key
+     :foreground "#2266ff")
+    (((class color) (background dark))
+     :inherit transient-key
+     :foreground "#2299ff"))
+  "Face used for keys of sub-menus whose suffixes return to the parent menu."
+  :group 'transient-faces)
+
+(defface transient-key-stack
+  `((((class color) (background light))
+     :inherit transient-key
+     :foreground "#dd4488")
+    (((class color) (background dark))
+     :inherit transient-key
+     :foreground "#ff6699"))
+  "Face used for keys of sub-menus that exit the parent menu."
+  :group 'transient-faces)
+
+(defface transient-key-exit
+  `((((class color) (background light))
+     :inherit transient-key
+     :foreground "#aa2222")
+    (((class color) (background dark))
+     :inherit transient-key
+     :foreground "#ffdddd"))
+  "Face used for keys of suffixes that exit the menu."
+  :group 'transient-faces)
+
+(defface transient-unreachable-key
+  '((t :inherit (shadow transient-key) :weight normal))
+  "Face used for keys unreachable from the current prefix sequence."
+  :group 'transient-faces)
+
+(defface transient-nonstandard-key
+  `((t :box (:line-width (-1 . -1) :color "cyan")))
+  "Face optionally used to highlight keys conflicting with short-argument.
+See also option `transient-highlight-mismatched-keys'."
+  :group 'transient-faces)
+
+(defface transient-mismatched-key
+  `((t :box (:line-width (-1 . -1) :color "magenta")))
+  "Face optionally used to highlight keys without a short-argument.
+See also option `transient-highlight-mismatched-keys'."
+  :group 'transient-faces)
+#+end_src
+**** Magit !
+#+begin_src elisp :tangle "yes"
   (use-package magit
     :ensure (magit :host github :repo "magit/magit"))
 #+end_src
