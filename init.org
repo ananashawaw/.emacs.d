@@ -21,13 +21,14 @@
       - [[#general-][General !]]
           - [[#em-dirsel-][em-dirs.el !]]
           - [[#em-basicel-][em-basic.el !]]
-      - [[#config-][Config !]]
+      - [[#config--1][Config !]]
       - [[#eloginel-][elogin.el !]]
       - [[#eprofileel-][eprofile.el !]]
     - [[#yasnippets-][Yasnippets !]]
     - [[#eldoc-][Eldoc !]]
     - [[#lsp-bridge-][LSP-bridge !]]
     - [[#yafolding-][yafolding !]]
+    - [[#iedit-][Iedit !]]
     - [[#idk-][IDK !]]
     - [[#arxiv-][ARXIV !]]
     - [[#treesit-][treesit !]]
@@ -75,7 +76,6 @@
       - [[#merlin-eldoc-][Merlin-Eldoc !]]
       - [[#dune-][Dune !]]
       - [[#dune-format-][Dune-format !]]
-      - [[#iedit-][Iedit !]]
       - [[#merlin-iedit-][Merlin-Iedit !]]
       - [[#ocamlformat-][Ocamlformat !]]
       - [[#utop-][Utop !]]
@@ -557,6 +557,14 @@ yaml : npm install -g yaml-language-server
   	:custom
   	(yafolding-ellipsis-content "(...)")
   	(yafolding-show-fringe-marks t))
+#+end_src
+*** Iedit !
+  #+begin_src elisp :tangle "yes"
+    (use-package iedit
+      :ensure t
+    	:custom
+    	(iedit-auto-narrow t) ;; C-h C-; to iedit + narrow
+    	)
 #+end_src
 *** IDK !
 #+begin_src elisp :tangle "yes"
@@ -1466,11 +1474,6 @@ external : merlin (opam install merlin
   (use-package dune-format
     :ensure (dune-format :host github :repo "purcell/emacs-dune-format")
     :hook (dune-mode . dune-format-on-save-mode))
-#+end_src
-**** Iedit !
-  #+begin_src elisp :tangle "yes"
-    (use-package iedit
-      :ensure t)
 #+end_src
 **** Merlin-Iedit !
 #+begin_src elisp :tangle "yes"
