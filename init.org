@@ -392,6 +392,8 @@ See also option `transient-highlight-mismatched-keys'."
 
   (use-package yaml
   	:ensure (yaml :host github :repo "zkry/yaml.el" ))
+  (use-package cond-let
+  	:ensure (cond-let :host github :repo "tarsius/cond-let"))
   
   (use-package forge
     	;;:ensure nil
