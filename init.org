@@ -97,7 +97,7 @@
 
 * Setup !
 :PROPERTIES:
-:COLUMNS: %ITEM %EMACS %REQ_EXT %REQ_INT %OPT_EXT $OPT_INT
+:COLUMNS: %ITEM %EMACS %REQ_EXT %REQ_INT %OPT_EXT %OPT_INT %LASTCHECKED
 :END:
 ** Basics !
 *** Preface
@@ -107,6 +107,7 @@
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: None
 :END:
 We have to turn off `Package.el` because it'll autoload all packages, which goes against elpaca's methodology.
 #+begin_src elisp :tangle "yes"
@@ -120,7 +121,7 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
 :REQ_EXT: git
 :REQ_INT: None
 :OPT_EXT: None
-:OPT_INT: None
+:OPT_INT: ba0d884338f2aef107602951671a67742b83c829
 :END:
 #+begin_src elisp :tangle "yes"
   (defvar elpaca-installer-version 0.11)
@@ -198,6 +199,7 @@ None, elpaca has very sane defaults.
 :REQ_INT: ("Compat" "30.1") which requires ("seq" "2.23") but this is covered by the emacs version.
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: 87a384a0e59260cca41ca8831d98e195b1ec8ada
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package with-editor
@@ -570,6 +572,7 @@ yaml : npm install -g yaml-language-server
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: 84b872a056404f11cacbf3fc2b0788aa7feac635
 :END:
 We mainly use it with dashboard, but it can look good in other buffers.
 #+begin_src elisp :tangle "yes"
@@ -671,6 +674,7 @@ face : colorful-base, proposal : remove the bold.
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: 8757594c5f6265b09d156cf9f8671f78863b25db
 :END:
 The best dark theme in emacs.
 #+begin_src elisp :tangle "yes"
@@ -686,6 +690,7 @@ The best dark theme in emacs.
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: 29203696a4fe54ce90ccb765962b38fadbff9ea8
 :END:
 Not used but, it looks very good with the fonts, and it can be a great source of inspiration.
 #+begin_src elisp :tangle "yes"
@@ -745,6 +750,7 @@ https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: 761a576f62c7021ba941f178f153c51289df1553
 :END:
 ***** Notes
 From the README :
@@ -1193,6 +1199,7 @@ Needs Cargo, if outdated do : "rustup update"
 :REQ_INT: None
 :OPT_EXT: Ocaml, Coq, Merlin
 :OPT_INT: Merlin-mode, Tuareg-mode, Caml-mode, Coq-mode
+:LASTCHECKED: 4d589de5765728f56af7078fae328b6792de8600
 :END:
 Idea : Take ownership of the repo (it is orphaned), and make it a real opam repo instead of just a script for init ?
 Would need to see the overlaps between say, this, and  [[Opam-Switch !]].
@@ -1208,6 +1215,7 @@ Would need to see the overlaps between say, this, and  [[Opam-Switch !]].
 :REQ_INT: None
 :OPT_EXT: Ocaml, Coq, Merlin
 :OPT_INT: Tuareg, Merlin-mode, Coq-mode, Caml-mode
+:LASTCHECKED: 1069e56a662f23ea09d4e05611bdedeb99257012
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package opam-switch-mode
@@ -1425,6 +1433,7 @@ Requires jdk 17+.
 :REQ_INT: ("s" "1.8.0")
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: e4d665d5784ecda7ddfba015f07c69be3cfc45f2
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package gradle-mode
@@ -1458,6 +1467,7 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :REQ_INT: Org-mode
 :OPT_EXT: None
 :OPT_INT: None
+:LASTCHECKED: None
 :END:
 *** toc-org
 :PROPERTIES:
