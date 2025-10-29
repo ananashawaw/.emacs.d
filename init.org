@@ -80,7 +80,7 @@
       - [[#merlin-eldoc-][Merlin-Eldoc !]]
       - [[#dune-][Dune !]]
       - [[#dune-format-][Dune-format !]]
-      - [[#merlin-iedit-][Merlin-Iedit !]]
+      - [[#merlin-iedit][Merlin-Iedit]]
       - [[#ocamlformat-][Ocamlformat !]]
       - [[#utop-][Utop !]]
       - [[#learn-ocaml-][Learn-ocaml !]]
@@ -1546,11 +1546,19 @@ external : merlin (opam install merlin
     :ensure (dune-format :host github :repo "purcell/emacs-dune-format")
     :hook (dune-mode . dune-format-on-save-mode))
 #+end_src
-**** Merlin-Iedit !
+**** Merlin-Iedit
+:PROPERTIES:
+:EMACS: 25.1
+:REQ_EXT: ("merlin" "3")
+:REQ_INT: ("iedit" "0.9)
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: dc19baa5a9784f2b56162c1268bde0cbc2d7cad4
+:END:
 #+begin_src elisp :tangle "yes"
-    (use-package merlin-iedit
-      ;;:disabled
-      :ensure t)
+  (use-package merlin-iedit
+    :ensure (merlin-iedit :host github :repo "ocaml/merlin"
+  												:files ("emacs/merlin-iedit.el")))
 #+end_src
 **** Ocamlformat !
 #+begin_src elisp :tangle "yes"
