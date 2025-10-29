@@ -15,22 +15,21 @@
       - [[#transient-][Transient !]]
         - [[#config-][Config !]]
         - [[#faces-][Faces !]]
-      - [[#magit--1][Magit !]]
+      - [[#magit-][Magit !]]
       - [[#magit-commit-mark-][Magit commit mark !]]
       - [[#magit-others-][Magit others !]]
     - [[#eshell-][Eshell !]]
       - [[#general-][General !]]
           - [[#em-dirsel-][em-dirs.el !]]
           - [[#em-basicel-][em-basic.el !]]
-      - [[#config--1][Config !]]
+      - [[#config-][Config !]]
       - [[#eloginel-][elogin.el !]]
       - [[#eprofileel-][eprofile.el !]]
     - [[#yasnippets-][Yasnippets !]]
     - [[#eldoc-][Eldoc !]]
     - [[#lsp-bridge-][LSP-bridge !]]
     - [[#yafolding-][yafolding !]]
-    - [[#iedit-][Iedit !]]
-      - [[#faces][faces]]
+    - [[#iedit][Iedit]]
     - [[#idk-][IDK !]]
     - [[#arxiv-][ARXIV !]]
     - [[#treesit-][treesit !]]
@@ -41,8 +40,8 @@
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
-      - [[#config-1][Config]]
-      - [[#faces--1][Faces !]]
+      - [[#config][Config]]
+      - [[#faces-][Faces !]]
     - [[#themes-][Themes !]]
       - [[#pink-bliss-uwu-][Pink Bliss UwU !]]
       - [[#shades-of-purple][Shades Of Purple]]
@@ -54,7 +53,7 @@
       - [[#clangd-][Clangd !]]
       - [[#test-c][Test-c]]
         - [[#notes][Notes]]
-        - [[#config-2][Config]]
+        - [[#config][Config]]
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
     - [[#latex-][LATEX !]]
@@ -573,35 +572,22 @@ yaml : npm install -g yaml-language-server
   	(yafolding-ellipsis-content "(...)")
   	(yafolding-show-fringe-marks t))
 #+end_src
-*** Iedit !
+*** Iedit
 :PROPERTIES:
 :EMACS: 24.1
 :REQ_EXT: None
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
-:LASTCHECKED: None
+:LASTCHECKED: 14161daa295332a49dda92b97c00d62efd38acfe
 :END:
   #+begin_src elisp :tangle "yes"
     (use-package iedit
-      :ensure t
+      :ensure (iedit :host github :repo "victorhge/iedit")
     	:custom
     	(iedit-auto-narrow t) ;; C-h C-; to iedit + narrow
-    	(iedit-index-update-limit 200)
+    	(iedit-index-update-limit 200) ;; if we need to work with many occurences, we can delay global modifications using M-b before then after the edits.
     	(iedit-increment-format-string (format "%%0%dd" (length (number-to-string iedit-index-update-limit)))))
-#+end_src
-**** faces
-#+begin_src elisp :tangle "no"
-  (defcustom iedit-auto-buffering nil
-    "If non-nil, iedit-mode automatically starts buffering the changes.
-   This could be a workaround for lag problem under certain modes."
-    :type 'boolean
-    :group 'iedit)
-
-  (defface iedit-read-only-occurrence
-    '((t :inherit region))
-    "*Face used for the read-only occurrences' default values."
-    :group 'iedit)
 #+end_src
 *** IDK !
 #+begin_src elisp :tangle "yes"
