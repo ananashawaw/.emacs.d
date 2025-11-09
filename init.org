@@ -185,9 +185,9 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
   (defun +elpaca/build-if-new (e)
     (setf (elpaca<-build-steps e)
           (if-let* ((default-directory (elpaca<-build-dir e))
-                   (main (ignore-errors (elpaca--main-file e)))
-                   (compiled (expand-file-name (concat (file-name-base main) ".elc")))
-                   ((file-newer-than-file-p main compiled)))
+                    (main (ignore-errors (elpaca--main-file e)))
+                    (compiled (expand-file-name (concat (file-name-base main) ".elc")))
+                    ((file-newer-than-file-p main compiled)))
               (progn (elpaca--signal e "Rebuilding due to source changes")
                      (cl-set-difference elpaca-build-steps
                                         '(elpaca--clone elpaca--configure-remotes elpaca--checkout-ref)))
@@ -199,12 +199,20 @@ We have to turn off `Package.el` because it'll autoload all packages, which goes
 ***** Config
 None, elpaca has very sane defaults.
 *** init benchmark !
+:PROPERTIES:
+:EMACS: 24.3
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: None
+:END:
 #+begin_src elisp :tangle "yes"
-(use-package benchmark-init
-  :ensure t
-  :config
-  ;; To disable collection of benchmark data after init is done.
-  (add-hook 'after-init-hook 'benchmark-init/deactivate))
+  (use-package benchmark-init
+    :ensure t
+    :config
+    ;; To disable collection of benchmark data after init is done.
+    (add-hook 'after-init-hook 'benchmark-init/deactivate))
 #+end_src
 *** Magit !
 **** With-Editor
@@ -218,12 +226,12 @@ None, elpaca has very sane defaults.
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package with-editor
-  	:ensure (with-editor :host github :repo "magit/with-editor")
-  	:hook (eshell-mode . with-editor-export-editor) ;; should this be defined in eshell instead?
-  	:config
-  	(shell-command-with-editor-mode)
-  	:custom
-  	(with-editor-mode-lighter " w.ed"))
+    :ensure (with-editor :host github :repo "magit/with-editor")
+    :hook (eshell-mode . with-editor-export-editor) ;; should this be defined in eshell instead?
+    :config
+    (shell-command-with-editor-mode)
+    :custom
+    (with-editor-mode-lighter " w.ed"))
 #+end_src
 **** Transient !
 :PROPERTIES:
@@ -236,159 +244,159 @@ None, elpaca has very sane defaults.
 ***** Config !
 #+begin_src elisp :tangle "yes"
   (use-package transient
-  	:ensure (transient :host github :repo "magit/transient")
-  	:custom
-  	(transient-highlight-mismatched-keys t) ;; this is for customizing the faces, unless I grow to like it
-  	(transient-highlight-higher-levels t) ;; same as above
-  	(transient-default-level 7) ;; same as above
-  	)
+    :ensure (transient :host github :repo "magit/transient")
+    :custom
+    (transient-highlight-mismatched-keys t) ;; this is for customizing the faces, unless I grow to like it
+    (transient-highlight-higher-levels t) ;; same as above
+    (transient-default-level 7) ;; same as above
+    )
 #+end_src
 ***** Faces !
 Need to customize these faces.
 #+begin_src elisp :tangle "no"
-(defface transient-heading '((t :inherit font-lock-keyword-face))
-  "Face used for headings."
-  :group 'transient-faces)
+  (defface transient-heading '((t :inherit font-lock-keyword-face))
+    "Face used for headings."
+    :group 'transient-faces)
 
-(defface transient-argument '((t :inherit font-lock-string-face :weight bold))
-  "Face used for enabled arguments."
-  :group 'transient-faces)
+  (defface transient-argument '((t :inherit font-lock-string-face :weight bold))
+    "Face used for enabled arguments."
+    :group 'transient-faces)
 
-(defface transient-inactive-argument '((t :inherit shadow))
-  "Face used for inactive arguments."
-  :group 'transient-faces)
+  (defface transient-inactive-argument '((t :inherit shadow))
+    "Face used for inactive arguments."
+    :group 'transient-faces)
 
-(defface transient-inapt-argument '((t :inherit shadow :weight bold))
-  "Face used for inapt arguments with a (currently ignored) value.
-Depending on the type this is used for the argument and/or value."
-  :group 'transient-faces)
+  (defface transient-inapt-argument '((t :inherit shadow :weight bold))
+    "Face used for inapt arguments with a (currently ignored) value.
+  Depending on the type this is used for the argument and/or value."
+    :group 'transient-faces)
 
-(defface transient-value '((t :inherit font-lock-string-face :weight bold))
-  "Face used for values."
-  :group 'transient-faces)
+  (defface transient-value '((t :inherit font-lock-string-face :weight bold))
+    "Face used for values."
+    :group 'transient-faces)
 
-(defface transient-inactive-value '((t :inherit shadow))
-  "Face used for inactive values."
-  :group 'transient-faces)
+  (defface transient-inactive-value '((t :inherit shadow))
+    "Face used for inactive values."
+    :group 'transient-faces)
 
-(defface transient-unreachable '((t :inherit shadow))
-  "Face used for suffixes unreachable from the current prefix sequence."
-  :group 'transient-faces)
+  (defface transient-unreachable '((t :inherit shadow))
+    "Face used for suffixes unreachable from the current prefix sequence."
+    :group 'transient-faces)
 
-(defface transient-inapt-suffix '((t :inherit shadow :slant italic))
-  "Face used for suffixes that are inapt at this time."
-  :group 'transient-faces)
+  (defface transient-inapt-suffix '((t :inherit shadow :slant italic))
+    "Face used for suffixes that are inapt at this time."
+    :group 'transient-faces)
 
-(defface transient-active-infix '((t :inherit highlight))
-  "Face used for the infix for which the value is being read."
-  :group 'transient-faces)
+  (defface transient-active-infix '((t :inherit highlight))
+    "Face used for the infix for which the value is being read."
+    :group 'transient-faces)
 
-(defface transient-enabled-suffix
-  '((t :background "green" :foreground "black" :weight bold))
-  "Face used for enabled levels while editing suffix levels.
-See info node `(transient)Enabling and Disabling Suffixes'."
-  :group 'transient-faces)
+  (defface transient-enabled-suffix
+    '((t :background "green" :foreground "black" :weight bold))
+    "Face used for enabled levels while editing suffix levels.
+  See info node `(transient)Enabling and Disabling Suffixes'."
+    :group 'transient-faces)
 
-(defface transient-disabled-suffix
-  '((t :background "red" :foreground "black" :weight bold))
-  "Face used for disabled levels while editing suffix levels.
-See info node `(transient)Enabling and Disabling Suffixes'."
-  :group 'transient-faces)
+  (defface transient-disabled-suffix
+    '((t :background "red" :foreground "black" :weight bold))
+    "Face used for disabled levels while editing suffix levels.
+  See info node `(transient)Enabling and Disabling Suffixes'."
+    :group 'transient-faces)
 
-(defface transient-higher-level
-  (let* ((color (face-attribute 'shadow :foreground t t))
-         (color (if (eq color 'unspecified) "grey60" color)))
-    `((t :box (:line-width (-1 . -1) :color ,color))))
-  "Face optionally used to highlight suffixes on higher levels.
-See also option `transient-highlight-higher-levels'."
-  :group 'transient-faces)
+  (defface transient-higher-level
+    (let* ((color (face-attribute 'shadow :foreground t t))
+           (color (if (eq color 'unspecified) "grey60" color)))
+      `((t :box (:line-width (-1 . -1) :color ,color))))
+    "Face optionally used to highlight suffixes on higher levels.
+  See also option `transient-highlight-higher-levels'."
+    :group 'transient-faces)
 
-(defface transient-delimiter '((t :inherit shadow))
-  "Face used for delimiters and separators.
-This includes the parentheses around values and the pipe
-character used to separate possible values from each other."
-  :group 'transient-faces)
+  (defface transient-delimiter '((t :inherit shadow))
+    "Face used for delimiters and separators.
+  This includes the parentheses around values and the pipe
+  character used to separate possible values from each other."
+    :group 'transient-faces)
 
-(defface transient-key '((t :inherit font-lock-builtin-face))
-  "Face used for keys."
-  :group 'transient-faces)
+  (defface transient-key '((t :inherit font-lock-builtin-face))
+    "Face used for keys."
+    :group 'transient-faces)
 
-(defface transient-key-stay
-  `((((class color) (background light))
-     :inherit transient-key
-     :foreground "#22aa22")
-    (((class color) (background dark))
-     :inherit transient-key
-     :foreground "#ddffdd"))
-  "Face used for keys of suffixes that don't exit the menu."
-  :group 'transient-faces)
+  (defface transient-key-stay
+    `((((class color) (background light))
+       :inherit transient-key
+       :foreground "#22aa22")
+      (((class color) (background dark))
+       :inherit transient-key
+       :foreground "#ddffdd"))
+    "Face used for keys of suffixes that don't exit the menu."
+    :group 'transient-faces)
 
-(defface transient-key-noop
-  `((((class color) (background light))
-     :inherit transient-key
-     :foreground "grey80")
-    (((class color) (background dark))
-     :inherit transient-key
-     :foreground "grey30"))
-  "Face used for keys of suffixes that currently cannot be invoked."
-  :group 'transient-faces)
+  (defface transient-key-noop
+    `((((class color) (background light))
+       :inherit transient-key
+       :foreground "grey80")
+      (((class color) (background dark))
+       :inherit transient-key
+       :foreground "grey30"))
+    "Face used for keys of suffixes that currently cannot be invoked."
+    :group 'transient-faces)
 
-(defface transient-key-return
-  `((((class color) (background light))
-     :inherit transient-key
-     :foreground "#aaaa11")
-    (((class color) (background dark))
-     :inherit transient-key
-     :foreground "#ffffcc"))
-  "Face used for keys of suffixes that return to the parent menu."
-  :group 'transient-faces)
+  (defface transient-key-return
+    `((((class color) (background light))
+       :inherit transient-key
+       :foreground "#aaaa11")
+      (((class color) (background dark))
+       :inherit transient-key
+       :foreground "#ffffcc"))
+    "Face used for keys of suffixes that return to the parent menu."
+    :group 'transient-faces)
 
-(defface transient-key-recurse
-  `((((class color) (background light))
-     :inherit transient-key
-     :foreground "#2266ff")
-    (((class color) (background dark))
-     :inherit transient-key
-     :foreground "#2299ff"))
-  "Face used for keys of sub-menus whose suffixes return to the parent menu."
-  :group 'transient-faces)
+  (defface transient-key-recurse
+    `((((class color) (background light))
+       :inherit transient-key
+       :foreground "#2266ff")
+      (((class color) (background dark))
+       :inherit transient-key
+       :foreground "#2299ff"))
+    "Face used for keys of sub-menus whose suffixes return to the parent menu."
+    :group 'transient-faces)
 
-(defface transient-key-stack
-  `((((class color) (background light))
-     :inherit transient-key
-     :foreground "#dd4488")
-    (((class color) (background dark))
-     :inherit transient-key
-     :foreground "#ff6699"))
-  "Face used for keys of sub-menus that exit the parent menu."
-  :group 'transient-faces)
+  (defface transient-key-stack
+    `((((class color) (background light))
+       :inherit transient-key
+       :foreground "#dd4488")
+      (((class color) (background dark))
+       :inherit transient-key
+       :foreground "#ff6699"))
+    "Face used for keys of sub-menus that exit the parent menu."
+    :group 'transient-faces)
 
-(defface transient-key-exit
-  `((((class color) (background light))
-     :inherit transient-key
-     :foreground "#aa2222")
-    (((class color) (background dark))
-     :inherit transient-key
-     :foreground "#ffdddd"))
-  "Face used for keys of suffixes that exit the menu."
-  :group 'transient-faces)
+  (defface transient-key-exit
+    `((((class color) (background light))
+       :inherit transient-key
+       :foreground "#aa2222")
+      (((class color) (background dark))
+       :inherit transient-key
+       :foreground "#ffdddd"))
+    "Face used for keys of suffixes that exit the menu."
+    :group 'transient-faces)
 
-(defface transient-unreachable-key
-  '((t :inherit (shadow transient-key) :weight normal))
-  "Face used for keys unreachable from the current prefix sequence."
-  :group 'transient-faces)
+  (defface transient-unreachable-key
+    '((t :inherit (shadow transient-key) :weight normal))
+    "Face used for keys unreachable from the current prefix sequence."
+    :group 'transient-faces)
 
-(defface transient-nonstandard-key
-  `((t :box (:line-width (-1 . -1) :color "cyan")))
-  "Face optionally used to highlight keys conflicting with short-argument.
-See also option `transient-highlight-mismatched-keys'."
-  :group 'transient-faces)
+  (defface transient-nonstandard-key
+    `((t :box (:line-width (-1 . -1) :color "cyan")))
+    "Face optionally used to highlight keys conflicting with short-argument.
+  See also option `transient-highlight-mismatched-keys'."
+    :group 'transient-faces)
 
-(defface transient-mismatched-key
-  `((t :box (:line-width (-1 . -1) :color "magenta")))
-  "Face optionally used to highlight keys without a short-argument.
-See also option `transient-highlight-mismatched-keys'."
-  :group 'transient-faces)
+  (defface transient-mismatched-key
+    `((t :box (:line-width (-1 . -1) :color "magenta")))
+    "Face optionally used to highlight keys without a short-argument.
+  See also option `transient-highlight-mismatched-keys'."
+    :group 'transient-faces)
 #+end_src
 **** Magit !
 #+begin_src elisp :tangle "yes"
@@ -397,24 +405,24 @@ See also option `transient-highlight-mismatched-keys'."
 #+end_src
 #+begin_src elisp :tangle "yes"
   (use-package sqlite3
-  	:ensure (sqlite3 :host github :repo "pekingduck/emacs-sqlite3-api"))
+    :ensure (sqlite3 :host github :repo "pekingduck/emacs-sqlite3-api"))
 
   (use-package yaml
-  	:ensure (yaml :host github :repo "zkry/yaml.el" ))
+    :ensure (yaml :host github :repo "zkry/yaml.el" ))
   (use-package cond-let
-  	:ensure (cond-let :host github :repo "tarsius/cond-let"))
-  
+    :ensure (cond-let :host github :repo "tarsius/cond-let"))
+
   (use-package forge
-    	;;:ensure nil
-    	:ensure (forge :host github :repo "magit/forge")
-    	)
+    ;;:ensure nil
+    :ensure (forge :host github :repo "magit/forge")
+    )
 #+end_src
 
 **** Magit commit mark !
 A CONFIG
 #+begin_src elisp :tangle "yes"
   (use-package magit-commit-mark
-  	:ensure (magit-commit-mark :host codeberg :repo "ideasman42/emacs-magit-commit-mark"))
+    :ensure (magit-commit-mark :host codeberg :repo "ideasman42/emacs-magit-commit-mark"))
 #+end_src
 **** Magit others !
 TODO :
@@ -468,32 +476,32 @@ An Eshell module is defined the same as any other library but with two additiona
     ;; em-term.el
     (eshell-visual-subcommands (("git" "log" "diff" "show")))
     (eshell-visual-options (("git" "--help" "-h" "--paginate" "-p" )))
-  	;; em-unix.el
-  	(eshell-rm-removes-directories t)
-  	;; esh-cmd.el
+    ;; em-unix.el
+    (eshell-rm-removes-directories t)
+    ;; esh-cmd.el
     (eshell-prefer-lisp-functions t)
-  	;; esh-mode.el
-  	(eshell-directory-name "~/.emacs.d/eshell/")
+    ;; esh-mode.el
+    (eshell-directory-name "~/.emacs.d/eshell/")
     ;; esh-module.el
     (eshell-modules-list '(eshell-alias
-  												 ;; eshell-banner ; done in elogin.el
-  												 eshell-basic
-  												 eshell-cmpl
-  												 eshell-dirs
-  												 ;; eshell-elecslash ; unpractical.
-  												 eshell-extpipe
-  												 eshell-glob
-  												 eshell-hist
-  												 eshell-ls
-  												 eshell-pred
-  												 eshell-prompt
-  												 ;; eshell-rebind ;; bad rebinds.
-  												 eshell-script
-  												 ;; eshell-smart ;; quirky and buggy.
-  												 eshell-term
-  												 ;; eshell-tramp ;; I don't use tramp.
-  												 ;; eshell-xtra ;; I don't use these aliases.
-  												 eshell-unix)))
+                           ;; eshell-banner ; done in elogin.el
+                           eshell-basic
+                           eshell-cmpl
+                           eshell-dirs
+                           ;; eshell-elecslash ; unpractical.
+                           eshell-extpipe
+                           eshell-glob
+                           eshell-hist
+                           eshell-ls
+                           eshell-pred
+                           eshell-prompt
+                           ;; eshell-rebind ;; bad rebinds.
+                           eshell-script
+                           ;; eshell-smart ;; quirky and buggy.
+                           eshell-term
+                           ;; eshell-tramp ;; I don't use tramp.
+                           ;; eshell-xtra ;; I don't use these aliases.
+                           eshell-unix)))
 #+end_src
 **** elogin.el !
 #+begin_src elisp :tangle eshell/elogin.el
@@ -517,7 +525,7 @@ An Eshell module is defined the same as any other library but with two additiona
 For older versions of emacs, if not running latest.
 #+begin_src elisp :tangle "no"
   (use-package eldoc
-  	:ensure t
+    :ensure t
     :demand t
     :preface
     ;; avoid loading of built-in eldoc, see https://github.com/progfolio/elpaca/issues/236#issuecomment-1879838229
@@ -530,10 +538,10 @@ For older versions of emacs, if not running latest.
 When running latest (no need to upgrade eldoc)
 #+begin_src elisp :tangle "yes"
   (use-package eldoc
-  	:ensure nil
-  	:demand t
-  	:config
-  	(global-eldoc-mode))
+    :ensure nil
+    :demand t
+    :config
+    (global-eldoc-mode))
 #+end_src
 *** LSP-bridge !
 Install Python dependencies: pip3 install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
@@ -549,15 +557,15 @@ yaml : npm install -g yaml-language-server
     (lsp-bridge-c-lsp-server "clangd")
     (lsp-bridge-python-multi-lsp-server "pylsp_ruff")
     (lsp-bridge-python-lsp-server "pylsp")
-  	(lsp-bridge-tex-lsp-server "texlab")
+    (lsp-bridge-tex-lsp-server "texlab")
     ;;(lsp-bridge-markdown-lsp-server )
     (lsp-bridge-cmake-lsp-server "cmake-language-server")
-  	;;; Variables.
-  	(lsp-bridge-enable-inlay-hint t) ;; to test
-  	(lsp-bridge-enable-hover-diagnostic t) ;; to test
-  	(lsp-bridge-enable-debug nil) ;; to test
-  	(acm-backend-lsp-candidate-max-length 200) ;; fuck java, to test
-  	(lsp-bridge-signature-show-with-frame-position "point") ;; testing to see if pop up works
+    ;;; Variables.
+    (lsp-bridge-enable-inlay-hint t) ;; to test
+    (lsp-bridge-enable-hover-diagnostic t) ;; to test
+    (lsp-bridge-enable-debug nil) ;; to test
+    (acm-backend-lsp-candidate-max-length 200) ;; fuck java, to test
+    (lsp-bridge-signature-show-with-frame-position "point") ;; testing to see if pop up works
     :config
     (global-lsp-bridge-mode))
 #+end_src
@@ -566,11 +574,11 @@ yaml : npm install -g yaml-language-server
   face : yafolding-ellipsis-face
 #+begin_src elisp :tangle "yes"
   (use-package yafolding
-  	:ensure (yafolding :host github :repo "emacsorphanage/yafolding")
-  	:hook (prog-mode . yafolding-mode)
-  	:custom
-  	(yafolding-ellipsis-content "(...)")
-  	(yafolding-show-fringe-marks t))
+    :ensure (yafolding :host github :repo "emacsorphanage/yafolding")
+    :hook (prog-mode . yafolding-mode)
+    :custom
+    (yafolding-ellipsis-content "(...)")
+    (yafolding-show-fringe-marks t))
 #+end_src
 *** Iedit
 :PROPERTIES:
@@ -584,10 +592,10 @@ yaml : npm install -g yaml-language-server
   #+begin_src elisp :tangle "yes"
     (use-package iedit
       :ensure (iedit :host github :repo "victorhge/iedit")
-    	:custom
-    	(iedit-auto-narrow t) ;; C-h C-; to iedit + narrow
-    	(iedit-index-update-limit 200) ;; if we need to work with many occurences, we can delay global modifications using M-b before then after the edits.
-    	(iedit-increment-format-string (format "%%0%dd" (length (number-to-string iedit-index-update-limit)))))
+      :custom
+      (iedit-auto-narrow t) ;; C-h C-; to iedit + narrow
+      (iedit-index-update-limit 200) ;; if we need to work with many occurences, we can delay global modifications using M-b before then after the edits.
+      (iedit-increment-format-string (format "%%0%dd" (length (number-to-string iedit-index-update-limit)))))
 #+end_src
 *** IDK !
 #+begin_src elisp :tangle "yes"
@@ -639,10 +647,9 @@ yaml : npm install -g yaml-language-server
    '(gud-key-prefix [24 1])
    '(gud-tooltip-mode t)
    '(image-load-path
-     '(data-directory load-path
-       " ~/Pictures/" " ~/emacs/"))
+     '(data-directory load-path " ~/Pictures/" " ~/emacs/"))
    '(imenu-auto-rescan t)
-   ;;'(indent-tabs-mode nil)
+   '(indent-tabs-mode nil)
    '(initial-scratch-message nil)
    '(ispell-check-comments nil)
    '(ispell-dictionary nil)
@@ -718,7 +725,6 @@ yaml : npm install -g yaml-language-server
 
   (setq gud-gdb-command-name "gdb -i=mi")
 #+end_src
-
 *** ARXIV !
 #+begin_src elisp :tangle "yes"
   (use-package arxiv-mode
@@ -734,31 +740,31 @@ yaml : npm install -g yaml-language-server
 *** treesit !
 #+begin_src elisp :tangle "yes"
   (use-package treesit
-  	:ensure nil
-  	:custom (treesit-language-source-alist '((asm  "https://github.com/RubixDev/tree-sitter-asm")
-  																					 (bash  "https://github.com/tree-sitter/tree-sitter-bash")
-  																					 (bibtex  "https://github.com/latex-lsp/tree-sitter-bibtex")
-  																					 (c  "https://github.com/tree-sitter/tree-sitter-c")
-  																					 (cmake  "https://github.com/uyha/tree-sitter-cmake")
-  																					 (cpp "https://github.com/tree-sitter/tree-sitter-cpp/" "master" "src")
-  																					 (elisp  "https://github.com/Wilfred/tree-sitter-elisp")
-  																					 (haskell "https://github.com/tree-sitter/tree-sitter-haskell" "master" "src")
-  																					 (html  "https://github.com/tree-sitter/tree-sitter-html")
-  																					 (json "https://github.com/tree-sitter/tree-sitter-json")
-  																					 (lua  "https://github.com/MunifTanjim/tree-sitter-lua" "main" "src")
-  																					 (markdown  "https://github.com/tree-sitter-grammars/tree-sitter-markdown")
-  																					 (markdown-inline  "https://github.com/tree-sitter-grammars/tree-sitter-markdown")
-  																					 (ocaml  "https://github.com/tree-sitter/tree-sitter-ocaml")
-  																					 (ocaml-interface  "https://github.com/tree-sitter/tree-sitter-ocaml")
-  																					 (org  "https://github.com/emiasims/tree-sitter-org")
-  																					 (python  "https://github.com/tree-sitter/tree-sitter-python")
-  																					 (rust "https://github.com/tree-sitter/tree-sitter-rust" "master" "src")
-  																					 (sql  "https://github.com/DerekStride/tree-sitter-sql")
-  																					 (yaml "https://github.com/tree-sitter-grammars/tree-sitter-yaml"))))
-  																				 
-  																				 
-  	(use-package treesit-fold
-  		:ensure (treesit-fold :host github :repo "emacs-tree-sitter/treesit-fold"))
+    :ensure nil
+    :custom (treesit-language-source-alist '((asm  "https://github.com/RubixDev/tree-sitter-asm")
+                                             (bash  "https://github.com/tree-sitter/tree-sitter-bash")
+                                             (bibtex  "https://github.com/latex-lsp/tree-sitter-bibtex")
+                                             (c  "https://github.com/tree-sitter/tree-sitter-c")
+                                             (cmake  "https://github.com/uyha/tree-sitter-cmake")
+                                             (cpp "https://github.com/tree-sitter/tree-sitter-cpp/" "master" "src")
+                                             (elisp  "https://github.com/Wilfred/tree-sitter-elisp")
+                                             (haskell "https://github.com/tree-sitter/tree-sitter-haskell" "master" "src")
+                                             (html  "https://github.com/tree-sitter/tree-sitter-html")
+                                             (json "https://github.com/tree-sitter/tree-sitter-json")
+                                             (lua  "https://github.com/MunifTanjim/tree-sitter-lua" "main" "src")
+                                             (markdown  "https://github.com/tree-sitter-grammars/tree-sitter-markdown")
+                                             (markdown-inline  "https://github.com/tree-sitter-grammars/tree-sitter-markdown")
+                                             (ocaml  "https://github.com/tree-sitter/tree-sitter-ocaml")
+                                             (ocaml-interface  "https://github.com/tree-sitter/tree-sitter-ocaml")
+                                             (org  "https://github.com/emiasims/tree-sitter-org")
+                                             (python  "https://github.com/tree-sitter/tree-sitter-python")
+                                             (rust "https://github.com/tree-sitter/tree-sitter-rust" "master" "src")
+                                             (sql  "https://github.com/DerekStride/tree-sitter-sql")
+                                             (yaml "https://github.com/tree-sitter-grammars/tree-sitter-yaml"))))
+
+
+  (use-package treesit-fold
+    :ensure (treesit-fold :host github :repo "emacs-tree-sitter/treesit-fold"))
 #+end_src
 *** Novice
 :PROPERTIES:
@@ -771,9 +777,10 @@ yaml : npm install -g yaml-language-server
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package novice
-  	:ensure nil
-  	:custom
-  	(disabled-command-function nil))
+    :ensure nil
+    :custom
+    (disabled-command-function nil))
+#+end_src
 #+end_src
 ** Visuals !
 *** Page Break Lines
@@ -788,11 +795,11 @@ yaml : npm install -g yaml-language-server
 We mainly use it with dashboard, but it can look good in other buffers.
 #+begin_src elisp :tangle "yes"
   (use-package page-break-lines
-  	:ensure (page-break-lines :host github :repo "purcell/page-break-lines")
-  	:custom
-  	(page-break-lines-char ?─)
-  	(page-break-lines-lighter "^L")
-  	(page-break-lines-modes '(prog-mode text-mode special-mode)))
+    :ensure (page-break-lines :host github :repo "purcell/page-break-lines")
+    :custom
+    (page-break-lines-char ?─)
+    (page-break-lines-lighter "^L")
+    (page-break-lines-modes '(prog-mode text-mode special-mode)))
 #+end_src
 *** Dashboard !
 TODO : Finish navigator and face customization.
@@ -809,40 +816,40 @@ TODO : Finish navigator and face customization.
     (dashboard-startup-banner "~/.emacs.d/council.jpeg" 'ascii 0)
     (dashboard-banner-logo-title "Hello Dearest Ana, may you have a good time !")
     (dashboard-items '((recents   . 10)
-  										 (bookmarks . 5)
+                       (bookmarks . 5)
                        (projects  . 5)))
     (dashboard-footer-messages '("UwU"
-  															 "OwO"
-  															 "UmU"
-  															 "^O^"
-  															 "u,u"))
+                                 "OwO"
+                                 "UmU"
+                                 "^O^"
+                                 "u,u"))
     (dashboard-icon-file-height 1.0)
     (dashboard-image-banner-max-height 0)
     (dashboard-image-banner-max-width 966) ;; why 966 ? is it the width of my screen?
     (dashboard-remove-missing-entry t)
-  	(dashboard-show-shortcuts t)
-  	(dashboard-startupify-list '(dashboard-insert-banner
-  															 dashboard-insert-newline
-  															 dashboard-insert-banner-title
-  															 dashboard-insert-newline
-  															 dashboard-insert-navigator
-  															 dashboard-insert-newline
-  															 dashboard-insert-init-info
-  															 dashboard-insert-page-break
-  															 (lambda (&rest _) (insert "\n\f\n"))
-  															 dashboard-insert-items
-  															 dashboard-insert-newline
-  															 dashboard-insert-footer))
-  	(dashboard-page-separator "\n")
-  	;; Format: "(icon title help action face prefix suffix)"
-  	(dashboard-navigator-buttons
-  	 `(;; line1
-  	   (("★"
-  			 "Repos"
-  			 "Browse github repositories."
-  			 (lambda (&rest _) (browse-url "https://github.com/ananashawaw?tab=repositories"))
-  			 warning)
-  	    ("?" "" "?/h" #'show-help nil "<" ">")))))
+    (dashboard-show-shortcuts t)
+    (dashboard-startupify-list '(dashboard-insert-banner
+                                 dashboard-insert-newline
+                                 dashboard-insert-banner-title
+                                 dashboard-insert-newline
+                                 dashboard-insert-navigator
+                                 dashboard-insert-newline
+                                 dashboard-insert-init-info
+                                 dashboard-insert-page-break
+                                 (lambda (&rest _) (insert "\n\f\n"))
+                                 dashboard-insert-items
+                                 dashboard-insert-newline
+                                 dashboard-insert-footer))
+    (dashboard-page-separator "\n")
+    ;; Format: "(icon title help action face prefix suffix)"
+    (dashboard-navigator-buttons
+     `(;; line1
+       (("★"
+         "Repos"
+         "Browse github repositories."
+         (lambda (&rest _) (browse-url "https://github.com/ananashawaw?tab=repositories"))
+         warning)
+        ("?" "" "?/h" #'show-help nil "<" ">")))))
 #+end_src
 *** Colors
 **** Colorful-mode
@@ -856,12 +863,12 @@ TODO : Finish navigator and face customization.
 face : colorful-base, proposal : remove the bold.
 #+begin_src elisp :tangle "yes"
   (use-package colorful-mode
-      :ensure t
-      :config
-      (global-colorful-mode t)
-      (global-unset-key (kbd "C-x c x"))
-      (global-unset-key (kbd "C-x c c"))
-      (global-unset-key (kbd "C-x c r")))
+    :ensure t
+    :config
+    (global-colorful-mode t)
+    (global-unset-key (kbd "C-x c x"))
+    (global-unset-key (kbd "C-x c c"))
+    (global-unset-key (kbd "C-x c r")))
 #+end_src
 *** Ascii table !
 :PROPERTIES:
@@ -874,49 +881,49 @@ face : colorful-base, proposal : remove the bold.
 **** Config
 #+begin_src elisp :tangle "yes"
   (use-package ascii-table
-  	:ensure (ascii-table :host github :repo "ananashawaw/emacs-ascii-table")
-  	:custom
-  	(ascii-table-initial-base 10)
-  	(ascii-table-initial-control nil)
-  	(ascii-table-initial-escape t))
+    :ensure (ascii-table :host github :repo "ananashawaw/emacs-ascii-table")
+    :custom
+    (ascii-table-initial-base 10)
+    (ascii-table-initial-control nil)
+    (ascii-table-initial-escape t))
 #+end_src
 **** Faces !
 #+begin_src elisp :tangle "no"
   (defface ascii-table-control '((t (:inherit font-lock-keyword-face)))
-  	"face used for control characters."
-  	:group 'ascii-table)
+    "face used for control characters."
+    :group 'ascii-table)
 
   (defface ascii-table-punctuation '((t (:inherit font-lock-preprocessor-face)))
-  	"face used for punctuation characters."
-  	:group 'ascii-table)
+    "face used for punctuation characters."
+    :group 'ascii-table)
 
   (defface ascii-table-space '((t (:inherit font-lock-string-face)))
-  	"face used for space characters."
-  	:group 'ascii-table)
+    "face used for space characters."
+    :group 'ascii-table)
 
   (defface ascii-table-digit '((t (:inherit font-lock-function-name-face)))
-  	"face used for digit characters."
-  	:group 'ascii-table)
+    "face used for digit characters."
+    :group 'ascii-table)
 
   (defface ascii-table-uppercase '((t (:inherit font-lock-variable-name)))
-  	"face used for uppercase letter characters."
-  	:group 'ascii-table)
+    "face used for uppercase letter characters."
+    :group 'ascii-table)
 
   (defface ascii-table-lowercase '((t (:inherit font-lock-variable-name)))
-  	"face used for lowercase letter characters."
-  	:group 'ascii-table)
+    "face used for lowercase letter characters."
+    :group 'ascii-table)
 #+end_src
 *** Themes !
 **** Pink Bliss UwU !
 #+begin_src elisp :tangle "yes"
   (use-package pink-bliss-uwu-theme
-  	:ensure (pink-bliss-uwu-theme
-  					 :host github :repo "themkat/pink-bliss-uwu"
-  					 :remotes ("ana" :repo "ananashawaw/pink-bliss-uwu"))
-  	:config
-  	(load-theme 'pink-bliss-uwu t)
-  	:custom
-  	(pink-bliss-uwu-use-custom-font t))
+    :ensure (pink-bliss-uwu-theme
+             :host github :repo "themkat/pink-bliss-uwu"
+             :remotes ("ana" :repo "ananashawaw/pink-bliss-uwu"))
+    :config
+    (load-theme 'pink-bliss-uwu t)
+    :custom
+    (pink-bliss-uwu-use-custom-font t))
 #+end_src
 **** Shades Of Purple
 :PROPERTIES:
@@ -929,10 +936,10 @@ face : colorful-base, proposal : remove the bold.
 :END:
 The best dark theme in emacs.
 #+begin_src elisp :tangle "yes"
-   (use-package shades-of-purple-theme
-     :ensure (shades-of-purple-theme :host github :repo "arturovm/shades-of-purple-emacs")
-     :config
-     (load-theme 'shades-of-purple t t))
+  (use-package shades-of-purple-theme
+    :ensure (shades-of-purple-theme :host github :repo "arturovm/shades-of-purple-emacs")
+    :config
+    (load-theme 'shades-of-purple t t))
 #+end_src
 **** Girly Notebook
 :PROPERTIES:
@@ -946,22 +953,22 @@ The best dark theme in emacs.
 Not used but, it looks very good with the fonts, and it can be a great source of inspiration.
 #+begin_src elisp :tangle "yes"
   (use-package girly-notebook-theme
-  	:ensure (girly-notebook-theme :host github :repo "melissaboiko/girly-notebook-theme")
-  	:config
-  	(load-theme 'girly-notebook t t))
+    :ensure (girly-notebook-theme :host github :repo "melissaboiko/girly-notebook-theme")
+    :config
+    (load-theme 'girly-notebook t t))
 #+end_src
 *** Screenshots
 #+begin_src elisp :tangle "yes"
   (defun screenshot-svg ()
-  "Save a screenshot of the current frame as an SVG image.
-Saves to a temp file and puts the filename in the kill ring."
-  (interactive)
-  (let* ((filename (make-temp-file "Emacs" nil ".svg"))
-         (data (x-export-frames nil 'svg)))
-    (with-temp-file filename
-      (insert data))
-    (kill-new filename)
-    (message filename)))
+    "Save a screenshot of the current frame as an SVG image.
+  Saves to a temp file and puts the filename in the kill ring."
+    (interactive)
+    (let* ((filename (make-temp-file "Emacs" nil ".svg"))
+           (data (x-export-frames nil 'svg)))
+      (with-temp-file filename
+        (insert data))
+      (kill-new filename)
+      (message filename)))
 #+end_src
 *** Consult + Vertico + embark
 https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8fa5147a14c/consult-tex.el
@@ -1038,12 +1045,12 @@ From the README :
 #+end_src
 ***** Config
 #+begin_src elisp :tangle "yes"
-    (use-package test-c
-      :ensure (test-c :host github :repo "aaptel/test-c")
-      :custom
-      (test-c-default-compile-command "gcc -O3 $src -o $exe")
-      (test-c-default-run-command "$exe ; echo $?")
-      (test-c-default-code "
+  (use-package test-c
+    :ensure (test-c :host github :repo "aaptel/test-c")
+    :custom
+    (test-c-default-compile-command "gcc -O3 $src -o $exe")
+    (test-c-default-run-command "$exe ; echo $?")
+    (test-c-default-code "
   #include <stdio.h>
   #include <stdint.h>
   #include <stddef.h>
@@ -1267,35 +1274,35 @@ TODO :
                                                            c-lineup-streamop))
                                              (inclass . 1)
                                              (cpp-macro . -1000)
-                                             (cpp-define-intro . 2)
                                              (cpp-macro-cont . 1)
+                                             (cpp-define-intro . 2)
                                              (friend . 0)
                                              (objc-method-intro .
                                                                 [0])
                                              (objc-method-args-cont . (first
                                                                        c-lineup-ObjC-method-args-2))
                                              (objc-method-call-cont . (c-lineup-ObjC-method-call-colons
-  						                                                         c-lineup-ObjC-method-call
-  						                                                         1))
+                                                                       c-lineup-ObjC-method-call
+                                                                       1))
                                              (extern-lang-open . 0)
+                                             (namespace-open . 0)
+                                             (module-open . 0)
+                                             (composition-open . 0)
                                              (extern-lang-close . (first
                                                                    c-lineup-close-paren
                                                                    0))
-                                             (inextern-lang . 1)
-                                             (namespace-open . 0)
                                              (namespace-close . (first
                                                                  c-lineup-close-paren
                                                                  0))
-                                             (innamespace . 1)
-                                             (module-open . 0)
                                              (module-close . (first
                                                               c-lineup-close-paren
                                                               0))
-                                             (inmodule . 1)
-                                             (composition-open . 0)
                                              (composition-close . (first
                                                                    c-lineup-close-paren
                                                                    0))
+                                             (inextern-lang . 1)
+                                             (innamespace . 1)
+                                             (inmodule . 1)
                                              (incomposition . 1)
                                              (template-args-cont . (first
                                                                     c-lineup-template-args
@@ -1325,121 +1332,122 @@ TODO :
                                                              "define"
                                                              "undef"))))
     :custom
-    ;; (c-ts-mode-indent-style 'gnu)
-    ;; (c-ts-mode-indent-offset 1)
-    ;; (c-ts-mode-emacs-sources-support t)
+    (c-default-style '((c-mode . "ana") ;; we could also use hooks.
+                       (java-mode . "ana")
+                       (other . "ana")))
+    (c-style-variables-are-local-p nil)
     (c-tab-always-indent t)
     (c-progress-interval 10)
     (c-asymmetry-fontification-flag t)
     (c-guess-region-max nil) ; entire buffer
     (c-guess-offset-threshold 5)
-    (c-defun-tactic 'go-outward)
+    (c-defun-tactic 'go-outward) ; detect functions declaration inside functions (gcc extension).
     (c-electric-pound-behavior '(alignleft))
     (c-ignore-auto-fill '(string cpp code))
-    (c-require-final-newline   '((c-mode . t)
-                                 (c++-mode . t)
-                                 (objc-mode . t)
-                                 (java-mode . t)
-                                 (idl-mode . t)
-                                 (pike-mode . t)
-                                 (awk-mode . t))))
+    (c-require-final-newline '((c-mode . t)
+                               (c++-mode . t)
+                               (objc-mode . t)
+                               (java-mode . t)
+                               (idl-mode . t)
+                               (pike-mode . t)
+                               (awk-mode . t))))
 #+end_src
+***** Notes
+We use `c-mode-common-hook` instead of `c-initialization-hook` to prevent (elisp from not being fontified.)[https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-11/msg00088.html]
 *** LATEX !
 https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/, it also talks of "calc", seems interesting.
 www.emacswiki.org/emacs/WhizzyTeX
 **** Auctex !
 #+begin_src elisp :tangle "yes"
-        ;; gotta custom it
-        (use-package auctex
-          :ensure (auctex :repo "https://git.savannah.gnu.org/git/auctex.git" :branch "main"
-                          :pre-build (("make" "elpa"))
-                          :build (:not elpaca--compile-info) ;; Make will take care of this step
-                          :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
-                          :version (lambda (_) (require 'auctex) AUCTeX-version))
-
-    			:hook (LaTeX-mode-hook . LaTeX-math-mode)
-  )
+  ;; gotta custom it
+  (use-package auctex
+    :ensure (auctex :repo "https://git.savannah.gnu.org/git/auctex.git" :branch "main"
+                    :pre-build (("make" "elpa"))
+                    :build (:not elpaca--compile-info) ;; Make will take care of this step
+                    :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
+                    :version (lambda (_) (require 'auctex) AUCTeX-version))
+    :hook (LaTeX-mode-hook . LaTeX-math-mode))
 #+end_src
 **** LatexMK !
 #+begin_src elisp :tangle "yes"
-  ; we also need to install normal latexmk I think.
+  ;; we also need to install normal latexmk I think.
   (use-package auctex-latexmk
-      :ensure t
-      :custom
-      (auctex-latexmk-inherit-TeX-PDF-mode t))
+    :ensure t
+    :custom
+    (auctex-latexmk-inherit-TeX-PDF-mode t))
 #+end_src
 **** CDlatex !
 #+begin_src elisp :tangle "yes"
   (use-package cdlatex
-  	:ensure (cdlatex :host github :repo "cdominik/cdlatex"))
+    :ensure (cdlatex :host github :repo "cdominik/cdlatex"))
 #+end_src
 **** Xenops !
 #+begin_src elisp :tangle "yes"
   (use-package xenops
-  	:ensure (xenops :host github :repo "dandavison/xenops"))
+    :ensure (xenops :host github :repo "dandavison/xenops"))
 #+end_src
 **** Laas !
 #+begin_src elisp :tangle "yes"
   (use-package laas
-  	:ensure (laas :host github repo: "tecosaur/LaTeX-auto-activating-snippets"))
+    :ensure (laas :host github repo: "tecosaur/LaTeX-auto-activating-snippets"))
 #+end_src
 **** amsreftex !
 #+begin_src elisp :tangle "yes"
   (use-package amsreftex
-  	:ensure (amsreftex :host github :repo "franburstall/amsreftex"))
+    :ensure (amsreftex :host github :repo "franburstall/amsreftex"))
 #+end_src
 **** Magic-latex-buffer !
 faces to customize.
 #+begin_src elisp :tangle "yes"
   (use-package magic-latex-buffer
-  	:ensure (magic-latex-buffer :host github :repo "zk-phi/magic-latex-buffer"))
+    :ensure (magic-latex-buffer :host github :repo "zk-phi/magic-latex-buffer"))
 #+end_src
 **** Latex-preview-pane !
 #+begin_src elisp :tangle "yes"
   (use-package latex-preview-pane
-   :ensure (latex-preview-pane :host github :repo "jsinglet/latex-preview-pane")
-   :custom
-   (pdf-latex-command "pdflatex") ;; default but specified in case I want to use luatex or xetex
-   (preview-orientation 'right) ;; can be any of : above, left, below and right.
-   (latex-preview-pane-use-frame nil) ;; default but specified in case I want to go for OneOnOneEmacs
-   (latex-preview-pane-multifile-mode 'auctex))
+    :ensure (latex-preview-pane :host github :repo "jsinglet/latex-preview-pane")
+    :custom
+    (pdf-latex-command "pdflatex") ;; default but specified in case I want to use luatex or xetex
+    (preview-orientation 'right) ;; can be any of : above, left, below and right.
+    (latex-preview-pane-use-frame nil) ;; default but specified in case I want to go for OneOnOneEmacs
+    (latex-preview-pane-multifile-mode 'auctex))
 #+end_src
 **** Litex !
 #+begin_src elisp :tangle "yes"
   (use-package litex-mode
-  	:ensure (litex-mode :host github :repo "Atreyagaurav/litex-mode"))
+    :ensure (litex-mode :host github :repo "Atreyagaurav/litex-mode"))
 #+end_src
 **** tex-item !
 #+begin_src elisp :tangle "yes"
   (use-package tex-item
-  	:ensure (tex-item :host github :repo "ultronozm/tex-item.el"))
+    :ensure (tex-item :host github :repo "ultronozm/tex-item.el"))
 #+end_src
 **** tex-parens !
 #+begin_src elisp :tangle "yes"
   (use-package tex-parens
-  	:ensure (tex-parens :host github :repo "ultronozm/tex-parens.el"))
+    :ensure (tex-parens :host github :repo "ultronozm/tex-parens.el"))
 #+end_src
 **** latex-table-wizard !
 need to custom faces
 #+begin_src elisp :tangle "yes"
   (use-package latex-table-wizard
-  	:ensure (latex-table-wizard :host github :repo "enricoflor/latex-table-wizard")
-  	:custom
-  	(latex-table-wizard-allow-detached-args t))
+    :ensure (latex-table-wizard :host github :repo "enricoflor/latex-table-wizard")
+    :custom
+    (latex-table-wizard-allow-detached-args t))
 #+end_src
 **** preview-latex !
 #+begin_src elisp :tangle "yes"
   (use-package px
-  	:ensure (px :host github :repo "aaptel/preview-latex"))
+    :ensure (px :host github :repo "aaptel/preview-latex"))
 #+end_src
 **** Texlab (LSP) !
 Needs Cargo, if outdated do : "rustup update"
 #+begin_src shell :tangle "no"
   git clone https://github.com/latex-lsp/texlab.git ~/.cache/texlab # could be another dest but this is a practical one.
-    cd ~/.cache/texlab
-    cargo build --release # Remove the --release for a debug build.
-  	# Add it to path by modifying .bashrc or .profile or smth,
-  	#it'd look like : export PATH=$PATH:~/.cache/texlab/target/release
+  cd ~/.cache/texlab
+  cargo build --release # Remove the --release for a debug build.
+  # Add it to path by modifying .bashrc or .profile or smth,
+  #it'd look like : export PATH=$PATH:~/.cache/texlab/target/release
 #+end_src
 *** OCAML !
 **** Opam
@@ -1508,17 +1516,17 @@ Requirement : ((emacs "25.1"))
                     :files ("emacs/merlin.el" "emacs/merlin-imenu.el" "emacs/merlin-xref.el" "emacs/merlin-cap.el"))
     :hook ((tuareg-mode caml-mode) . merlin-mode)
     :custom
-  	(merlin-report-errors-in-lighter t)
+    (merlin-report-errors-in-lighter t)
     (merlin-completion-with-doc t)
-  	(merlin-favourite-caml-mode 'tuareg-mode)
-  	(merlin-error-after-save '("ml" "mli" "mly")) ;; OXcaml, metaOcaml ?
-  	(merlin-error-in-fringe t)
-  	(merlin-error-on-single-line nil)
-  	(merlin-locate-focus-new-window nil)
-  	(merlin-type-after-locate t)
-  	(merlin-construct-with-local-values t)
-  	(merlin-default-flags '("-strict-sequence" "-strict-formats"))
-  	(merlin-cache-lifespan 15))
+    (merlin-favourite-caml-mode 'tuareg-mode)
+    (merlin-error-after-save '("ml" "mli" "mly")) ;; OXcaml, metaOcaml ?
+    (merlin-error-in-fringe t)
+    (merlin-error-on-single-line nil)
+    (merlin-locate-focus-new-window nil)
+    (merlin-type-after-locate t)
+    (merlin-construct-with-local-values t)
+    (merlin-default-flags '("-strict-sequence" "-strict-formats"))
+    (merlin-cache-lifespan 15))
 #+end_src
 **** Merlin-Eldoc !
 Package-Requires: ((emacs "24.4") (merlin "3.0")) eldoc
@@ -1527,10 +1535,10 @@ external : merlin (opam install merlin
 #+begin_src elisp :tangle "yes"
   (use-package merlin-eldoc
     :ensure (:wait t)
-  	:custom
-  	(merlin-eldoc-delimiter " | ")
-  	(merlin-eldoc-truncate-marker "(...)")
-  	(merlin-eldoc-skip-on-merlin-error nil))
+    :custom
+    (merlin-eldoc-delimiter " | ")
+    (merlin-eldoc-truncate-marker "(...)")
+    (merlin-eldoc-skip-on-merlin-error nil))
 #+end_src
 **** Dune !
 #+begin_src elisp :tangle "yes"
@@ -1558,26 +1566,20 @@ external : merlin (opam install merlin
 #+begin_src elisp :tangle "yes"
   (use-package merlin-iedit
     :ensure (merlin-iedit :host github :repo "ocaml/merlin"
-  												:files ("emacs/merlin-iedit.el")))
+                          :files ("emacs/merlin-iedit.el")))
 #+end_src
 **** Ocamlformat !
 #+begin_src elisp :tangle "yes"
-    (use-package ocamlformat
-      :ensure t
-      :disabled
-      :hook (before-save . ocamlformat-before-save)
-      :custom (ocamlformat-enable 'enable-outside-detected-project))
+  (use-package ocamlformat
+    :ensure t
+    :disabled
+    :hook (before-save . ocamlformat-before-save)
+    :custom (ocamlformat-enable 'enable-outside-detected-project))
 #+end_src
 **** Utop !
 #+begin_src elisp :tangle "yes"
-    (use-package utop
+  (use-package utop
     :ensure (utop :host github :repo "ocaml-community/utop"))
-#+end_src
-**** Learn-ocaml !
-I only need to customize the face, but it is only available on x86_64.
-#+begin_src elisp :tangle "no"
-    (use-package learn-ocaml
-    	:ensure (learn-ocaml :host github :repo "pfitaxel/learn-ocaml.el"))
 #+end_src
 (defface utop-prompt
   '((((background dark)) (:foreground "Cyan1"))
@@ -1599,12 +1601,19 @@ I only need to customize the face, but it is only available on x86_64.
 (defface utop-error
   '((t (:foreground "#ff4040" :bold t :underline t)))
   "The face used to highlight errors in phrases.")
+#+end_comment
+**** Learn-ocaml !
+I only need to customize the face, but it is only available on x86_64.
+#+begin_src elisp :tangle "no"
+  (use-package learn-ocaml
+    :ensure (learn-ocaml :host github :repo "pfitaxel/learn-ocaml.el"))
+#+end_src
 *** Coq !
 **** Proof General !
 TODO : CONFIGURE
 #+begin_src elisp :tangle "yes"
   (use-package proof-general
-  	:ensure (proof-general :host github :repo "ProofGeneral/PG"))
+    :ensure (proof-general :host github :repo "ProofGeneral/PG"))
 #+end_src
 *** Lolcode
 :PROPERTIES:
@@ -1625,7 +1634,7 @@ Contribute to it by letting users change the fonts ?
 #+begin_src elisp :tangle "yes"
   (use-package yaml-mode
     :ensure (yaml-mode :host github :repo "yoshiki/yaml-mode")
-  	:hook ((yaml-mode markdown-mode) . yafolding-mode)
+    :hook ((yaml-mode markdown-mode) . yafolding-mode)
     :init
     (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode))
     :custom
@@ -1634,29 +1643,26 @@ Contribute to it by letting users change the fonts ?
 **** Yaml-pro !
 yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
 #+begin_src elisp :tangle "yes"
-  
-  								
   (use-package yaml-pro
-  	:ensure (yaml-pro :host github :repo "zkry/yaml-pro")
-  	;:hook ((yaml-mode yaml-ts-mode) . yaml-pro-ts-mode)
-  	:custom
-  	(yaml-pro-indent (if (boundp 'yaml-indent-offset)  yaml-indent-offset 4))
-  	(yaml-pro-max-parse-size 5000)
-  	(yaml-pro-format-print-width 0)
-  	(yaml-pro-format-features '(block-formatting
-  															bm-fn-next-line
-  															document-separator-own-line
-  															indent
-  															reduce-newlines))
-  	(yaml-pro-ts-yank-subtrees t)
-  	(yaml-pro-ts-path-element-separator ?→))
-
+    :ensure (yaml-pro :host github :repo "zkry/yaml-pro")
+                                          ;:hook ((yaml-mode yaml-ts-mode) . yaml-pro-ts-mode)
+    :custom
+    (yaml-pro-indent (if (boundp 'yaml-indent-offset)  yaml-indent-offset 4))
+    (yaml-pro-max-parse-size 5000)
+    (yaml-pro-format-print-width 0)
+    (yaml-pro-format-features '(block-formatting
+                                bm-fn-next-line
+                                document-separator-own-line
+                                indent
+                                reduce-newlines))
+    (yaml-pro-ts-yank-subtrees t)
+    (yaml-pro-ts-path-element-separator ?→))
 #+end_src
 *** other handlers !
 #+begin_src elisp :tangle "yes"
   (use-package format-sql
     :ensure t)
-  
+
   (use-package json-reformat
     :ensure (json-reformat :host github :repo "gongo/json-reformat")
     :custom
@@ -1698,7 +1704,7 @@ Requires jdk 17+.
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package gradle-mode
-  	:ensure (gradle-mode :host github :repo "scubacabra/emacs-gradle-mode"))
+    :ensure (gradle-mode :host github :repo "scubacabra/emacs-gradle-mode"))
 #+end_src
 **** JDTLS
 How to install the java lsp , note you need a jdk about java 21 as of september 2025:
@@ -1712,14 +1718,14 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
   cd $(DEST)
   ./mvnw clean verify -U -DskipTests=true
   echo "export PATH=$PATH:$(DEST)/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/" >> .bashrc
-  #  you could also use, say, bash.profile, the important part is for it to be in your path.
+  # you could also use, say, bash.profile, the important part is for it to be in your path.
   source .bashrc
   # Same comment as above. You could also just restart the shell.
 #+end_src
 *** Ebuilds !
 #+begin_src elisp :tangle "yes"
   (use-package ebuild-mode
-  	:ensure (ebuild-mode :repo "https://gitweb.gentoo.org/proj/ebuild-mode.git"))
+    :ensure (ebuild-mode :repo "https://gitweb.gentoo.org/proj/ebuild-mode.git"))
 #+end_src
 ** Org !
 :PROPERTIES:
@@ -1743,20 +1749,101 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
   (use-package toc-org
     :ensure (toc-org :host github :repo "snosov1/toc-org")
     :hook (((org-mode markdown-mode) . toc-org-mode)
-  				 (toc-org-mode . (lambda () (toc-org-insert-toc))))
-  	:init
-  	(org-mode)
+           (toc-org-mode . (lambda () (toc-org-insert-toc))))
+    :init
+    (org-mode)
     :custom
     (toc-org-max-depth 100) ;; it'll never go that deep but at least it covers all use cases.
     (toc-org-hrefify-default "gh") ;; "gh" and "org" are the only options
     (toc-org-enable-links-opening t))
 #+end_src
 *** org-modern !
+:PROPERTIES:
+:EMACS: 29.1
+:REQ_EXT: None
+:REQ_INT: ("Org-mode" "9.6"), ("compat" "30")
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: None
+:END:
+**** Config
 #+begin_src elisp :tangle "yes"
   (use-package org-modern
-  	:ensure (org-modern :host github :repo "minad/org-modern")
-  	:custom
-  	(org-modern-progress 40))
+    :ensure (org-modern :host github :repo "minad/org-modern")
+    :custom
+    (org-modern-progress 40))
+#+end_src
+**** Customization
+#+begin_src elisp :tangle "no"
+  (defcustom org-modern-priority-faces nil
+    "Faces for priority tags.
+            This is an alist, with priority character in the car and faces in
+            the cdr.  Example:
+
+              (setq org-modern-priority-faces
+                (quote ((?A :background \"red\"
+                            :foreground \"yellow\"))))"
+    :type '(repeat
+            (cons (choice
+                   (character :tag "Priority")
+                   (const :tag "Default" t))
+                  (sexp :tag "Face   "))))
+  (defcustom org-modern-tag-faces nil
+    "Faces for tags keywords.
+          This is an alist, with tag the car and faces in the cdr.
+          Example:
+
+            (setq org-modern-tag-faces
+              (quote ((\"emacs\" :background \"red\" :foreground \"yellow\"))))"
+    :type '(repeat
+            (cons (choice
+                   (string :tag "Keyword")
+                   (const :tag "Default" t))
+                  (sexp :tag "Face   "))))
+  (defcustom org-modern-todo-faces nil
+    "Faces for todo keywords.
+        This is an alist, with todo keywords in the car and faces in the
+        cdr.  Example:
+
+          (setq org-modern-todo-faces
+            (quote ((\"TODO\" :background \"red\" :foreground \"yellow\"))))"
+    :type '(repeat
+            (cons (choice
+                   (string :tag "Keyword")
+                   (const :tag "Default" t))
+                  (sexp :tag "Face   "))))
+
+  (defcustom org-modern-hide-stars 'leading
+    "Changes the displays of the stars.
+      Can be leading, t, or a string/character replacement for each leading
+      star.  Set to nil to disable.  This feature is automatically disabled if
+      `org-indent-mode' is enabled."
+    :type '(choice
+            (string :tag "Replacement string for leading stars")
+            (character :tag "Replacement character for leading stars")
+            (const :tag "Do not hide stars" nil)
+            (const :tag "Hide all stars" t)
+            (const :tag "Hide leading stars" leading)))
+
+  (defcustom org-modern-fold-stars
+    '(("▶" . "▼") ("▷" . "▽") ("⯈" . "⯆") ("▹" . "▿") ("▸" . "▾"))
+    "Folding indicators for headings.
+    Replace headings' stars with an indicator showing whether its
+    tree is folded or expanded."
+    :type '(repeat (cons (string :tag "Folded")
+                         (string :tag "Expanded"))))
+
+  (defcustom org-modern-replace-stars "◉○◈◇✳"
+    "Replacement strings for headline stars for each level."
+    :type '(choice string (repeat string)))
+
+  (defcustom org-modern-star 'fold
+    "Style heading stars.
+  Can be nil, fold or replace.  See `org-modern-fold-stars' and
+  `org-modern-replace-stars' for the respective configurations."
+    :type '(choice (const :tag "No styling" nil)
+                   (const :tag "Folding indicators" fold)
+                   (const :tag "Replace" replace)))
 #+end_src
 *** org-popup-posframe !
 :PROPERTIES:
@@ -1768,5 +1855,5 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package org-popup-posframe
-  	:ensure (org-popup-posframe :host github :repo "A7R7/org-popup-posframe"))
+    :ensure (org-popup-posframe :host github :repo "A7R7/org-popup-posframe"))
 #+end_src
