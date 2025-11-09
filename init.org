@@ -789,7 +789,7 @@ yaml : npm install -g yaml-language-server
 #+end_src
 *** Copy on wayland :
 need wl-clipboard for it .
-#+begin_src elisp :tangle (if (= (getenv "XDG_SESSION_TYPE") "wayland") "yes" "no")
+#+begin_src elisp :tangle (if (equal (getenv "XDG_SESSION_TYPE") "wayland") "yes" "no")
   ;; credit: yorickvP on Github
   (setq wl-copy-process nil)
   (defun wl-copy (text)
