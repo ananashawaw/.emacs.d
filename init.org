@@ -83,6 +83,7 @@
       - [[#merlin-iedit][Merlin-Iedit]]
       - [[#ocamlformat-][Ocamlformat !]]
       - [[#utop-][Utop !]]
+        - [[#faces-utop-][Faces utop :]]
       - [[#learn-ocaml-][Learn-ocaml !]]
     - [[#coq-][Coq !]]
       - [[#proof-general-][Proof General !]]
@@ -1600,6 +1601,8 @@ external : merlin (opam install merlin
   (use-package utop
     :ensure (utop :host github :repo "ocaml-community/utop"))
 #+end_src
+***** Faces utop :
+#+begin_comment
 (defface utop-prompt
   '((((background dark)) (:foreground "Cyan1"))
     (((background light)) (:foreground "blue")))
