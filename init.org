@@ -15,14 +15,14 @@
       - [[#transient-][Transient !]]
         - [[#config-][Config !]]
         - [[#faces-][Faces !]]
-      - [[#magit-][Magit !]]
+      - [[#magit--1][Magit !]]
       - [[#magit-commit-mark-][Magit commit mark !]]
       - [[#magit-others-][Magit others !]]
     - [[#eshell-][Eshell !]]
       - [[#general-][General !]]
           - [[#em-dirsel-][em-dirs.el !]]
           - [[#em-basicel-][em-basic.el !]]
-      - [[#config-][Config !]]
+      - [[#config--1][Config !]]
       - [[#eloginel-][elogin.el !]]
       - [[#eprofileel-][eprofile.el !]]
     - [[#yasnippets-][Yasnippets !]]
@@ -34,14 +34,15 @@
     - [[#arxiv-][ARXIV !]]
     - [[#treesit-][treesit !]]
     - [[#novice][Novice]]
+    - [[#copy-on-wayland-][Copy on wayland :]]
   - [[#visuals-][Visuals !]]
     - [[#page-break-lines][Page Break Lines]]
     - [[#dashboard-][Dashboard !]]
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
-      - [[#config][Config]]
-      - [[#faces-][Faces !]]
+      - [[#config-1][Config]]
+      - [[#faces--1][Faces !]]
     - [[#themes-][Themes !]]
       - [[#pink-bliss-uwu-][Pink Bliss UwU !]]
       - [[#shades-of-purple][Shades Of Purple]]
@@ -53,9 +54,10 @@
       - [[#clangd-][Clangd !]]
       - [[#test-c][Test-c]]
         - [[#notes][Notes]]
-        - [[#config][Config]]
+        - [[#config-2][Config]]
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
+        - [[#notes-1][Notes]]
     - [[#latex-][LATEX !]]
       - [[#auctex-][Auctex !]]
       - [[#latexmk-][LatexMK !]]
@@ -93,6 +95,7 @@
       - [[#yaml-pro-][Yaml-pro !]]
     - [[#other-handlers-][other handlers !]]
     - [[#java][Java]]
+      - [[#java-mode-][Java-mode !]]
       - [[#gradle][Gradle]]
         - [[#gradle-installation][Gradle Installation]]
         - [[#gradle-mode][Gradle-mode]]
@@ -101,6 +104,8 @@
   - [[#org-][Org !]]
     - [[#toc-org][toc-org]]
     - [[#org-modern-][org-modern !]]
+      - [[#config-3][Config]]
+      - [[#customization][Customization]]
     - [[#org-popup-posframe-][org-popup-posframe !]]
 
 * Setup !
@@ -1103,18 +1108,26 @@ From the README :
     (compiler-explorer-sessions 10)
     (compiler-explorer-default-layout [(source . asm) output]))
 #+end_src
-
 **** CC-mode !
+look at : https://tuhdo.github.io/c-ide.html
 TODO :
-- customize C ts Mode.
-- customize C face.
+- Customize C ts Mode ?
+- Add examples for the indent alist.
 #+begin_src elisp :tangle "yes"
   (use-package cc-mode
     :ensure nil
-    :hook ((c-initialization . (lambda () (c-set-style "ana")))
-  				 (java-mode . (lambda () (c-set-style "ana"))))
-  	
-   :init
+    :hook (c-mode-common . (lambda ()
+                             (progn
+                               ;; Minor mode, commands insert block comments instead of line comments by default
+                               (c-toggle-comment-style 1)
+                               ;; Minor mode off, use C-c C-d and C-c C-DEL instead.
+                               (c-toggle-auto-hungry-state -1)
+                               ;; Minor mode on, makes commands on words consider capitalization.
+                               ;; M-f PascalCase = goes to Case instead of the end of PascalCase.
+                               (subword-mode 1)
+                               ;; Minor mode on, this also enable electric.
+                               (c-toggle-auto-newline 1))))
+    :init
     (c-add-style "ana" '(;; Comments
                          (c-comment-only-line-offset 0)
                          (c-block-comment-prefix "*")
@@ -1123,6 +1136,7 @@ TODO :
                                                  (java-mode . javadoc)
                                                  (pike-mode . autodoc)))
                          
+                         ;; Auto-newline minor mode
                          ;; Hanging braces, colons, commas and semicolons
                          (c-hanging-braces-alist . ((arglist-close nil) ; nil because we put a semicolon after it
                                                     (brace-list-intro after) ; RET after first content of a {} list
@@ -1136,15 +1150,15 @@ TODO :
                                                     (substatement-open before) ; defun-open logic
                                                     (statement-case-open before) ; defun-open logic
                                                     (brace-list-open nil) ; keep {} list connected to the =
-                                                    (brace-list-close nil) ; nil because we put comma after it 
+                                                    (brace-list-close nil) ; nil because we put comma after it
                                                     (brace-entry-open before) ; defun-open logic
                                                     (extern-lang-open before) ; defun-open logic
                                                     (extern-lang-close nil) ; defun-close logic
                                                     (namespace-open before) ; C++ but extern logic
                                                     (namespace-close after) ; C++ but extern logic
-                                                    (module-open before) ; CORBA IDL, extern logic 
+                                                    (module-open before) ; CORBA IDL, extern logic
                                                     (module-close after) ; CORBA IDL, extern logic
-                                                    (composition-open before) ; CORBA IDL, extern logic 
+                                                    (composition-open before) ; CORBA IDL, extern logic
                                                     (composition-close after) ; CORBA IDL, extern logic
                                                     (inexpr-class-open before) ; Java, but C++ class logic
                                                     (inexpr-class-close nil) ; Java, but C++ class logic
@@ -1158,7 +1172,10 @@ TODO :
                                                     (member-init-intro after) ; C++ no idea but looks like a label
                                                     (inher-intro after))) ; C++ no idea but looks like a label
                          
-                         (c-hanging-semi&comma-criteria . (c-semi&comma-inside-parenlist
+                         ;; We don't want a ret when we're about to close the scope, but, we can't distinguish "usual" ; from ;} before we type it
+                         ;; As such, we just prevent the insertion of newlines after a , or ; altogether
+                         (c-hanging-semi&comma-criteria . ((lambda () 'stop)
+                                                           c-semi&comma-inside-parenlist
                                                            c-semi&comma-no-newlines-for-oneline-inliners
                                                            c-semi&comma-no-newlines-before-nonblanks))
                          
@@ -1205,11 +1222,16 @@ TODO :
                                                                     c-lineup-assignments
                                                                     c-lineup-cascaded-calls
                                                                     c-lineup-topmost-intro-cont))
+                                             (constraint-cont . (first
+                                                                 c-lineup-item-after-paren-at-boi
+                                                                 2))
                                              (annotation-top-cont . 0)
                                              (annotation-var-cont . 0)
                                              (member-init-intro . 1)
                                              (member-init-cont . (first
                                                                   c-lineup-multi-inher))
+                                             (class-field-cont . (first
+                                                                  c-lineup-java-inher))
                                              (inher-intro . 1)
                                              (inher-cont . (first
                                                             c-lineup-multi-inher
@@ -1232,6 +1254,15 @@ TODO :
                                                                   c-lineup-arglist-close-under-paren
                                                                   c-lineup-under-anchor))
                                              (brace-entry-open . 0)
+                                             (enum-open . 2)
+                                             (enum-close . (first
+                                                            c-lineup-close-paren
+                                                            0))
+                                             (enum-intro . (first
+                                                            c-lineup-arglist-intro-after-paren
+                                                            1))
+                                             (enum-entry . (first
+                                                            c-lineup-under-anchor))
                                              (statement . (first
                                                            c-lineup-runin-statements))
                                              (statement-cont . (first
@@ -1700,6 +1731,8 @@ yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
     (call-graph-display-func-args t))
 #+end_src
 *** Java
+**** Java-mode !
+- customize C-annotation-face
 **** Gradle
 ***** Gradle Installation
 Requires jdk 17+.
