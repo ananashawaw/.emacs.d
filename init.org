@@ -34,7 +34,7 @@
     - [[#arxiv-][ARXIV !]]
     - [[#treesit-][treesit !]]
     - [[#novice][Novice]]
-    - [[#copy-on-wayland-][Copy on wayland :]]
+    - [[#copy-on-wayland-][Copy on wayland !]]
   - [[#visuals-][Visuals !]]
     - [[#page-break-lines][Page Break Lines]]
     - [[#dashboard-][Dashboard !]]
@@ -94,7 +94,7 @@
       - [[#yaml-mode-][Yaml-mode !]]
       - [[#yaml-pro-][Yaml-pro !]]
     - [[#other-handlers-][other handlers !]]
-    - [[#java][Java]]
+    - [[#java-][Java !]]
       - [[#java-mode-][Java-mode !]]
       - [[#gradle][Gradle]]
         - [[#gradle-installation][Gradle Installation]]
@@ -787,7 +787,7 @@ yaml : npm install -g yaml-language-server
     :custom
     (disabled-command-function nil))
 #+end_src
-*** Copy on wayland :
+*** Copy on wayland !
 need wl-clipboard for it .
 #+begin_src elisp :tangle (if (equal (getenv "XDG_SESSION_TYPE") "wayland") "yes" "no")
   ;; credit: yorickvP on Github
@@ -1088,7 +1088,7 @@ From the README :
 #+begin_src elisp :tangle "yes"
   (use-package compiler-explorer
     :ensure (compiler-explorer :host github :repo "mkcms/compiler-explorer.el")
-    :bind (("M-g " . compiler-explorer)
+    :bind (("M-g" . compiler-explorer)
            :map compiler-explorer-mode-map
            ("M-g c" . compiler-explorer-set-compiler)
            ("M-g f" . compiler-explorer-set-compiler-args)
@@ -1730,7 +1730,7 @@ yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
     (call-graph-ignore-invalid-reference t)
     (call-graph-display-func-args t))
 #+end_src
-*** Java
+*** Java !
 **** Java-mode !
 - customize C-annotation-face
 **** Gradle
