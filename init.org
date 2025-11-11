@@ -605,131 +605,171 @@ yaml : npm install -g yaml-language-server
 #+end_src
 *** IDK !
 #+begin_src elisp :tangle "yes"
-  (custom-set-variables
-   ;; custom-set-variables was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(abbrev-suggest t)
-   '(align-indent-before-aligning t)
-   '(auto-image-file-mode t)
-   '(case-fold-search t)
-   '(column-number-mode t)
-   '(compilation-ask-about-save t)
-   '(context-menu-mode t)
-   '(ctl-arrow nil)
-   '(diff-default-read-only nil)
-   '(diff-mode-hook '(diff-delete-empty-files diff-make-unified))
-   '(dired-kept-versions 5)
-   '(display-raw-bytes-as-hex t)
-   '(electric-pair-skip-whitespace-chars '(32 9 10))
-   '(fancy-splash-image nil)
-   '(find-file-hook
-     '(mode-local-post-major-mode-change url-handlers-set-buffer-mode
-                                         epa-file-find-file-hook
-                                         vc-refresh-state
-                                         ede-turn-on-hook))
-   '(fringe-mode 6 nil (fringe))
-   '(gdb-debug-log-max nil)
-   '(gdb-debuginfod-enable-setting t)
-   '(gdb-enable-debug t)
-   '(gdb-many-windows t)
-   '(ggtags-global-output-format 'ctags)
-   '(ggtags-mode-prefix-key [3])
-   '(global-ede-mode t)
-   '(global-semantic-decoration-mode nil)
-   '(global-semantic-highlight-edits-mode t)
-   '(global-semantic-highlight-func-mode t)
-   '(global-semantic-idle-breadcrumbs-mode t nil (semantic/idle))
-   '(global-semantic-idle-completions-mode t nil (semantic/idle))
-   '(global-semantic-idle-local-symbol-highlight-mode t nil (semantic/idle))
-   '(global-semantic-idle-summary-mode t)
-   '(global-semantic-mru-bookmark-mode t)
-   '(global-semantic-show-parser-state-mode t)
-   '(global-semantic-show-unmatched-syntax-mode t)
-   '(global-semantic-stickyfunc-mode t)
-   '(global-tab-line-mode t)
-   '(grep-highlight-matches 'always)
-   '(gud-key-prefix [24 1])
-   '(gud-tooltip-mode t)
-   '(image-load-path
-     '(data-directory load-path " ~/Pictures/" " ~/emacs/"))
-   '(imenu-auto-rescan t)
-   '(indent-tabs-mode nil)
-   '(initial-scratch-message nil)
-   '(ispell-check-comments nil)
-   '(ispell-dictionary nil)
-   '(ispell-following-word t)
-   '(ispell-silently-savep t)
-   '(kept-new-versions 5)
-   '(kept-old-versions 5)
-   '(linum-format 'dynamic)
-   '(package-selected-packages
-     '( auto-header
-        auto-virtualenv c-eldoc demangle-mode disaster
-        context-coloring utop ejc-sql emacsql sql-indent
-        flycheck-clang-analyzer flycheck-clangcheck
-        flycheck-cython flycheck-ocaml
-        flycheck-pycheckers ggtags git
-        git-auto-commit-mode git-backup git-blamed
-        magit-annex magit-commit-mark magit-delta
-        magit-file-icons magit-find-file magit-gh-pulls
-        magit-gitlab magit-org-todos magit-todos
-        highlight idlwave indent-guide gh-md vmd-mode
-        flymd org-sql pdf-tools prism
-        pydoc python python-mode elpy anaconda-mode
-        treemacs-magit undo-tree yasnippet-snippets))
-   '(prog-mode-hook '( abbrev-mode))
-   '(py-auto-complete-p t)
-   '(py-auto-fill-mode nil)
-   '(py-beep-if-tab-change nil)
-   '(py-docstring-style 'django)
-   '(py-indent-tabs-mode nil)
-   '(python-indent-offset 4)
-   '(python-shell-completion-native-disabled-interpreters nil)
-   '(scalable-fonts-allowed t)
-   '(semantic-complete-inline-analyzer-displayer-class 'semantic-displayer-tooltip)
-   '(semantic-default-submodes
-     '(global-semantic-highlight-func-mode global-semantic-stickyfunc-mode
-                                           global-semantic-idle-completions-mode
-                                           global-semantic-idle-scheduler-mode
-                                           global-semanticdb-minor-mode
-                                           global-semantic-idle-summary-mode
-                                           global-semantic-mru-bookmark-mode
-                                           global-semantic-idle-local-symbol-highlight-mode
-                                           global-semantic-highlight-edits-mode
-                                           global-semantic-show-unmatched-syntax-mode
-                                           global-semantic-show-parser-state-mode))
-   '(semantic-mode t)
-   '(show-paren-context-when-offscreen 'overlay)
-   '(show-paren-delay 0)
-   '(show-paren-style 'mixed)
-   '(standard-indent 2)
-   '(tab-width 2)
-   '(text-mode-hook '(text-mode-hook-identify))
-   '(treesit-fold-line-count-format " %d lines ")
-   '(treesit-fold-line-count-show t)
-   '(treesit-fold-on-next-line t)
-   '(treesit-fold-summary-show nil)
-   '(treesit-font-lock-level 4)
-   '(use-package-check-before-init t)
-   '(utop-load-packages-without-asking t)
-   '(vc-make-backup-files t)
-   '(warning-suppress-types '((treesit) (treesit)))
-   '(which-function-mode t))
+    (custom-set-variables
+     ;; custom-set-variables was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     '(abbrev-suggest t)
+     '(align-indent-before-aligning t)
+     '(auto-image-file-mode t)
+     '(case-fold-search t)
+     '(column-number-mode t)
+     '(compilation-ask-about-save t)
+     '(context-menu-mode t)
+     '(ctl-arrow nil)
+     '(diff-default-read-only nil)
+     '(diff-mode-hook '(diff-delete-empty-files diff-make-unified))
+     '(dired-kept-versions 5)
+     '(display-raw-bytes-as-hex t)
+     '(electric-pair-skip-whitespace-chars '(32 9 10))
+     '(fancy-splash-image nil)
+     '(find-file-hook
+       '(mode-local-post-major-mode-change url-handlers-set-buffer-mode
+                                           epa-file-find-file-hook
+                                           vc-refresh-state
+                                           ede-turn-on-hook))
+     '(fringe-mode 6 nil (fringe))
+     '(gdb-debug-log-max nil)
+     '(gdb-debuginfod-enable-setting t)
+     '(gdb-enable-debug t)
+     '(gdb-many-windows t)
+     '(ggtags-global-output-format 'ctags)
+     '(ggtags-mode-prefix-key [3])
+     '(global-ede-mode t)
+     '(global-semantic-decoration-mode nil)
+     '(global-semantic-highlight-edits-mode t)
+     '(global-semantic-highlight-func-mode t)
+     '(global-semantic-idle-breadcrumbs-mode t nil (semantic/idle))
+     '(global-semantic-idle-completions-mode t nil (semantic/idle))
+     '(global-semantic-idle-local-symbol-highlight-mode t nil (semantic/idle))
+     '(global-semantic-idle-summary-mode t)
+     '(global-semantic-mru-bookmark-mode t)
+     '(global-semantic-show-parser-state-mode t)
+     '(global-semantic-show-unmatched-syntax-mode t)
+     '(global-semantic-stickyfunc-mode t)
+     '(global-tab-line-mode t)
+     '(grep-highlight-matches 'always)
+     '(gud-key-prefix [24 1])
+     '(gud-tooltip-mode t)
+     '(image-load-path
+       '(data-directory load-path " ~/Pictures/" " ~/emacs/"))
+     '(imenu-auto-rescan t)
+     '(indent-tabs-mode nil)
+     '(initial-scratch-message nil)
+     '(ispell-check-comments nil)
+     '(ispell-dictionary nil)
+     '(ispell-following-word t)
+     '(ispell-silently-savep t)
+     '(kept-new-versions 5)
+     '(kept-old-versions 5)
+     '(linum-format 'dynamic)
+     '(package-selected-packages
+       '( auto-header
+          auto-virtualenv c-eldoc demangle-mode disaster
+          context-coloring utop ejc-sql emacsql sql-indent
+          flycheck-clang-analyzer flycheck-clangcheck
+          flycheck-cython flycheck-ocaml
+          flycheck-pycheckers ggtags git
+          git-auto-commit-mode git-backup git-blamed
+          magit-annex magit-commit-mark magit-delta
+          magit-file-icons magit-find-file magit-gh-pulls
+          magit-gitlab magit-org-todos magit-todos
+          highlight idlwave indent-guide gh-md vmd-mode
+          flymd org-sql pdf-tools prism
+          pydoc python python-mode elpy anaconda-mode
+          treemacs-magit undo-tree yasnippet-snippets))
+     '(prog-mode-hook '( abbrev-mode))
+     '(py-auto-complete-p t)
+     '(py-auto-fill-mode nil)
+     '(py-beep-if-tab-change nil)
+     '(py-docstring-style 'django)
+     '(py-indent-tabs-mode nil)
+     '(python-indent-offset 4)
+     '(python-shell-completion-native-disabled-interpreters nil)
+     '(scalable-fonts-allowed t)
+     '(semantic-complete-inline-analyzer-displayer-class 'semantic-displayer-tooltip)
+     '(semantic-default-submodes
+       '(global-semantic-highlight-func-mode global-semantic-stickyfunc-mode
+                                             global-semantic-idle-completions-mode
+                                             global-semantic-idle-scheduler-mode
+                                             global-semanticdb-minor-mode
+                                             global-semantic-idle-summary-mode
+                                             global-semantic-mru-bookmark-mode
+                                             global-semantic-idle-local-symbol-highlight-mode
+                                             global-semantic-highlight-edits-mode
+                                             global-semantic-show-unmatched-syntax-mode
+                                             global-semantic-show-parser-state-mode))
+     '(semantic-mode t)
+     '(show-paren-context-when-offscreen 'overlay)
+     '(show-paren-delay 0)
+     '(show-paren-style 'mixed)
+     '(standard-indent 2)
+     '(tab-width 2)
+     '(text-mode-hook '(text-mode-hook-identify))
+     '(treesit-fold-line-count-format " %d lines ")
+     '(treesit-fold-line-count-show t)
+     '(treesit-fold-on-next-line t)
+     '(treesit-fold-summary-show nil)
+     '(treesit-font-lock-level 4)
+     '(use-package-check-before-init t)
+     '(utop-load-packages-without-asking t)
+     '(vc-make-backup-files t)
+     '(warning-suppress-types '((treesit) (treesit)))
+     '(which-function-mode t))
 
-  (setq require-final-newline t)
+    (setq require-final-newline t)
 
-  ;;(require 'python-mode)
-  (require 'url-handlers)
-  (custom-set-faces
-   ;; custom-set-faces was added by Custom.
-   ;; If you edit it by hand, you could mess it up, so be careful.
-   ;; Your init file should contain only one such instance.
-   ;; If there is more than one, they won't work right.
-   '(treesit-fold-replacement-face ((t (:foreground "#808080" :box (:line-width (1 . -1) :style pressed-button))))))
+    ;;(require 'python-mode)
+    (require 'url-handlers)
+    (custom-set-faces
+     ;; custom-set-faces was added by Custom.
+     ;; If you edit it by hand, you could mess it up, so be careful.
+     ;; Your init file should contain only one such instance.
+     ;; If there is more than one, they won't work right.
+     '(treesit-fold-replacement-face ((t (:foreground "#808080" :box (:line-width (1 . -1) :style pressed-button))))))
 
-  (setq gud-gdb-command-name "gdb -i=mi")
+    (setq gud-gdb-command-name "gdb -i=mi")
+
+    ;; all 3 are from http://whattheemacsd.com
+    (global-set-key (kbd "M-j")
+              (lambda ()
+                    (interactive)
+                    (join-line -1)))
+
+    (defun delete-current-buffer-file ()
+    "Removes file connected to current buffer and kills buffer."
+    (interactive)
+    (let ((filename (buffer-file-name))
+          (buffer (current-buffer))
+          (name (buffer-name)))
+      (if (not (and filename (file-exists-p filename)))
+          (ido-kill-buffer)
+        (when (yes-or-no-p "Are you sure you want to remove this file? ")
+          (delete-file filename)
+          (kill-buffer buffer)
+          (message "File '%s' successfully removed" filename)))))
+
+  (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
+
+  (defun rename-current-buffer-file ()
+  "Renames current buffer and file it is visiting."
+  (interactive)
+  (let ((name (buffer-name))
+        (filename (buffer-file-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (error "Buffer '%s' is not visiting a file!" name)
+      (let ((new-name (read-file-name "New name: " filename)))
+        (if (get-buffer new-name)
+            (error "A buffer named '%s' already exists!" new-name)
+          (rename-file filename new-name 1)
+          (rename-buffer new-name)
+          (set-visited-file-name new-name)
+          (set-buffer-modified-p nil)
+          (message "File '%s' successfully renamed to '%s'"
+                   name (file-name-nondirectory new-name)))))))
+
+(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 #+end_src
 *** ARXIV !
 #+begin_src elisp :tangle "yes"
