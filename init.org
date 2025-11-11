@@ -1802,6 +1802,7 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package toc-org
+    :after org
     :ensure (toc-org :host github :repo "snosov1/toc-org")
     :hook (((org-mode markdown-mode) . toc-org-mode)
            (toc-org-mode . (lambda () (toc-org-insert-toc))))
@@ -1824,7 +1825,9 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 **** Config
 #+begin_src elisp :tangle "yes"
   (use-package org-modern
+    :after org
     :ensure (org-modern :host github :repo "minad/org-modern")
+    :hook (org-mode . org-modern-mode)
     :custom
     (org-modern-progress 40))
 #+end_src
@@ -1910,5 +1913,6 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package org-popup-posframe
+    :after org
     :ensure (org-popup-posframe :host github :repo "A7R7/org-popup-posframe"))
 #+end_src
