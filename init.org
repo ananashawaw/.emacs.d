@@ -1311,10 +1311,10 @@ TODO :
                                                                        c-lineup-string-cont
                                                                        c-lineup-cascaded-calls
                                                                        c-lineup-ternary-bodies
-                                                                       c-lineup-arglist-operators
+                                                                       c-lineup-arglist
                                                                        c-lineup-assignments
                                                                        (add c-lineup-argcont -2)
-                                                                       c-lineup-arglist
+                                                                       c-lineup-arglist-operators
                                                                        c-lineup-arglist-close-under-paren
                                                                        c-lineup-arglist))
                                              (arglist-close . (first
