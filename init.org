@@ -47,7 +47,9 @@
       - [[#pink-bliss-uwu-][Pink Bliss UwU !]]
       - [[#shades-of-purple][Shades Of Purple]]
       - [[#girly-notebook][Girly Notebook]]
-    - [[#screenshots][Screenshots]]
+    - [[#screenshots-][Screenshots !]]
+      - [[#svg][SVG]]
+      - [[#screenshotel-][screenshot.el !]]
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
   - [[#programming-languages-][Programming Languages !]]
     - [[#c-][C !]]
@@ -1022,7 +1024,8 @@ Not used but, it looks very good with the fonts, and it can be a great source of
     :config
     (load-theme 'girly-notebook t t))
 #+end_src
-*** Screenshots
+*** Screenshots !
+**** SVG
 #+begin_src elisp :tangle "yes"
   (defun screenshot-svg ()
     "Save a screenshot of the current frame as an SVG image.
@@ -1034,6 +1037,11 @@ Not used but, it looks very good with the fonts, and it can be a great source of
         (insert data))
       (kill-new filename)
       (message filename)))
+#+end_src
+**** screenshot.el !
+#+begin_src elisp :tangle "yes"
+  (use-package screenshot
+    :ensure (screenshot :host github :repo "tecosaur/screenshot"))
 #+end_src
 *** Consult + Vertico + embark
 https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8fa5147a14c/consult-tex.el
