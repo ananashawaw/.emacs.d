@@ -1,0 +1,39 @@
+* Table of contents                                                     :TOC:
+- [[#graveyard][Graveyard]]
+  - [[#programming-languages][Programming Languages]]
+    - [[#ocaml][Ocaml]]
+      - [[#dune-format][Dune-format]]
+        - [[#reformatter-dependency-of-dune-format][Reformatter (dependency of dune-format)]]
+        - [[#config][config]]
+
+* Graveyard
+** Programming Languages
+*** Ocaml
+**** Dune-format
+***** Reformatter (dependency of dune-format)
+:EMACS: 24.3
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: c52e91d5438b9bf16b77b4384822e254f10a6b0a
+:END:
+#+begin_src elisp :tangle "yes"
+  (use-package reformatter
+    :ensure (reformatter :host github :repo "purcell/emacs-reformatter"))
+#+end_src
+***** config
+:PROPERTIES:
+:EMACS: 24.3
+:REQ_EXT: Dune
+:REQ_INT: ("reformatter" "0.6")
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: 40e103044cd74bd19bb37da5ffabcafc2cf72b1d
+:END:
+#+begin_src elisp :tangle "yes"
+  (use-package dune-format
+    :ensure (dune-format :host github :repo "purcell/emacs-dune-format")
+    :hook (dune-mode . dune-format-on-save-mode))
+#+end_src
+

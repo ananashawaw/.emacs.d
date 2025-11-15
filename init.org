@@ -86,7 +86,6 @@
       - [[#merlin-][Merlin !]]
       - [[#merlin-eldoc-][Merlin-Eldoc !]]
       - [[#dune-][Dune !]]
-      - [[#dune-format-][Dune-format !]]
       - [[#merlin-iedit][Merlin-Iedit]]
       - [[#ocamlformat-][Ocamlformat !]]
       - [[#utop-][Utop !]]
@@ -1676,13 +1675,6 @@ external : merlin (opam install merlin
   (use-package dune
     :ensure (dune :host github :repo "ocaml/dune"
                   :files ("editor-integration/emacs/dune.el" "editor-integration/emacs/dune-watch.el")))
-#+end_src
-**** Dune-format !
-#+begin_src elisp :tangle "yes"
-  ;; fully done, reformatter not configured manually tho
-  (use-package dune-format
-    :ensure (dune-format :host github :repo "purcell/emacs-dune-format")
-    :hook (dune-mode . dune-format-on-save-mode))
 #+end_src
 **** Merlin-Iedit
 :PROPERTIES:
