@@ -745,14 +745,12 @@ yaml : npm install -g yaml-language-server
   (defun delete-current-buffer-file ()
     "Removes file connected to current buffer and kills buffer."
     (interactive)
-    (let ((filename (buffer-file-name))
-          (buffer (current-buffer))
-          (name (buffer-name)))
+    (let ((filename (buffer-file-name)))
       (if (not (and filename (file-exists-p filename)))
           (ido-kill-buffer)
         (when (yes-or-no-p "Are you sure you want to remove this file? ")
             (delete-file filename)
-            (kill-buffer buffer)
+            (kill-buffer 'current-buffer)
             (message "File '%s' successfully removed" filename)))))
 
   (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
@@ -1773,7 +1771,7 @@ yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
 #+begin_src elisp :tangle "yes"
   (use-package yaml-pro
     :ensure (yaml-pro :host github :repo "zkry/yaml-pro")
-                                          ;:hook ((yaml-mode yaml-ts-mode) . yaml-pro-ts-mode)
+    ;;:hook ((yaml-mode yaml-ts-mode) . yaml-pro-ts-mode)
     :custom
     (yaml-pro-indent (if (boundp 'yaml-indent-offset)  yaml-indent-offset 4))
     (yaml-pro-max-parse-size 5000)
