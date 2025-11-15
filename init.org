@@ -103,6 +103,7 @@
         - [[#gradle-installation][Gradle Installation]]
         - [[#gradle-mode][Gradle-mode]]
       - [[#jdtls][JDTLS]]
+      - [[#javadoc-lookup-][Javadoc-lookup !]]
     - [[#ebuilds-][Ebuilds !]]
   - [[#org-][Org !]]
     - [[#toc-org][toc-org]]
@@ -1845,6 +1846,22 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
   # you could also use, say, bash.profile, the important part is for it to be in your path.
   source .bashrc
   # Same comment as above. You could also just restart the shell.
+#+end_src
+**** Javadoc-lookup !
+:PROPERTIES:
+:EMACS: Unspecified
+:REQ_EXT: Maven, Java with doc
+:REQ_INT: ("cl-lib" "0.3")
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: ...
+:END:
+#+begin_src elisp :tangle "yes"
+  (use-package javadoc-lookup
+    :ensure (javadoc-lookup :host github :repo "skeeto/javadoc-lookup")
+    :config
+    ;;(javadoc-add-roots "/usr/share/doc/openjdk-*/api");; maybe need more work to make sure we locate it.
+    )
 #+end_src
 *** Ebuilds !
 #+begin_src elisp :tangle "yes"
