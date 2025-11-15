@@ -34,6 +34,8 @@
     - [[#arxiv-][ARXIV !]]
     - [[#treesit-][treesit !]]
     - [[#novice][Novice]]
+    - [[#dired][Dired]]
+      - [[#dired-auto-readme][dired-auto-readme]]
     - [[#copy-on-wayland-][Copy on wayland !]]
   - [[#visuals-][Visuals !]]
     - [[#page-break-lines][Page Break Lines]]
@@ -829,6 +831,23 @@ yaml : npm install -g yaml-language-server
     :custom
     (disabled-command-function nil))
 #+end_src
+*** Dired
+**** dired-auto-readme
+:PROPERTIES:
+:EMACS: 29.1
+:REQ_EXT: None
+:REQ_INT: Dired, ("markdown-mode" "2.5")
+:OPT_EXT: None
+:OPT_INT: Org-mode
+:LASTCHECKED: 86a9fd7636da722a587294a06b3a2180d766605e
+:END:
+#+begin_src elisp :tangle "yes"
+    (use-package dired-auto-readme
+      :ensure (dired-auto-readme :host github :repo "amno1/dired-auto-readme")
+      :hook (dired-mode . dired-auto-readme-mode)
+      :custom
+      (dired-auto-readme-separator "\f\n"))
+#+end_src
 *** Copy on wayland !
 need wl-clipboard for it .
 #+begin_src elisp :tangle (if (equal (getenv "XDG_SESSION_TYPE") "wayland") "yes" "no")
@@ -866,7 +885,8 @@ We mainly use it with dashboard, but it can look good in other buffers.
     :custom
     (page-break-lines-char ?─)
     (page-break-lines-lighter "^L")
-    (page-break-lines-modes '(prog-mode text-mode special-mode)))
+    (page-break-lines-modes '(prog-mode text-mode special-mode dired-auto-readme-mode)))
+#+end_src
 #+end_src
 *** Dashboard !
 TODO : Finish navigator and face customization.
