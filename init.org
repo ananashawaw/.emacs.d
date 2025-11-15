@@ -90,7 +90,6 @@
       - [[#ocamlformat-][Ocamlformat !]]
       - [[#utop-][Utop !]]
         - [[#faces-utop-][Faces utop :]]
-      - [[#learn-ocaml-][Learn-ocaml !]]
     - [[#coq-][Coq !]]
       - [[#proof-general-][Proof General !]]
     - [[#lolcode][Lolcode]]
@@ -1660,10 +1659,18 @@ external : merlin (opam install merlin
     (merlin-eldoc-skip-on-merlin-error nil))
 #+end_src
 **** Dune !
+:PROPERTIES:
+:EMACS: Unspecified
+:REQ_EXT: Dune
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: 663ba13b5e11c1dc1058b93bcc6e5005a0adb70f Dune.el
+:END:
 #+begin_src elisp :tangle "yes"
-  ;; gotta do the dune-watch
+  ;; gotta do the faces
   (use-package dune
-    :ensure (dune :host github :repo "ocaml/dune" :pin t ;; we pin because it has too much activity unrelated
+    :ensure (dune :host github :repo "ocaml/dune"
                   :files ("editor-integration/emacs/dune.el" "editor-integration/emacs/dune-watch.el")))
 #+end_src
 **** Dune-format !
@@ -1690,10 +1697,10 @@ external : merlin (opam install merlin
 **** Ocamlformat !
 #+begin_src elisp :tangle "yes"
   (use-package ocamlformat
-    :ensure t
-    :disabled
+    :ensure (ocamlformat :host github :repo "ocaml-ppx/ocamlformat")
     :hook (before-save . ocamlformat-before-save)
-    :custom (ocamlformat-enable 'enable-outside-detected-project))
+    :custom
+    (ocamlformat-enable 'enable-outside-detected-project))
 #+end_src
 **** Utop !
 #+begin_src elisp :tangle "yes"
@@ -1723,12 +1730,6 @@ external : merlin (opam install merlin
   '((t (:foreground "#ff4040" :bold t :underline t)))
   "The face used to highlight errors in phrases.")
 #+end_comment
-**** Learn-ocaml !
-I only need to customize the face, but it is only available on x86_64.
-#+begin_src elisp :tangle "no"
-  (use-package learn-ocaml
-    :ensure (learn-ocaml :host github :repo "pfitaxel/learn-ocaml.el"))
-#+end_src
 *** Coq !
 **** Proof General !
 TODO : CONFIGURE
