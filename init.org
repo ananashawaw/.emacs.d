@@ -39,6 +39,7 @@
     - [[#copy-on-wayland-][Copy on wayland !]]
   - [[#visuals-][Visuals !]]
     - [[#page-break-lines][Page Break Lines]]
+    - [[#trailing-spaces-][Trailing spaces !]]
     - [[#dashboard-][Dashboard !]]
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
@@ -887,6 +888,10 @@ We mainly use it with dashboard, but it can look good in other buffers.
     (page-break-lines-lighter "^L")
     (page-break-lines-modes '(prog-mode text-mode special-mode dired-auto-readme-mode)))
 #+end_src
+*** Trailing spaces !
+#+begin_src elisp :tangle "yes"
+  (use-package trailing-newline-indicator
+    :ensure (trailing-newline-indicator :host github :repo "saulotoledo/trailing-newline-indicator"))
 #+end_src
 *** Dashboard !
 TODO : Finish navigator and face customization.
