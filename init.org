@@ -1605,7 +1605,7 @@ Would need to see the overlaps between say, this, and  [[Opam-Switch !]].
 #+begin_src elisp :tangle "yes"
   ;; to configure
   (use-package caml
-    :ensure (caml-mode :host github :repo "ocaml/caml-mode" :main "caml.el")
+    :ensure (caml :host github :repo "ocaml/caml-mode" :main "caml.el")
     :custom
     (caml-imenu-enable t)
     (caml-electric-indent t)
@@ -1630,7 +1630,6 @@ Requirement : ((emacs "25.1"))
 ;; caml-types for highlighting
 ;; (https://github.com/ocaml/merlin/issues/331)
 (require 'caml-types nil 'noerror)
-
 #+begin_src elisp :tangle "yes"
   (use-package merlin
     :ensure (merlin :host github :repo "ocaml/merlin" :branch "main" :depth treeless
@@ -1994,12 +1993,13 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :PROPERTIES:
 :EMACS: 28.1
 :REQ_EXT: None
-:REQ_INT: ("postframe" "1.4.2"), Org-mode
+:REQ_INT: ("posframe" "1.4.2"), Org-mode
 :OPT_EXT: None
 :OPT_INT: None
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package org-popup-posframe
     :after org
-    :ensure (org-popup-posframe :host github :repo "A7R7/org-popup-posframe"))
+    :ensure (org-popup-posframe :host github :repo "A7R7/org-popup-posframe")
+    :hook (org-mode . org-popup-posframe-mode))
 #+end_src
