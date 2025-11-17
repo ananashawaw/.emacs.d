@@ -84,7 +84,7 @@
       - [[#caml-][Caml !]]
       - [[#tuareg-][Tuareg !]]
       - [[#merlin-][Merlin !]]
-      - [[#merlin-eldoc-][Merlin-Eldoc !]]
+      - [[#merlin-eldoc][Merlin-Eldoc]]
       - [[#dune][Dune]]
       - [[#merlin-iedit][Merlin-Iedit]]
       - [[#ocamlformat-][Ocamlformat !]]
@@ -1649,13 +1649,20 @@ Requirement : ((emacs "25.1"))
     (merlin-default-flags '("-strict-sequence" "-strict-formats"))
     (merlin-cache-lifespan 15))
 #+end_src
-**** Merlin-Eldoc !
-Package-Requires: ((emacs "24.4") (merlin "3.0")) eldoc
-internal packages : subr-x, cl-lib, newcomment
-external : merlin (opam install merlin
+**** Merlin-Eldoc
+:PROPERTIES:
+:EMACS: 24.4
+:REQ_EXT: ("merlin" "3.0"), Ocaml
+:REQ_INT: Eldoc
+:OPT_EXT: None
+:OPT_INT: Caml-mode, Tuareg-mode
+:LASTCHECKED: bf8edc63d85b35e4def352fa7ce4ea39f43e1fd8
+:END:
 #+begin_src elisp :tangle "yes"
   (use-package merlin-eldoc
-    :ensure (:wait t)
+    :after (:all eldoc caml-mode tuareg-mode)
+    :ensure (merlin-eldoc :host github :repo "Khady/merlin-eldoc")
+    :hook ((caml-mode tuareg-mode) . merlin-eldoc-setup)
     :custom
     (merlin-eldoc-delimiter " | ")
     (merlin-eldoc-truncate-marker "(...)")
