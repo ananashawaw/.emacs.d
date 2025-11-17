@@ -85,7 +85,7 @@
       - [[#tuareg-][Tuareg !]]
       - [[#merlin-][Merlin !]]
       - [[#merlin-eldoc-][Merlin-Eldoc !]]
-      - [[#dune-][Dune !]]
+      - [[#dune][Dune]]
       - [[#merlin-iedit][Merlin-Iedit]]
       - [[#ocamlformat-][Ocamlformat !]]
       - [[#utop-][Utop !]]
@@ -1661,17 +1661,16 @@ external : merlin (opam install merlin
     (merlin-eldoc-truncate-marker "(...)")
     (merlin-eldoc-skip-on-merlin-error nil))
 #+end_src
-**** Dune !
+**** Dune
 :PROPERTIES:
 :EMACS: Unspecified
 :REQ_EXT: Dune
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
-:LASTCHECKED: 663ba13b5e11c1dc1058b93bcc6e5005a0adb70f Dune.el
+:LASTCHECKED: 663ba13b5e11c1dc1058b93bcc6e5005a0adb70f dune/editor-integration/emacs
 :END:
 #+begin_src elisp :tangle "yes"
-  ;; gotta do the faces
   (use-package dune
     :ensure (dune :host github :repo "ocaml/dune"
                   :files ("editor-integration/emacs/dune.el" "editor-integration/emacs/dune-watch.el")))
