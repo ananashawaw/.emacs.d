@@ -56,7 +56,7 @@
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
   - [[#programming-languages-][Programming Languages !]]
     - [[#c-][C !]]
-      - [[#clangd-][Clangd !]]
+      - [[#clangd][Clangd]]
       - [[#test-c][Test-c]]
         - [[#notes][Notes]]
         - [[#config-2][Config]]
@@ -1086,16 +1086,24 @@ https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8
 #+end_src
 ** Programming Languages !
 *** C !
-**** Clangd !
-(need to check for all build options.
+**** Clangd
 #+begin_src shell :tangle "no"
   git clone --depth 1 https://github.com/llvm/llvm-project.git
   mkdir ~/.cache/llvm # just any dest basically
   cd ~/.cache/llvm
-  cmake ~/llvm-project/llvm/ -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld" -DCMAKE_BUILD_TYPE=Release
+  cmake ~/llvm-project/llvm/ -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld;polly"\
+        -DCMAKE_BUILD_TYPE=Debug\
+        -LLVM_BUILD_TOOLS=ON\
+        -LLVM_ENABLE_BINDINGS=ON\
+        -LLVM_ENABLE_FFI=ON\
+        -LLVM_OPTIMIZED_TABLEGEN=ON
+  # LLVM_BUILD_TOOLS defaults to ON
+  # LLVM_ENABLE_BINDINGS defaults to ON
+  # LLVM_OPTIMIZED_TABLEGEN is to speed up build time
+  # we don't really need polly, it's just for optimization.
   # if lld is already installed, add -DLLVM_USE_LINKER=lld
   cd
-  cmake --build ~/.cache/llvm #SLOW
+  cmake --build ~/.cache/llvm #VERY VERY SLOW
 #+end_src
 **** Test-c
 :PROPERTIES:
