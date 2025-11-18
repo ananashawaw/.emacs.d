@@ -948,12 +948,12 @@ TODO : Finish navigator and face customization.
 :REQ_EXT: None
 :REQ_INT: ("compat" "30.1.0.0")
 :OPT_EXT: None
-:OPT_INT: 09265f91c8ca77cde06c8f9af6923c9d149f1b81
+:OPT_INT: 2fec39aba7bb705c3a027c51425ba0747126042e
 :END:
 face : colorful-base, proposal : remove the bold.
 #+begin_src elisp :tangle "yes"
   (use-package colorful-mode
-    :ensure t
+    :ensure (colorful-mode :host github :repo "DevelopmentCool2449/colorful-mode")
     :config
     (global-colorful-mode t)
     (global-unset-key (kbd "C-x c x"))
