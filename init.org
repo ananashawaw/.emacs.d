@@ -106,6 +106,7 @@
       - [[#javadoc-lookup-][Javadoc-lookup !]]
     - [[#ebuilds-][Ebuilds !]]
   - [[#org-][Org !]]
+    - [[#org][org]]
     - [[#toc-org][toc-org]]
     - [[#org-modern-][org-modern !]]
       - [[#config-3][Config]]
@@ -1877,6 +1878,14 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 :OPT_INT: None
 :LASTCHECKED: None
 :END:
+*** org
+#+begin_src elisp :tangle "yes"
+  (use-package org
+    :ensure nil
+    :demand t
+    :config
+    (org-mode-restart))
+#+end_src
 *** toc-org
 :PROPERTIES:
 :EMACS: Unspecified
