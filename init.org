@@ -18,6 +18,7 @@
       - [[#magit--1][Magit !]]
       - [[#magit-commit-mark-][Magit commit mark !]]
       - [[#magit-others-][Magit others !]]
+      - [[#magit-find-file][Magit find file]]
     - [[#eshell-][Eshell !]]
       - [[#general-][General !]]
           - [[#em-dirsel-][em-dirs.el !]]
@@ -428,7 +429,6 @@ Need to customize these faces.
     :ensure (forge :host github :repo "magit/forge")
     )
 #+end_src
-
 **** Magit commit mark !
 A CONFIG
 #+begin_src elisp :tangle "yes"
@@ -441,11 +441,23 @@ TODO :
   https://github.com/magit/git-modes/tree/main
   https://github.com/alphapapa/magit-todos/tree/master
   https://github.com/magit/orgit-forge/tree/main
-  https://github.com/bradwright/magit-find-file.el/tree/master
   https://github.com/magit/magit-annex/tree/master
-  https://github.com/magit/magit-popup/tree/master
   https://github.com/magit/orgit/tree/main
   https://github.com/sigma/magit-gh-pulls/tree/master
+#+end_src
+**** Magit find file
+:PROPERTIES:
+:EMACS: Unspecified
+:REQ_EXT: None
+:REQ_INT: ("magit" "2.1.0"), ("dash" "2.8.0")
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: c3ea91bab37d10a814a829728ec972811f728d60
+:END:
+#+begin_src elisp :tangle "yes"
+  (use-package magit-find-file
+    :ensure (magit-find-file :host github :repo "bradwright/magit-find-file.el")
+    :bind ("C-c p" . magit-find-file-completing-read))
 #+end_src
 *** Eshell !
 :PROPERTIES:
