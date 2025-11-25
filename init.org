@@ -78,7 +78,7 @@
       - [[#tex-parens-][tex-parens !]]
       - [[#latex-table-wizard-][latex-table-wizard !]]
       - [[#preview-latex-][preview-latex !]]
-      - [[#texlab-lsp-][Texlab (LSP) !]]
+      - [[#texlab-lsp][Texlab (LSP)]]
     - [[#ocaml-][OCAML !]]
       - [[#opam][Opam]]
       - [[#opam-switch][Opam-Switch]]
@@ -1596,14 +1596,17 @@ need to custom faces
   (use-package px
     :ensure (px :host github :repo "aaptel/preview-latex"))
 #+end_src
-**** Texlab (LSP) !
+**** Texlab (LSP)
 Needs Cargo, if outdated do : "rustup update"
 #+begin_src shell :tangle "no"
-  git clone https://github.com/latex-lsp/texlab.git ~/.cache/texlab # could be another dest but this is a practical one.
-  cd ~/.cache/texlab
-  cargo build --release # Remove the --release for a debug build.
+  export DEST= ...
+  # {DEST} could be ~/.cache/texlab for example.
+  git clone https://github.com/latex-lsp/texlab.git $(DEST)
+  cd $(DEST)
+  cargo build --release
+  # Remove the --release for a debug build.
   # Add it to path by modifying .bashrc or .profile or smth,
-  #it'd look like : export PATH=$PATH:~/.cache/texlab/target/release
+  echo "export PATH=$PATH:$(DEST)/target/release" >> .bashrc
 #+end_src
 *** OCAML !
 **** Opam
