@@ -23,8 +23,8 @@
           - [[#em-dirsel-][em-dirs.el !]]
           - [[#em-basicel-][em-basic.el !]]
       - [[#config--1][Config !]]
-      - [[#eloginel-][elogin.el !]]
-      - [[#eprofileel-][eprofile.el !]]
+      - [[#eloginel][elogin.el]]
+      - [[#eprofileel][eprofile.el]]
     - [[#yasnippets-][Yasnippets !]]
     - [[#eldoc-][Eldoc !]]
     - [[#lsp-bridge-][LSP-bridge !]]
@@ -238,7 +238,7 @@ None, elpaca has very sane defaults.
 #+begin_src elisp :tangle "yes"
   (use-package with-editor
     :ensure (with-editor :host github :repo "magit/with-editor")
-    :hook (eshell-mode . with-editor-export-editor) ;; should this be defined in eshell instead?
+    :hook (eshell-mode . with-editor-export-editor)
     :config
     (shell-command-with-editor-mode)
     :custom
@@ -448,6 +448,14 @@ TODO :
   https://github.com/sigma/magit-gh-pulls/tree/master
 #+end_src
 *** Eshell !
+:PROPERTIES:
+:EMACS: Built-in
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: c1e8fc3069ca43a34ee5af845e47bc9cfbf8a877 lisp/eshell
+:END:
 TODO : CUSTOMIZE FACES.
 **** General !
 When Eshell first starts, it reads and excute the files `eshell-login-script` and `eshell-rc-script`.
@@ -468,16 +476,16 @@ An Eshell module is defined the same as any other library but with two additiona
     :demand t
     :custom
     ;; em-cmpl.el
-    (eshell-show-lisp-completions nil) ; t would be too laggy and verbose
+    (eshell-show-lisp-completions nil) ; t would be too laggy and verbose.
     ;; em-dirs.el
     (eshell-pushd-tohome t)
     (eshell-pushd-dextract t)
     (eshell-pushd-dunique t)
     ;; em-glob.el
     (eshell-glob-include-dot-files t)
-    (eshell-glob-include-dot-dot t) ; idk
+    (eshell-glob-include-dot-dot nil) ; if t, then grep and the alike, using -r, will grep outside of specified directory !
     ;; em-ls.el
-    (eshell-ls-exclude-hidden nil) ; We already are using -A and -a, but we keep that in case, note that -A overrides this, so it won't show .. and .
+    (eshell-ls-exclude-hidden nil) ; We already are using -A and -a, but we keep that in case, note that -A overrides this, so it won't show ".." or "." 
     (eshell-ls-initial-args "-Ah")
     (eshell-ls-dired-initial-args "-ah")
     (eshell-ls-use-in-dired t)
@@ -514,11 +522,11 @@ An Eshell module is defined the same as any other library but with two additiona
                            ;; eshell-xtra ;; I don't use these aliases.
                            eshell-unix)))
 #+end_src
-**** elogin.el !
+**** elogin.el
 #+begin_src elisp :tangle eshell/elogin.el
   echo "Welcome, My Queen, to your, oh so marvelous, Emacs Shell instance.\nWhat are *Her Highness* directives on this fine day ?\n"
 #+end_src
-**** eprofile.el !
+**** eprofile.el
 #+begin_src elisp :tangle eshell/eprofile.el
 #+end_src
 *** Yasnippets !
