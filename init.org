@@ -128,7 +128,7 @@
 :OPT_INT: None
 :LASTCHECKED: None
 :END:
-We have to turn off `Package.el` because it'll autoload all packages, which goes against elpaca's methodology.
+We have to turn off `Package.el` because it'll autoload all packages, which is pretty terrible.
 #+begin_src elisp :tangle "yes"
   ;; -*- lexical-binding: t; -*-
   (setq package-enable-at-startup nil)
@@ -222,9 +222,8 @@ None, elpaca has very sane defaults.
 #+begin_src elisp :tangle "yes"
   (use-package benchmark-init
     :ensure t
-    :config
-    ;; To disable collection of benchmark data after init is done.
-    (add-hook 'after-init-hook 'benchmark-init/deactivate))
+    ;; To disable collection of benchmark data after init is done
+    :hook ((after-init . benchmark-init/deactivate)))
 #+end_src
 *** Magit !
 **** With-Editor
@@ -575,9 +574,19 @@ When running latest (no need to upgrade eldoc)
     (global-eldoc-mode))
 #+end_src
 *** LSP-bridge !
-Install Python dependencies: pip3 install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
-for cargo : curl https://sh.rustup.rs -sSf | sh
-yaml : npm install -g yaml-language-server
+Install Python dependencies:
+#+begin_src shell :tangle "no"
+  pip3 install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
+#+end_src
+for cargo :
+#+begin_src shell :tangle "no"
+  curl https://sh.rustup.rs -sSf | sh
+#+end_src
+yaml :
+#+begin_src shell :tangle "no"
+npm install -g yaml-language-server
+#+end_src
+Code :
 #+begin_src elisp :tangle "yes"
   (use-package lsp-bridge
     :ensure '(lsp-bridge
@@ -1093,7 +1102,6 @@ Not used but, it looks very good with the fonts, and it can be a great source of
     :ensure (screenshot :host github :repo "tecosaur/screenshot"))
 #+end_src
 *** Consult + Vertico + embark
-https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8fa5147a14c/consult-tex.el
 #+begin_src elisp :tangle "no"
   ;; todo
   (use-package consult
@@ -1114,10 +1122,13 @@ https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8
 *** C !
 **** Clangd
 #+begin_src shell :tangle "no"
-  git clone --depth 1 https://github.com/llvm/llvm-project.git
-  mkdir ~/.cache/llvm # just any dest basically
-  cd ~/.cache/llvm
-  cmake ~/llvm-project/llvm/ -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld;polly"\
+  export DESTCLONE = ...
+  # Example : ~/llvm/llvm-project
+  export DESTBUILD = ...
+  # Example : ~/.cache/llvm
+  git clone --depth 1 https://github.com/llvm/llvm-project.git $(DESTCLONE)
+  cd $(DESTBUILD)
+  cmake $(DESTCLONE) -DLLVM_ENABLE_PROJECTS="clang;clang-tools-extra;lld;polly"\
         -DCMAKE_BUILD_TYPE=Debug\
         -LLVM_BUILD_TOOLS=ON\
         -LLVM_ENABLE_BINDINGS=ON\
@@ -1126,10 +1137,10 @@ https://gitlab.com/titus.pinta/consult-tex/-/blob/546e4b16a3f98fa1d4d440acb158b8
   # LLVM_BUILD_TOOLS defaults to ON
   # LLVM_ENABLE_BINDINGS defaults to ON
   # LLVM_OPTIMIZED_TABLEGEN is to speed up build time
-  # we don't really need polly, it's just for optimization.
-  # if lld is already installed, add -DLLVM_USE_LINKER=lld
+  # We don't really need polly, it's just for optimization.
+  # If lld is already installed, add -DLLVM_USE_LINKER=lld
   cd
-  cmake --build ~/.cache/llvm #VERY VERY SLOW
+  cmake --build $(DESTBUILD) #VERY VERY SLOW (about 20 hours on laptop).
 #+end_src
 **** Test-c
 :PROPERTIES:
@@ -1619,7 +1630,7 @@ Needs Cargo, if outdated do : "rustup update"
 :LASTCHECKED: 4d589de5765728f56af7078fae328b6792de8600
 :END:
 Idea : Take ownership of the repo (it is orphaned), and make it a real opam repo instead of just a script for init ?
-Would need to see the overlaps between say, this, and  [[Opam-Switch !]].
+Would need to see the overlaps between say, this, and  [[Opam-Switch]].
 #+begin_src elisp :tangle "yes"
   (use-package opam
     :ensure (opam :host github :repo "emacsorphanage/opam")
