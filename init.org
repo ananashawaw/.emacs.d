@@ -991,13 +991,13 @@ TODO : Finish navigator and face customization.
         ("⍟"
          "github"
          "Browse github repositories."
-         (lambda () (browse-url "https://github.com/ananashawaw?tab=repositories"))
+         (lambda (&rest _) (browse-url "https://github.com/ananashawaw?tab=repositories"))
          nil)
         ;; local pink-bliss-uwu
         ("🩷"
          "pink-bliss-uwu"
          "Visit local local pink-bliss-uwu repo."
-         (lambda () (elpaca-visit 'pink-bliss-uwu-theme))
+         (lambda (&rest _) (elpaca-visit 'pink-bliss-uwu-theme))
          nil
          "⦕"
          "⦖"))
@@ -1006,10 +1006,11 @@ TODO : Finish navigator and face customization.
         ("🏳️‍⚧️"
          "git.gay"
          "Browse git.gay account."
-         (lambda () (browse-url "https://git.gay/ana"))
+         (lambda (&rest _) (browse-url "https://git.gay/ana"))
          nil)
         ;; init.org
-        ("?" "" "?/h" #'show-help nil "<" ">")))))
+        ("?" "init" "Visit init file." (lambda () (find-file "~/.emacs.d/init.org")) nil "<" ">")))))
+#+end_src
 **** Test banners !
 #+begin_src emacs-lisp :tangle "no"
   (defun check-banner (dir)
