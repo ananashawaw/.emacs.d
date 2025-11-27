@@ -42,6 +42,7 @@
     - [[#page-break-lines][Page Break Lines]]
     - [[#trailing-spaces-][Trailing spaces !]]
     - [[#dashboard-][Dashboard !]]
+      - [[#test-banners-][Test banners !]]
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
@@ -1004,6 +1005,16 @@ TODO : Finish navigator and face customization.
          nil)
         ;; init.org
         ("?" "" "?/h" #'show-help nil "<" ">")))))
+**** Test banners !
+#+begin_src emacs-lisp :tangle "no"
+  (defun check-banner (dir)
+    (dolist (banner (directory-files-recursively dir directory-files-no-dot-files-regexp nil t t))
+      (if (not (dashboard--image-supported-p banner))
+          (message "%s is not a proper banner file." banner)
+        (progn (setq dashboard-startup-banner banner)
+               (dashboard-refresh-buffer)
+               (write-region (x-export-frames nil 'pdf) (point-max) (file-name-with-extension banner "pdf"))))))
+  (check-banner "~/.emacs.d/ressources/")
 #+end_src
 *** Colors
 **** Colorful-mode
