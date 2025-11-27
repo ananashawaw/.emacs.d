@@ -210,7 +210,11 @@ We have to turn off `Package.el` because it'll autoload all packages, which is p
 #+end_src
 **** Elpaca Customisation
 ***** Config
-None, elpaca has very sane defaults.
+#+begin_src elisp :tangle "yes"
+  (use-package elpaca
+    :ensure nil
+    :hook (elpaca-after-init . (lambda () (find-file "~/.emacs.d/init.org"))))
+#+end_src
 *** init benchmark !
 :PROPERTIES:
 :EMACS: 24.3
@@ -783,9 +787,9 @@ Code :
       (if (not (and filename (file-exists-p filename)))
           (ido-kill-buffer)
         (when (yes-or-no-p "Are you sure you want to remove this file? ")
-            (delete-file filename)
-            (kill-buffer 'current-buffer)
-            (message "File '%s' successfully removed" filename)))))
+          (delete-file filename)
+          (kill-buffer 'current-buffer)
+          (message "File '%s' successfully removed" filename)))))
 
   (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
 
