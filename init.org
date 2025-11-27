@@ -594,6 +594,8 @@ Code :
               :type git :host github :repo "manateelazycat/lsp-bridge"
               :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
               :build (:not elpaca--byte-compile))
+    :hook ((org-mode . lsp-bridge-mode)
+           (org-src-mode . (lambda () (lsp-bridge-mode 1))))
     :custom
     (lsp-bridge-c-lsp-server "clangd")
     (lsp-bridge-python-multi-lsp-server "pylsp_ruff")
@@ -607,6 +609,8 @@ Code :
     (lsp-bridge-enable-debug nil) ;; to test
     (acm-backend-lsp-candidate-max-length 200) ;; fuck java, to test
     (lsp-bridge-signature-show-with-frame-position "point") ;; testing to see if pop up works
+    (lsp-bridge-enable-org-babel t)
+    (lsp-bridge-org-babel-lang-list nil)
     :config
     (global-lsp-bridge-mode))
 #+end_src
