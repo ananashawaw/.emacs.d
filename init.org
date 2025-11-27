@@ -951,8 +951,13 @@ TODO : Finish navigator and face customization.
                        (bookmarks . 5)
                        (projects  . 5)))
     (dashboard-footer-messages '("UwU"
-                                 "OwO"
                                  "UmU"
+                                 "UvU"
+                                 "UxU"
+                                 "OwO"
+                                 ">~<"
+                                 "^v^"
+                                 "^~^"
                                  "^O^"
                                  "u,u"))
     (dashboard-icon-file-height 1.0)
@@ -976,11 +981,28 @@ TODO : Finish navigator and face customization.
     ;; Format: "(icon title help action face prefix suffix)"
     (dashboard-navigator-buttons
      `(;; line1
-       (("★"
+       (;; github repo
+        ("⍟"
          "github"
          "Browse github repositories."
-         (lambda (&rest _) (browse-url "https://github.com/ananashawaw?tab=repositories"))
-         warning)
+         (lambda () (browse-url "https://github.com/ananashawaw?tab=repositories"))
+         nil)
+        ;; local pink-bliss-uwu
+        ("🩷"
+         "pink-bliss-uwu"
+         "Visit local local pink-bliss-uwu repo."
+         (lambda () (elpaca-visit 'pink-bliss-uwu-theme))
+         nil
+         "⦕"
+         "⦖"))
+       ;; line 2
+       (;; git.gay profile
+        ("🏳️‍⚧️"
+         "git.gay"
+         "Browse git.gay account."
+         (lambda () (browse-url "https://git.gay/ana"))
+         nil)
+        ;; init.org
         ("?" "" "?/h" #'show-help nil "<" ">")))))
 #+end_src
 *** Colors
@@ -1540,7 +1562,9 @@ www.emacswiki.org/emacs/WhizzyTeX
                     :build (:not elpaca--compile-info) ;; Make will take care of this step
                     :files ("*.el" "doc/*.info*" "etc" "images" "latex" "style")
                     :version (lambda (_) (require 'auctex) AUCTeX-version))
-    :hook (LaTeX-mode-hook . LaTeX-math-mode))
+    :hook (LaTeX-mode-hook . LaTeX-math-mode)
+    :custom
+    (TeX-parse-self t))
 #+end_src
 **** LatexMK !
 #+begin_src elisp :tangle "yes"
