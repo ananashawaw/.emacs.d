@@ -942,8 +942,7 @@ TODO : Finish navigator and face customization.
     ;; We could also assume all images would be valid,
     ;; or, we could calculate it once when compiling, in init or build step, depends on how long it takes.
     (setq dashboard-startup-banner (seq-filter 'dashboard--image-supported-p
-                                          (directory-files "~/.emacs.d/ressources/dashboardBanners/"
-                                                           t directory-files-no-dot-files-regexp t)))
+                                               (directory-files-recursively "~/.emacs.d/ressources/" directory-files-no-dot-files-regexp nil t t)))
     :custom
     (dashboard-buffer-name "Welcome !")
     (dashboard-banner-ascii "KIGOTH")
@@ -967,6 +966,12 @@ TODO : Finish navigator and face customization.
     (dashboard-remove-missing-entry t)
     (dashboard-show-shortcuts t)
     (dashboard-startupify-list '(dashboard-insert-banner
+                                 (lambda () (progn (goto-char (point-min))
+                                                   ;; delete the next blank lines
+                                                   (delete-blank-lines)
+                                                   ;; then, delete the blank line we're on.
+                                                   (delete-blank-lines)
+                                                   (goto-char (point-max))))
                                  dashboard-insert-newline
                                  dashboard-insert-banner-title
                                  dashboard-insert-newline
@@ -974,7 +979,7 @@ TODO : Finish navigator and face customization.
                                  dashboard-insert-newline
                                  dashboard-insert-init-info
                                  dashboard-insert-page-break
-                                 (lambda (&rest _) (insert "\n\f\n"))
+                                 (lambda () (insert "\n\f\n"))
                                  dashboard-insert-items
                                  dashboard-insert-newline
                                  dashboard-insert-footer))
