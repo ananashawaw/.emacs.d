@@ -932,13 +932,20 @@ TODO : Finish navigator and face customization.
   (use-package dashboard
     :ensure (dashboard :host github :repo "emacs-dashboard/emacs-dashboard")
     :config
+    ;; fix for elpaca, see https://github.com/emacs-dashboard/emacs-dashboard/issues/499
     (add-hook 'elpaca-after-init-hook #'dashboard-insert-startupify-lists)
     (add-hook 'elpaca-after-init-hook #'dashboard-initialize)
-    (dashboard-setup-startup-hook)
+    (add-hook 'window-size-change-functions #'dashboard-resize-on-hook 100)
+    (add-hook 'window-setup-hook #'dashboard-resize-on-hook)
+    ;; Choose a valid banner inside the directory.
+    ;; We could also assume all images would be valid,
+    ;; or, we could calculate it once when compiling, in init or build step, depends on how long it takes.
+    (setq dashboard-startup-banner (seq-filter 'dashboard--image-supported-p
+                                          (directory-files "~/.emacs.d/ressources/dashboardBanners/"
+                                                           t directory-files-no-dot-files-regexp t)))
     :custom
     (dashboard-buffer-name "Welcome !")
     (dashboard-banner-ascii "KIGOTH")
-    (dashboard-startup-banner "~/.emacs.d/council.jpeg" 'ascii 0)
     (dashboard-banner-logo-title "Hello Dearest Ana, may you have a good time !")
     (dashboard-items '((recents   . 10)
                        (bookmarks . 5)
@@ -970,7 +977,7 @@ TODO : Finish navigator and face customization.
     (dashboard-navigator-buttons
      `(;; line1
        (("★"
-         "Repos"
+         "github"
          "Browse github repositories."
          (lambda (&rest _) (browse-url "https://github.com/ananashawaw?tab=repositories"))
          warning)

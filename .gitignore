@@ -1,5 +1,6 @@
 *
-!council.jpeg
+!ressources/
+!ressources/**/*
 #!init.el
 !graveyard.org
 !init.org
