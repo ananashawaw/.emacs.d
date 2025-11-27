@@ -222,8 +222,8 @@ None, elpaca has very sane defaults.
 #+begin_src elisp :tangle "yes"
   (use-package benchmark-init
     :ensure t
-    ;; To disable collection of benchmark data after init is done
-    :hook ((after-init . benchmark-init/deactivate)))
+    ;; To disable collection of benchmark data __after__ init is done
+    :hook (elpaca-after-init . benchmark-init/deactivate))
 #+end_src
 *** Magit !
 **** With-Editor
