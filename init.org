@@ -612,10 +612,6 @@ for cargo :
 #+begin_src shell :tangle "no"
   curl https://sh.rustup.rs -sSf | sh
 #+end_src
-yaml :
-#+begin_src shell :tangle "no"
-npm install -g yaml-language-server
-#+end_src
 **** Config
 #+begin_src elisp :tangle "yes"
   (use-package lsp-bridge
