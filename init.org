@@ -539,11 +539,11 @@ An Eshell module is defined the same as any other library but with two additiona
                            eshell-unix)))
 #+end_src
 **** elogin.el
-#+begin_src elisp :tangle eshell/elogin.el
+#+begin_src elisp :tangle eshell/elogin.el :mkdirp "yes"
   echo "Welcome, My Queen, to your, oh so marvelous, Emacs Shell instance.\nWhat are *Her Highness* directives on this fine day ?\n"
 #+end_src
 **** eprofile.el
-#+begin_src elisp :tangle eshell/eprofile.el
+#+begin_src elisp :tangle eshell/eprofile.el :mkdirp "yes"
 #+end_src
 *** Yasnippets !
 #+begin_src elisp :tangle "yes"
