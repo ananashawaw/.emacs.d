@@ -581,7 +581,7 @@ When running latest (no need to upgrade eldoc)
 *** LSP-bridge !
 Install Python dependencies:
 #+begin_src shell :tangle "no"
-  pip3 install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
+  pipenv install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
 #+end_src
 for cargo :
 #+begin_src shell :tangle "no"
