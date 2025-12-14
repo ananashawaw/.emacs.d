@@ -1871,20 +1871,20 @@ Contribute to it by letting users change the fonts ?
 **** Yaml-pro !
 yaml mode is for legacy usage of yaml-pro, the ts mode is prefered.
 #+begin_src elisp :tangle "yes"
-  (use-package yaml-pro
-    :ensure (yaml-pro :host github :repo "zkry/yaml-pro")
-    ;;:hook ((yaml-mode yaml-ts-mode) . yaml-pro-ts-mode)
-    :custom
-    (yaml-pro-indent (if (boundp 'yaml-indent-offset)  yaml-indent-offset 4))
-    (yaml-pro-max-parse-size 5000)
-    (yaml-pro-format-print-width 0)
-    (yaml-pro-format-features '(block-formatting
-                                bm-fn-next-line
-                                document-separator-own-line
-                                indent
-                                reduce-newlines))
-    (yaml-pro-ts-yank-subtrees t)
-    (yaml-pro-ts-path-element-separator ?→))
+    (use-package yaml-pro
+      :ensure (yaml-pro :host github :repo "dcolazin/yaml-pro" :branch "bugfix/ISSUE-73")
+      ;;:hook ((yaml-mode yaml-ts-mode) . yaml-pro-ts-mode)
+      :custom
+      (yaml-pro-indent (if (boundp 'yaml-indent-offset)  yaml-indent-offset 4))
+      (yaml-pro-max-parse-size 5000)
+      (yaml-pro-format-print-width 0)
+      (yaml-pro-format-features '(block-formatting
+                                  bm-fn-next-line
+                                  document-separator-own-line
+                                  indent
+                                  reduce-newlines))
+      (yaml-pro-ts-yank-subtrees t)
+      (yaml-pro-ts-path-element-separator ?→))
 #+end_src
 *** other handlers !
 #+begin_src elisp :tangle "yes"
