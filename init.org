@@ -1940,14 +1940,14 @@ Requires jdk 17+.
 How to install the java lsp , note you need a jdk about java 21 as of september 2025:
 #+begin_src bash :tangle "no"
   export DEST= ...
-  # {DEST} could be ~/.cache/ for example.
+  # {DEST} could be ~/.cache/eclipse.jdt.ls for example.
   export JAVA_HOME=...
   # jdk, not jre, for openjdk, this is usually /usr/lib/jvm/java-{VERSION}-openjdk-{architecture : arm64, amd64,...}
   # if maven (mvnw) complains about JAVA_HOME being poorly configured / missing, this is what to fix.
-  git clone https://github.com/eclipse-jdtls/eclipse.jdt.ls.git $(DEST)
-  cd $(DEST)
+  git clone https://github.com/eclipse-jdtls/eclipse.jdt.ls.git $DEST
+  cd $DEST
   ./mvnw clean verify -U -DskipTests=true
-  echo "export PATH=$PATH:$(DEST)/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/bin/" >> .bashrc
+  echo "export PATH=$PATH:$DEST/org.eclipse.jdt.ls.product/target/repository/bin/" >> .bashrc
   # you could also use, say, bash.profile, the important part is for it to be in your path.
   source .bashrc
   # Same comment as above. You could also just restart the shell.
