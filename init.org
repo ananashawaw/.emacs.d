@@ -55,13 +55,14 @@
     - [[#screenshots-][Screenshots !]]
       - [[#svg][SVG]]
       - [[#screenshotel-][screenshot.el !]]
+    - [[#pdf][PDF]]
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
   - [[#programming-languages-][Programming Languages !]]
     - [[#c-][C !]]
       - [[#clangd][Clangd]]
       - [[#test-c][Test-c]]
         - [[#notes][Notes]]
-        - [[#config-2][Config]]
+        - [[#config-3][Config]]
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
         - [[#notes-1][Notes]]
@@ -1154,6 +1155,13 @@ Not used but, it looks very good with the fonts, and it can be a great source of
 #+begin_src elisp :tangle "yes"
   (use-package screenshot
     :ensure (screenshot :host github :repo "tecosaur/screenshot"))
+#+end_src
+*** PDF
+#+begin_src elisp :tangle "yes"
+  (use-package reader
+    :ensure (reader :host codeberg :repo "divyaranjan/emacs-reader"
+                    :files ("*.el" "render-core.so")
+                    :pre-build ("make" "all")))
 #+end_src
 *** Consult + Vertico + embark
 #+begin_src elisp :tangle "no"
