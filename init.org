@@ -21,7 +21,6 @@
       - [[#magit-find-file][Magit find file]]
     - [[#eshell-][Eshell !]]
       - [[#general-][General !]]
-          - [[#em-dirsel-][em-dirs.el !]]
           - [[#em-basicel-][em-basic.el !]]
       - [[#config--1][Config !]]
       - [[#eloginel][elogin.el]]
@@ -482,17 +481,20 @@ To call an external process that has a lisp counterpart, prepend `eshell-explici
 
 An Eshell module is defined the same as any other library but with two additional requirements:
 - first, the module’s source file should be named em-name.el;
--  econd, the module must define an autoloaded Customize group with eshell-module as the parent group.
-****** em-dirs.el !
-- eshell-directory-change-hook : Idea, there exist `eshell-list-files-after-cd`, but it's annoying with ~/, as such, maybe create an util to ls -a when it's not in ~/?
+- second, the module must define an autoloaded Customize group with eshell-module as the parent group.
 ****** em-basic.el !
 - eshell-plain-echo-behavior nil [hot]
-  
 **** Config ! 
 #+begin_src elisp :tangle "yes"
   (use-package eshell
     :ensure nil
     :demand t
+    :config
+    (require 'em-ls)
+    (add-hook 'eshell-directory-change-hook (lambda () (unless (string-equal
+                                                                default-directory
+                                                                (expand-file-name "~/"))
+                                                         (eshell/ls))))
     :custom
     ;; em-cmpl.el
     (eshell-show-lisp-completions nil) ; t would be too laggy and verbose.
