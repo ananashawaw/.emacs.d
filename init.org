@@ -29,6 +29,8 @@
     - [[#yasnippets-][Yasnippets !]]
     - [[#eldoc-][Eldoc !]]
     - [[#lsp-bridge-][LSP-bridge !]]
+      - [[#language-servers][Language Servers]]
+      - [[#config-1][Config]]
     - [[#yafolding-][yafolding !]]
     - [[#iedit][Iedit]]
     - [[#idk-][IDK !]]
@@ -46,7 +48,7 @@
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
-      - [[#config-1][Config]]
+      - [[#config-2][Config]]
       - [[#faces--1][Faces !]]
     - [[#themes-][Themes !]]
       - [[#pink-bliss-uwu-][Pink Bliss UwU !]]
@@ -112,7 +114,7 @@
     - [[#org][org]]
     - [[#toc-org][toc-org]]
     - [[#org-modern-][org-modern !]]
-      - [[#config-3][Config]]
+      - [[#config-4][Config]]
       - [[#customization][Customization]]
     - [[#org-popup-posframe-][org-popup-posframe !]]
 
@@ -580,9 +582,24 @@ When running latest (no need to upgrade eldoc)
     (global-eldoc-mode))
 #+end_src
 *** LSP-bridge !
+**** Language Servers
 Install Python dependencies:
 #+begin_src shell :tangle "no"
-  pipenv install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
+  pip3 install epc orjson sexpdata six setuptools paramiko rapidfuzz watchdog packaging
+#+end_src
+Or, on gentoo :
+#+begin_src shell :tangle "no"
+  emerge -av --deep dev-python/orjson dev-python/sexpdata dev-python/six dev-python/setuptools dev-python/paramiko dev-python/rapidfuzz dev-python/watchdog dev-python/packaging
+#+end_src
+Note, you may need to unmask some packages, and you need gcc to be built with fortran
+In /etc/portage/package.accept_keywords/emacs
+#+begin_src shell
+# Dependencies of Lsp-bridge
+app-emacs/epc ~amd64
+dev-python/sexpdata ~amd64
+
+## Dependency of epcc
+app-emacs/ctable ~amd64
 #+end_src
 for cargo :
 #+begin_src shell :tangle "no"
@@ -592,13 +609,13 @@ yaml :
 #+begin_src shell :tangle "no"
 npm install -g yaml-language-server
 #+end_src
-Code :
+**** Config
 #+begin_src elisp :tangle "yes"
   (use-package lsp-bridge
-    :ensure '(lsp-bridge
-              :type git :host github :repo "manateelazycat/lsp-bridge"
-              :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
-              :build (:not elpaca--byte-compile))
+    :ensure (lsp-bridge
+             :type git :host github :repo "manateelazycat/lsp-bridge"
+             :files (:defaults "*.el" "*.py" "acm" "core" "langserver" "multiserver" "resources")
+             :build (:not elpaca--byte-compile))
     :hook ((org-mode . lsp-bridge-mode)
            (org-src-mode . (lambda () (lsp-bridge-mode 1))))
     :custom
@@ -608,15 +625,16 @@ Code :
     (lsp-bridge-tex-lsp-server "texlab")
     ;;(lsp-bridge-markdown-lsp-server )
     (lsp-bridge-cmake-lsp-server "cmake-language-server")
-    ;;; Variables.
+    ;; Variables.
     (lsp-bridge-enable-inlay-hint t) ;; to test
     (lsp-bridge-enable-hover-diagnostic t) ;; to test
     (lsp-bridge-enable-debug nil) ;; to test
-    (acm-backend-lsp-candidate-max-length 200) ;; fuck java, to test
+    (acm-backend-lsp-candidate-max-length 2000) ;; fuck java, to test
     (lsp-bridge-signature-show-with-frame-position "point") ;; testing to see if pop up works
     (lsp-bridge-enable-org-babel t)
     (lsp-bridge-org-babel-lang-list nil)
     :config
+    (require 'lsp-bridge-jdtls)
     (global-lsp-bridge-mode))
 #+end_src
 *** yafolding !
