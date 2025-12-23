@@ -1,5 +1,16 @@
 * Table of contents                                                     :TOC:
 - [[#graveyard][Graveyard]]
+  - [[#tools][tools]]
+    - [[#irc][IRC]]
+      - [[#todo-erchttpswwwemacswikiorgemacserc][[TODO ERC](https://www.emacswiki.org/emacs/ERC)]]
+      - [[#irchathttpswwwemacswikiorgemacsirchat][[IrChat](https://www.emacswiki.org/emacs/IrChat)]]
+      - [[#lieceircclienthttpswwwemacswikiorgemacslieceircclient][[LieceIrcClient](https://www.emacswiki.org/emacs/LieceIrcClient)]]
+      - [[#todo-rcirchttpswwwemacswikiorgemacsrcirc][[TODO rcirc](https://www.emacswiki.org/emacs/rcirc)]]
+      - [[#rieceircclienthttpswwwemacswikiorgemacsrieceircclient][[RieceIrcClient](https://www.emacswiki.org/emacs/RieceIrcClient)]]
+      - [[#zenirchttpswwwemacswikiorgemacszenirc][[ZenIRC](https://www.emacswiki.org/emacs/ZenIRC)]]
+      - [[#todo-circehttpswwwemacswikiorgemacscirce][[TODO Circe](https://www.emacswiki.org/emacs/Circe)]]
+      - [[#ii-modehttpswwwemacswikiorgemacsii-mode][[ii-mode](https://www.emacswiki.org/emacs/ii-mode)]]
+      - [[#weechathttpswwwemacswikiorgemacsweechat][[WeeChat](https://www.emacswiki.org/emacs/WeeChat)]]
   - [[#programming-languages][Programming Languages]]
     - [[#ocaml][Ocaml]]
       - [[#dune-format][Dune-format]]
@@ -7,6 +18,35 @@
         - [[#config][config]]
 
 * Graveyard
+** tools
+*** IRC
+As of 2025-12-19, [the emacs wiki lists 9 emacs based IRC clients:](https://www.emacswiki.org/emacs/InternetRelayChat)
+Several projects here seem they could still be working, unfortunately, due to the fragility of anything that connects to the internet;
+I will only consider project that seem maintaned, or ones I could envision someone fixing issues I encounter if I report them ^v^
+
+**** [TODO ERC](https://www.emacswiki.org/emacs/ERC)
+**** [IrChat](https://www.emacswiki.org/emacs/IrChat)
+The last real commit was done in [2009](https://github.com/rinne/elisp-irchat).
+**** [LieceIrcClient](https://www.emacswiki.org/emacs/LieceIrcClient)
+[The page of the project](https://www.unixuser.org/~ueno/liece/) states :
+#+begin_quote
+Development of Liece has ended. Please use Riece instead.
+#+end_quote
+**** [TODO rcirc](https://www.emacswiki.org/emacs/rcirc)
+**** [RieceIrcClient](https://www.emacswiki.org/emacs/RieceIrcClient)
+Successor of Liece, be aware, it's page is : https://www.nongnu.org/riece/
+However, the last update is neither 9.0 nor 8.0, look at the [savannah project page](https://savannah.nongnu.org/projects/riece/) for the proper last release (in the tree).
+**** [ZenIRC](https://www.emacswiki.org/emacs/ZenIRC)
+Altho [the website](https://www.emacswiki.org/emacs/ZenIRC) is still up, it seems to really be a relic;
+The original didn't have font lock mode, but a [patch from 1999](https://josefsson.org/zenirc-font-lock.html) exists to add some.
+**** [TODO Circe](https://www.emacswiki.org/emacs/Circe)
+**** [ii-mode](https://www.emacswiki.org/emacs/ii-mode)
+it's page is here : https://github.com/krl/ii-mode.
+It requires external programs and has not been updated in 14 years.
+**** [WeeChat](https://www.emacswiki.org/emacs/WeeChat)
+Weechat is an external process, [weechat.el](https://github.com/the-kenny/weechat.el) is a layer around it,
+however, the last commit was 6 years ago, and the project was archived in june of 2022.
+
 ** Programming Languages
 *** Ocaml
 **** Dune-format
@@ -36,4 +76,3 @@
     :ensure (dune-format :host github :repo "purcell/emacs-dune-format")
     :hook (dune-mode . dune-format-on-save-mode))
 #+end_src
-

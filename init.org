@@ -39,6 +39,15 @@
     - [[#dired][Dired]]
       - [[#dired-auto-readme][dired-auto-readme]]
     - [[#copy-on-wayland-][Copy on wayland !]]
+    - [[#irc][IRC]]
+      - [[#erc][ERC]]
+        - [[#infos-][Infos :]]
+          - [[#nick-formats][Nick formats]]
+        - [[#to-check][TO check]]
+          - [[#files-to-read-][files to read :]]
+          - [[#ercel][erc.el]]
+        - [[#config-2][Config]]
+        - [[#faces][Faces]]
   - [[#visuals-][Visuals !]]
     - [[#page-break-lines][Page Break Lines]]
     - [[#trailing-spaces-][Trailing spaces !]]
@@ -47,7 +56,7 @@
     - [[#colors][Colors]]
       - [[#colorful-mode][Colorful-mode]]
     - [[#ascii-table-][Ascii table !]]
-      - [[#config-2][Config]]
+      - [[#config-3][Config]]
       - [[#faces--1][Faces !]]
     - [[#themes-][Themes !]]
       - [[#pink-bliss-uwu-][Pink Bliss UwU !]]
@@ -63,7 +72,7 @@
       - [[#clangd][Clangd]]
       - [[#test-c][Test-c]]
         - [[#notes][Notes]]
-        - [[#config-3][Config]]
+        - [[#config-4][Config]]
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
         - [[#notes-1][Notes]]
@@ -113,7 +122,7 @@
     - [[#org][org]]
     - [[#toc-org][toc-org]]
     - [[#org-modern-][org-modern !]]
-      - [[#config-4][Config]]
+      - [[#config-5][Config]]
       - [[#customization][Customization]]
     - [[#org-popup-posframe-][org-popup-posframe !]]
 
@@ -931,6 +940,253 @@ need wl-clipboard for it .
       (shell-command-to-string "wl-paste -n | tr -d \r")))
   (setq interprogram-cut-function 'wl-copy)
   (setq interprogram-paste-function 'wl-paste)
+#+end_src
+*** IRC
+**** ERC
+- erc nickname regex is incorrect
+- fixe face
+- one hook missing -hook
+- support for v3?
+- why not do one file per module
+- why not call the modules erm , like eshell modules.
+- why erc-join and not erc-autojoin ? that's confusing.
+***** Infos :
+****** Nick formats
+ERC USES : "[]a-zA-Z^[;\\`_{}|][]^[;\\`_{}|a-zA-Z0-9-]*", it is actually incorrect I think, because of the counterexample from below.
+
+nick are of the form [0-9A-Za-z\[\]\\_^`|{}\-]{1,16}with some caveats, example include :
+- "X isn't allowed because that's undernet's version of nickserv and chanserv. Just as Q is the same on quakenet." -- Affliction in #libera
+Data available at https://github.com/solanum-ircd/solanum/blob/4544f823127c59951c7695f0f260128ee0691a67/ircd/match.c#L776 (field NICK_C)
+
+;; Script parameters
+
+(defcustom erc-startup-file-list
+  (list (locate-user-emacs-file ".ercrc.el")
+        (locate-user-emacs-file ".ercrc")
+        "~/.ercrc.el" "~/.ercrc" ".ercrc.el" ".ercrc")
+  "List of files to try for a startup script.
+The first existent and readable one will get executed.
+
+If the filename ends with `.el' it is presumed to be an Emacs Lisp
+script and it gets (load)ed.  Otherwise it is treated as a bunch of
+regular IRC commands."
+  :group 'erc-scripts
+  :type '(repeat file))
+
+(defcustom erc-script-path nil
+  "List of directories to look for a script in /load command.
+The script is first searched in the current directory, then in each
+directory in the list."
+  :group 'erc-scripts
+  :type '(repeat directory))
+  
+***** TO check
+****** files to read :
+  -rw-r--r--   1 root           root     122k 2025-12-03 00:53 erc-backend.el
+  -rw-r--r--   1 root           root      38k 2025-12-03 00:53 erc-button.el
+  -rw-r--r--   1 root           root     8.5k 2025-12-03 00:53 erc-capab.el
+  -rw-r--r--   1 root           root      28k 2025-12-03 00:53 erc-common.el
+  -rw-r--r--   1 root           root      19k 2025-12-03 00:53 erc-compat.el
+  -rw-r--r--   1 root           root      52k 2025-12-03 00:53 erc-dcc.el
+  -rw-r--r--   1 root           root     4.8k 2025-12-03 00:53 erc-desktop-notifications.el
+  -rw-r--r--   1 root           root     5.8k 2025-12-03 00:53 erc-ezbounce.el
+  -rw-r--r--   1 root           root      41k 2025-12-03 00:53 erc-fill.el
+  -rw-r--r--   1 root           root      49k 2025-12-03 00:53 erc-goodies.el
+  -rw-r--r--   1 root           root       6k 2025-12-03 00:53 erc-ibuffer.el
+  -rw-r--r--   1 root           root     4.1k 2025-12-03 00:53 erc-identd.el
+  -rw-r--r--   1 root           root     5.9k 2025-12-03 00:53 erc-imenu.el
+  -rw-r--r--   1 root           root      11k 2025-12-03 00:53 erc-join.el
+  -rw-r--r--   1 root           root     5.9k 2025-12-03 00:53 erc-lang.el
+  -rw-r--r--   1 root           root     7.7k 2025-12-03 00:53 erc-list.el
+  -rw-r--r--   1 root           root      13k 2025-12-03 01:16 erc-loaddefs.el
+  -rw-r--r--   1 root           root      19k 2025-12-03 00:53 erc-log.el
+  -rw-r--r--   1 root           root      25k 2025-12-03 00:53 erc-match.el
+  -rw-r--r--   1 root           root       5k 2025-12-03 00:53 erc-menu.el
+  -rw-r--r--   1 root           root     7.4k 2025-12-03 00:53 erc-netsplit.el
+  -rw-r--r--   1 root           root      79k 2025-12-03 00:53 erc-networks.el
+  -rw-r--r--   1 root           root      37k 2025-12-03 00:53 erc-nicks.el
+  -rw-r--r--   1 root           root      19k 2025-12-03 00:53 erc-notify.el
+  -rw-r--r--   1 root           root     3.9k 2025-12-03 00:53 erc-page.el
+  -rw-r--r--   1 root           root      10k 2025-12-03 00:53 erc-pcomplete.el
+  -rw-r--r--   1 root           root     2.9k 2025-12-03 00:53 erc-replace.el
+  -rw-r--r--   1 root           root     5.5k 2025-12-03 00:53 erc-ring.el
+  -rw-r--r--   1 root           root      18k 2025-12-03 00:53 erc-sasl.el
+  -rw-r--r--   1 root           root      26k 2025-12-03 00:53 erc-services.el
+  -rw-r--r--   1 root           root     4.8k 2025-12-03 00:53 erc-sound.el
+  -rw-r--r--   1 root           root      27k 2025-12-03 00:53 erc-speedbar.el
+  -rw-r--r--   1 root           root     5.3k 2025-12-03 00:53 erc-spelling.el
+  -rw-r--r--   1 root           root      55k 2025-12-03 00:53 erc-stamp.el
+  -rw-r--r--   1 root           root      26k 2025-12-03 00:53 erc-status-sidebar.el
+  -rw-r--r--   1 root           root      52k 2025-12-03 00:53 erc-track.el
+****** erc.el
+- erc-user-mode
+- erc-warn-about-blank-lines
+- erc-send-whitespace-lines
+- erc-inhibit-multiline-input
+- erc-ask-about-multiline-input
+- erc-nick-changed-functions Why isn't it called -hook since it's one, also, we can make it so it updates out "user-full-name" ?
+- erc-prompt-format
+- erc-email-userid ?
+- erc-system-name privacy related?
+- erc-modules !!!!!
+- erc-minibuffer-ignored ??
+***** Config 
+#+begin_src elisp :tangle "yes"
+    (use-package erc
+      :ensure nil
+      :custom
+      (erc-server "irc.libera.chat")
+      (erc-port 6697) ;; tls port
+      (erc-nick "Ana" "ana") 
+      (erc-nick-uniquifier "-{^-^}" "-{UwU}" "-{OwO}" "-{u,u}" "-{OvO}") ;; want it to be random !
+      (erc-user-full-name "Ana") ;; do I want it configured ? what about account name changes ?
+      (erc-unhide-query-prompt t) ;; that way we don't need to send a message to be in a channel where noone speaks.
+      (erc-notice-prefix "/!\ ")
+      ;; privacy
+      (erc-paranoid t)
+      (erc-disable-ctcp-replies t)
+      (erc-anonymous-login t)
+      ;; ~visuals
+      (erc-interactive-display 'bury) ;; when executing commands such as /JOIN, open in another buffer rather than window, we could also use 'buffer to have it open in our current buffer instead.
+      (erc-auto-reconnect-display 'bury)
+      (erc-receive-query-display 'bury)
+      (erc-show-speaker-membership-status t) ;; show @ and +
+      ;; o is too verbose.
+      ;; N is not needed due to S.
+      ;; s , same as above. (technically add some data, but it seems useless).
+      ;; t , same as above.
+      ;;
+      ;; With some placeholder, here is an example :
+      ;; "n : ana S : #emacs@Libera.Chat m : +Cnt p : 6697 a : \ l : lag:0"
+      ;; Real version :
+      ;; "ana #emacs@Libera.Chat +Cnt 6697\ lag:0"
+      (erc-mode-line-format "%n %S %m %p%a %l")
+      (erc-header-line-format "%o") ;; display the description of the channel here.
+      ;;; Modules, we use setopt because the erc-modules ask us to.
+      (setopt erc-modules '(;;autoaway ;; feels floody, also, people don't need to know eithe way.
+                            autojoin ;; allows you to autojoin channels when starting erc.
+                            bufbar
+                            button
+                            capab-identify
+                            command-indicator
+                            completion
+                            dcc
+                            fill
+                            identd
+                            imenu
+                            irccontrols
+                            keep-place
+                            list
+                            log
+                            match
+                            menu
+                            move-to-prompt
+                            netsplit
+                            networks
+                            nickbar
+                            nicks
+                            noncommands
+                            notifications
+                            notify
+                            page
+                            readonly
+                            replace
+                            ring
+                            sasl
+                            scrolltobottom
+                            services
+                            smiley
+                            sound
+                            spelling
+                            stamp
+                            track
+                            truncate ;; Truncate a query buffer if it gets too large.
+                            unmorse
+                            ;;xdcc ;; xdcc let you share files through IRC, it requires ctcp tho, which we have off, so we likely won't ever turn it on
+                            ))
+      ;; erc-autoaway
+      (erc-autoaway-message nil) ;; we don't plan on enabling it, but if we ever do, I don't like teh default message.
+      ;; erc-join, which is autojoin for some reason.
+      (erc-autojoin-channels-alist '("Libera.Chat" . '("#emacs"
+                                                       "#phi-mu-lambda")))
+      (erc-autojoin-timing 'ident)
+      ;; erc-xdcc, yes we likely won't even use it, but in case, we shall customize a few things.
+      (erc-xdcc-help-text '(("\"/ctcp " (erc-current-nick) " XDCC list\" to see the files available UwU.")
+                            ("\"/ctcp " (erc-current-nick) " XDCC send #...\" to download a file from the list OwO.") ("\"/ctcp " (erc-current-nick) " XDCC help\" to show this message again ^v^.")))
+      )
+#+end_src
+***** Faces
+#+begin_src elisp :tangle "no"
+  ;; FIXME faces should not end in "-face".
+  (defface erc-default-face '((t))
+    "ERC default face."
+    :group 'erc-faces)
+
+  (defface erc-nick-prefix-face '((t :inherit erc-nick-default-face :weight bold))
+    "ERC face used for user mode prefix."
+    :group 'erc-faces)
+
+  (defface erc-my-nick-prefix-face '((t :inherit erc-nick-default-face :weight bold))
+    "ERC face used for my user mode prefix."
+    :group 'erc-faces)
+
+  (defface erc-direct-msg-face '((t :foreground "IndianRed"))
+    "ERC face used for messages you receive in the main erc buffer."
+    :group 'erc-faces)
+
+  (defface erc-header-line
+    '((t :inherit header-line))
+    "ERC face used for the header line.
+
+    This will only be used if `erc-header-line-face-method' is non-nil."
+    :group 'erc-faces)
+
+  (defface erc-input-face '((t :foreground "brown"))
+    "ERC face used for your input."
+    :group 'erc-faces)
+
+  (defface erc-prompt-face
+    '((t :weight bold :foreground "Black" :background "lightBlue2"))
+    "ERC face for the prompt."
+    :group 'erc-faces)
+
+  (defface erc-notice-face
+    '((default :weight bold)
+      (((class color) (min-colors 88) (supports :weight semi-bold))
+       :weight semi-bold :foreground "SlateBlue")
+      (((class color) (min-colors 88)) :foreground "SlateBlue")
+      (t :foreground "blue"))
+    "ERC face for notices."
+    :package-version '(ERC . "5.6")
+    :group 'erc-faces)
+
+  (defface erc-action-face '((((supports :weight semi-bold)) :weight semi-bold)
+                             (t :weight bold))
+    "ERC face for actions generated by /ME."
+    :package-version '(ERC . "5.6")
+    :group 'erc-faces)
+
+  (defface erc-error-face '((t :foreground "red"))
+    "ERC face for errors."
+    :group 'erc-faces)
+
+  (defface erc-information '((t :inherit shadow))
+    "Face for local administrative messages of low to moderate importance."
+    :group 'erc-faces)
+
+  ;; same default color as `erc-input-face'
+  (defface erc-my-nick-face '((t :weight bold :foreground "brown"))
+    "ERC face for your current nickname in messages sent by you.
+    See also `erc-show-my-nick'."
+    :group 'erc-faces)
+
+  (defface erc-nick-default-face '((t :weight bold))
+    "ERC nickname default face."
+    :group 'erc-faces)
+
+  (defface erc-nick-msg-face '((t :weight bold :foreground "IndianRed"))
+    "ERC nickname face for private messages."
+    :group 'erc-faces)
 #+end_src
 ** Visuals !
 *** Page Break Lines
