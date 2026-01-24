@@ -1243,6 +1243,7 @@ TODO : Finish navigator and face customization.
     (dashboard-image-banner-max-width 966) ;; why 966 ? is it the width of my screen?
     (dashboard-remove-missing-entry t)
     (dashboard-show-shortcuts t)
+    (dashboard-center-content t)
     (dashboard-startupify-list '(dashboard-insert-banner
                                  (lambda () (progn (goto-char (point-min))
                                                    ;; delete the next blank lines
@@ -1257,11 +1258,10 @@ TODO : Finish navigator and face customization.
                                  dashboard-insert-newline
                                  dashboard-insert-init-info
                                  dashboard-insert-page-break
-                                 (lambda () (insert "\n\f\n"))
                                  dashboard-insert-items
                                  dashboard-insert-newline
                                  dashboard-insert-footer))
-    (dashboard-page-separator "\n")
+    (dashboard-page-separator "\n\f\n")
     ;; Format: "(icon title help action face prefix suffix)"
     (dashboard-navigator-buttons
      `(;; line1
@@ -1299,6 +1299,39 @@ TODO : Finish navigator and face customization.
                (dashboard-refresh-buffer)
                (write-region (x-export-frames nil 'pdf) (point-max) (file-name-with-extension banner "pdf"))))))
   (check-banner "~/.emacs.d/ressources/")
+#+end_src
+**** face :
+#+begin_src elisp :tangle "no"
+    (defface dashboard-text-banner
+    '((t (:inherit font-lock-keyword-face)))
+    "Face used for text banners."
+    :group 'dashboard)
+
+  (defface dashboard-banner-logo-title
+    '((t :inherit default))
+    "Face used for the banner title."
+    :group 'dashboard)
+
+  (defface dashboard-navigator
+    '((t (:inherit font-lock-keyword-face)))
+    "Face used for the navigator."
+    :group 'dashboard)
+
+  ;; Dark Orchid or Purple?
+  (dashboard-heading
+    '((t (:foreground "Dark Orchid" :weight bold :height 1.1))))
+
+  (dashboard-items-face '((t (:foreground magenta4))))
+
+  (dashboard-no-items-face
+   '((t (:foreground "magenta4" :weight bold))))
+
+  (defface dashboard-footer-face
+    '((t (:inherit font-lock-doc-face)))
+    "Face used for footer text."
+    :group 'dashboard)
+
+  (dashboard-footer-icon-face) : ask marie
 #+end_src
 *** Colors
 **** Colorful-mode
