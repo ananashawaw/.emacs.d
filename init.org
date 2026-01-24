@@ -606,11 +606,7 @@ Note, you may need to unmask some packages, and you need gcc to be built with fo
 In /etc/portage/package.accept_keywords/emacs
 #+begin_src shell
 # Dependencies of Lsp-bridge
-app-emacs/epc ~amd64
 dev-python/sexpdata ~amd64
-
-## Dependency of epcc
-app-emacs/ctable ~amd64
 #+end_src
 for cargo :
 #+begin_src shell :tangle "no"
