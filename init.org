@@ -564,6 +564,7 @@ An Eshell module is defined the same as any other library but with two additiona
   (use-package yasnippet
     :ensure t
     :hook (c-mode . yas-minor-mode)
+    :bind ("C-<tab>" . yas-minor-mode-map)
     :config
     (define-key yas-minor-mode-map [(tab)]        nil)
     (define-key yas-minor-mode-map (kbd "TAB")    nil)
