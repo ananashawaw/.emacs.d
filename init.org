@@ -1034,7 +1034,7 @@ directory in the list."
       (erc-server "irc.libera.chat")
       (erc-port 6697) ;; tls port
       (erc-nick "Ana" "ana") 
-      (erc-nick-uniquifier "-{^-^}" "-{UwU}" "-{OwO}" "-{u,u}" "-{OvO}") ;; want it to be random !
+      (erc-nick-uniquifier "-{JwJ}" "-{^-^}" "-{UwU}" "-{OwO}" "-{OvO}") ;; want it to be random !
       (erc-user-full-name "Ana") ;; do I want it configured ? what about account name changes ?
       (erc-unhide-query-prompt t) ;; that way we don't need to send a message to be in a channel where noone speaks.
       (erc-notice-prefix "/!\ ")
@@ -1043,9 +1043,9 @@ directory in the list."
       (erc-disable-ctcp-replies t)
       (erc-anonymous-login t)
       ;; ~visuals
-      (erc-interactive-display 'bury) ;; when executing commands such as /JOIN, open in another buffer rather than window, we could also use 'buffer to have it open in our current buffer instead.
-      (erc-auto-reconnect-display 'bury)
-      (erc-receive-query-display 'bury)
+      (erc-interactive-display 'buffer) ;; when executing commands such as /JOIN, open in another buffer rather than window, we could also use 'buffer to have it open in our current buffer instead.
+      (erc-auto-reconnect-display 'buffer)
+      (erc-receive-query-display 'buffer)
       (erc-show-speaker-membership-status t) ;; show @ and +
       ;; o is too verbose.
       ;; N is not needed due to S.
