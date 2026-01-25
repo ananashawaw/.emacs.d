@@ -91,7 +91,7 @@
       - [[#litex-][Litex !]]
       - [[#tex-item-][tex-item !]]
       - [[#tex-parens-][tex-parens !]]
-      - [[#latex-table-wizard-][latex-table-wizard !]]
+      - [[#latex-table-wizard][latex-table-wizard]]
       - [[#preview-latex-][preview-latex !]]
       - [[#texlab-lsp][Texlab (LSP)]]
     - [[#ocaml-][OCAML !]]
@@ -2053,13 +2053,12 @@ faces to customize.
   (use-package tex-parens
     :ensure (tex-parens :host github :repo "ultronozm/tex-parens.el"))
 #+end_src
-**** latex-table-wizard !
-need to custom faces
+**** latex-table-wizard
 #+begin_src elisp :tangle "yes"
   (use-package latex-table-wizard
     :ensure (latex-table-wizard :host github :repo "enricoflor/latex-table-wizard")
     :custom
-    (latex-table-wizard-allow-detached-args t))
+    (latex-table-wizard-no-focus t)) ;; don't "focus" the table, it's too distracting.
 #+end_src
 **** preview-latex !
 #+begin_src elisp :tangle "yes"
