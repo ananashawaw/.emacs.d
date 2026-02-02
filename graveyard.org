@@ -15,7 +15,12 @@
     - [[#ocaml][Ocaml]]
       - [[#dune-format][Dune-format]]
         - [[#reformatter-dependency-of-dune-format][Reformatter (dependency of dune-format)]]
-        - [[#config][config]]
+      - [[#config][config]]
+    - [[#python-][Python !]]
+      - [[#jupyter-notebook][Jupyter Notebook]]
+        - [[#ein][Ein]]
+        - [[#xjupyter][xjupyter]]
+        - [[#jupimacs][jupimacs]]
 
 * Graveyard
 ** tools
@@ -62,7 +67,7 @@ however, the last commit was 6 years ago, and the project was archived in june o
   (use-package reformatter
     :ensure (reformatter :host github :repo "purcell/emacs-reformatter"))
 #+end_src
-***** config
+**** config
 :PROPERTIES:
 :EMACS: 24.3
 :REQ_EXT: Dune
@@ -75,4 +80,28 @@ however, the last commit was 6 years ago, and the project was archived in june o
   (use-package dune-format
     :ensure (dune-format :host github :repo "purcell/emacs-dune-format")
     :hook (dune-mode . dune-format-on-save-mode))
+#+end_src
+*** Python !
+**** Jupyter Notebook
+There are several ways to deal with .ipynb files, while org-mode is better at litterate programming,
+We, at time, have to open .ipynb files, and when that happens, while we could deal with it from the local browser instance,
+We'd rather be able to deal with it within emacs in order to have out usual theme and tools available.
+
+Ressources :
+- https://martibosch.github.io/jupyter-emacs-universe/
+- https://duncanbritt.com/blog/jupyter-ascending/jupyter-ascending.html
+- https://github.com/gregsexton/ob-ipython
+- 
+***** Ein
+#+begin_src elisp :tangle "no"
+  (use-package ein
+    :ensure (ein :host github :repo "millejoh/emacs-ipython-notebook"))
+#+end_src
+***** xjupyter
+An improvement over EIN by the maintainer of EIN.
+Requires commercial-emacs,a fork of emacs, like xemacs, because it uses "mode overlays", Not worth it.
+***** jupimacs
+#+begin_src elisp :tangle "no"
+  (use-package jupimacs
+    :ensure (jupimacs :host github :repo "burakbayramli/jupimacs"))
 #+end_src

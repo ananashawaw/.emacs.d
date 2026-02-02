@@ -109,6 +109,9 @@
     - [[#coq-][Coq !]]
       - [[#proof-general-][Proof General !]]
     - [[#lolcode][Lolcode]]
+    - [[#python-][Python !]]
+      - [[#jupyter-emacs-][jupyter-emacs !]]
+      - [[#code-cells-][code cells !]]
     - [[#yaml-][Yaml !]]
       - [[#yaml-mode-][Yaml-mode !]]
       - [[#yaml-pro-][Yaml-pro !]]
@@ -2259,6 +2262,18 @@ Contribute to it by letting users change the fonts ?
   (use-package lolcode-mode
     :ensure (lolcode-mode :host github :repo "bodil/lolcode-mode"))
 #+end_src
+*** Python !
+**** jupyter-emacs !
+#+begin_src elisp :tangle "yes"
+  (use-package jupyter
+    :ensure (jupyter :host github :repo "emacs-jupyter/jupyter"))
+#+end_src
+**** code cells !
+#+begin_src elisp :tangle "yes"
+  (use-package code-cells
+    :ensure (code-cells :host github :repo "astoff/code-cells.el"))
+#+end_src
+https://github.com/astoff/code-cells.el/issues/40
 *** Yaml !
 **** Yaml-mode !
 #+begin_src elisp :tangle "yes"
