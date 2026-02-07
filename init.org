@@ -67,6 +67,8 @@
       - [[#svg][SVG]]
       - [[#screenshotel-][screenshot.el !]]
     - [[#pdf][PDF]]
+    - [[#video][Video]]
+      - [[#pale][Pale]]
     - [[#consult--vertico--embark][Consult + Vertico + embark]]
   - [[#programming-languages-][Programming Languages !]]
     - [[#c-][C !]]
@@ -1467,9 +1469,17 @@ Not used but, it looks very good with the fonts, and it can be a great source of
 *** PDF
 #+begin_src elisp :tangle "yes"
   (use-package reader
-    :ensure (reader :host codeberg :repo "divyaranjan/emacs-reader"
+    :ensure (reader :host codeberg :repo "MonadicSheep/emacs-reader"
                     :files ("*.el" "render-core.so")
                     :pre-build ("make" "all")))
+#+end_src
+*** Video
+**** Pale
+#+begin_src elisp :tangle "yes"
+  (use-package pale
+    :ensure (pale :host codeberg :repo "MonadicSheep/pale"
+                  :files ("*.el" "pale-module.so")
+                  :pre-build ("make" "all")))
 #+end_src
 *** Consult + Vertico + embark
 #+begin_src elisp :tangle "no"
