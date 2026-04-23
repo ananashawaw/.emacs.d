@@ -2159,7 +2159,7 @@ Requirement : ((emacs "25.1"))
     (merlin-report-errors-in-lighter t)
     (merlin-completion-with-doc t)
     (merlin-favourite-caml-mode 'tuareg-mode)
-    (merlin-error-after-save '("ml" "mli" "mly")) ;; OXcaml, metaOcaml ?
+    (merlin-error-after-save '("ml" "mli" "mly" "mll")) ;; OXcaml, metaOcaml ?
     (merlin-error-in-fringe t)
     (merlin-error-on-single-line nil)
     (merlin-locate-focus-new-window nil)
