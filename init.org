@@ -125,7 +125,11 @@
         - [[#gradle-mode][Gradle-mode]]
       - [[#jdtls][JDTLS]]
       - [[#javadoc-lookup-][Javadoc-lookup !]]
+  - [[#gentoo][Gentoo]]
     - [[#ebuilds-][Ebuilds !]]
+    - [[#portage-][Portage !]]
+    - [[#portage-navi-][Portage-navi !]]
+    - [[#eselect-news-][Eselect-news !]]
   - [[#org-][Org !]]
     - [[#org][org]]
     - [[#toc-org][toc-org]]
@@ -2395,10 +2399,27 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
     ;;(javadoc-add-roots "/usr/share/doc/openjdk-*/api");; maybe need more work to make sure we locate it.
     )
 #+end_src
+** Gentoo
 *** Ebuilds !
 #+begin_src elisp :tangle "yes"
   (use-package ebuild-mode
     :ensure (ebuild-mode :repo "https://gitweb.gentoo.org/proj/ebuild-mode.git"))
+#+end_src
+*** Portage !
+#+begin_src elisp :tangle "yes"
+  (use-package portage-modes
+    :ensure (portage-modes :host github :repo "OpenSauce04/portage-modes"))
+#+end_src
+*** Portage-navi !
+This is a fork.
+#+begin_src elisp :tangle "yes"
+  (use-package portage-navi
+    :ensure (portage-navi :host github :repo "yusi1/emacs-portage-navi"))
+#+end_src
+*** Eselect-news !
+#+begin_src elisp :tangle "yes"
+  (use-package eselect-news
+    :ensure (eselect-news :host gitlab :repo "cestrand/emacs-eselect-news"))
 #+end_src
 ** Org !
 :PROPERTIES:
