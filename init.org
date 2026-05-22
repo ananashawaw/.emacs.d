@@ -79,6 +79,7 @@
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
         - [[#notes-1][Notes]]
+    - [[#c--1][C# !]]
     - [[#latex-][LATEX !]]
       - [[#auctex-][Auctex !]]
       - [[#latexmk-][LatexMK !]]
@@ -636,6 +637,7 @@ for cargo :
            (org-src-mode . (lambda () (lsp-bridge-mode 1))))
     :custom
     (lsp-bridge-c-lsp-server "clangd")
+    (lsp-bridge-csharp-lsp-server "omnisharp-dotnet")
     (lsp-bridge-python-multi-lsp-server "pylsp_ruff")
     (lsp-bridge-python-lsp-server "pylsp")
     (lsp-bridge-tex-lsp-server "texlab")
@@ -1482,7 +1484,7 @@ Not used but, it looks very good with the fonts, and it can be a great source of
 #+begin_src elisp :tangle "yes"
   (use-package pale
     :ensure (pale :host codeberg :repo "MonadicSheep/pale"
-                  :files ("*.el" "pale-module.so")
+                  :files ("lisp/*.el" "src/pale-module.so")
                   :pre-build ("make" "all")))
 #+end_src
 *** Consult + Vertico + embark
@@ -1614,297 +1616,324 @@ TODO :
 - Customize C ts Mode ?
 - Add examples for the indent alist.
 #+begin_src elisp :tangle "yes"
-  (use-package cc-mode
-    :ensure nil
-    :hook (c-mode-common . (lambda ()
-                             (progn
-                               ;; Minor mode, commands insert block comments instead of line comments by default
-                               (c-toggle-comment-style 1)
-                               ;; Minor mode off, use C-c C-d and C-c C-DEL instead.
-                               (c-toggle-auto-hungry-state -1)
-                               ;; Minor mode on, makes commands on words consider capitalization.
-                               ;; M-f PascalCase = goes to Case instead of the end of PascalCase.
-                               (subword-mode 1)
-                               ;; Minor mode on, this also enable electric.
-                               (c-toggle-auto-newline 1))))
-    :init
-    (c-add-style "ana" '(;; Comments
-                         (c-comment-only-line-offset 0)
-                         (c-block-comment-prefix "*")
-                         (c-doc-comment-style . ((c-mode . gtkdoc)
-                                                 (c++-mode . gtkdoc)
-                                                 (java-mode . javadoc)
-                                                 (pike-mode . autodoc)))
-                         
-                         ;; Auto-newline minor mode
-                         ;; Hanging braces, colons, commas and semicolons
-                         (c-hanging-braces-alist . ((arglist-close nil) ; nil because we put a semicolon after it
-                                                    (brace-list-intro after) ; RET after first content of a {} list
-                                                    (defun-open before) ; RET after closing ) of function def
-                                                    (defun-close nil) ; nil because we put semicolon after it
-                                                    (class-open before) ; this is C++ but same result as defun-open
-                                                    (class-close nil) ; C++ but defun-close logic
-                                                    (block-open before) ; defun-open logic
-                                                    (block-close nil) ; defun-close logic
-                                                    (statement-cont before) ; idk this is for statement continuation like uwu = \n a + b + c ...
-                                                    (substatement-open before) ; defun-open logic
-                                                    (statement-case-open before) ; defun-open logic
-                                                    (brace-list-open nil) ; keep {} list connected to the =
-                                                    (brace-list-close nil) ; nil because we put comma after it
-                                                    (brace-entry-open before) ; defun-open logic
-                                                    (extern-lang-open before) ; defun-open logic
-                                                    (extern-lang-close nil) ; defun-close logic
-                                                    (namespace-open before) ; C++ but extern logic
-                                                    (namespace-close after) ; C++ but extern logic
-                                                    (module-open before) ; CORBA IDL, extern logic
-                                                    (module-close after) ; CORBA IDL, extern logic
-                                                    (composition-open before) ; CORBA IDL, extern logic
-                                                    (composition-close after) ; CORBA IDL, extern logic
-                                                    (inexpr-class-open before) ; Java, but C++ class logic
-                                                    (inexpr-class-close nil) ; Java, but C++ class logic
-                                                    (inline-open before) ; C++ but defun-open logic
-                                                    (inline-close nil) ; C++ but defun-close logic
-                                                    (arglist-cont-nonempty before))) ; lines up arguments vertically
-                         
-                         (c-hanging-colons-alist . ((case-label after) ; RET after : of a case label
-                                                    (label after) ; RET after : of a goto label
-                                                    (access-label after) ; C++ RET after visibility keyword ( public, private, etc.)
-                                                    (member-init-intro after) ; C++ no idea but looks like a label
-                                                    (inher-intro after))) ; C++ no idea but looks like a label
-                         
-                         ;; We don't want a ret when we're about to close the scope, but, we can't distinguish "usual" ; from ;} before we type it
-                         ;; As such, we just prevent the insertion of newlines after a , or ; altogether
-                         (c-hanging-semi&comma-criteria . ((lambda () 'stop)
-                                                           c-semi&comma-inside-parenlist
-                                                           c-semi&comma-no-newlines-for-oneline-inliners
-                                                           c-semi&comma-no-newlines-before-nonblanks))
-                         
-                         ;; Cleanup
-                         (c-max-one-liner-length 100)
-                         
-                         (c-cleanup-list . (defun-close-semi
-                                            list-close-comma
-                                            scope-operator
-                                            one-liner-defun
-                                            compact-empty-funcall
-                                            comment-close-slash))
-                         
-                         ;; Indenting
-                         (c-label-minimum-indentation 0)
-                         (c-basic-offset 1)
-                         
-                         (c-offsets-alist . ((string . -1000)
-                                             (c . (first
-                                                   c-lineup-C-comments))
-                                             (defun-open . 2)
-                                             (defun-close . (first
-                                                             c-lineup-close-paren
-                                                             0))
-                                             (defun-block-intro . (first
-                                                                   c-lineup-arglist-intro-after-paren
-                                                                   0))
-                                             (class-open . 2)
-                                             (class-close . (first
-                                                             c-lineup-close-paren
-                                                             0))
-                                             (inline-open . 2)
-                                             (inline-close . (first
+    (use-package cc-mode
+      :ensure nil
+      :hook (c-mode-common . (lambda ()
+                               (progn
+                                 ;; Minor mode, commands insert block comments instead of line comments by default
+                                 (c-toggle-comment-style 1)
+                                 ;; Minor mode off, use C-c C-d and C-c C-DEL instead.
+                                 (c-toggle-auto-hungry-state -1)
+                                 ;; Minor mode on, makes commands on words consider capitalization.
+                                 ;; M-f PascalCase = goes to Case instead of the end of PascalCase.
+                                 (subword-mode 1)
+                                 ;; Minor mode on, this also enable electric.
+                                 (c-toggle-auto-newline 1))))
+      :init
+      (c-add-style "ana" '(;; Comments
+                           (c-comment-only-line-offset 0)
+                           (c-block-comment-prefix "*")
+                           (c-doc-comment-style . ((c-mode . gtkdoc)
+                                                   (c++-mode . gtkdoc)
+                                                   (java-mode . javadoc)
+                                                   (pike-mode . autodoc)))
+                           
+                           ;; Auto-newline minor mode
+                           ;; Hanging braces, colons, commas and semicolons
+                           (c-hanging-braces-alist . ((arglist-close nil) ; nil because we put a semicolon after it
+                                                      (brace-list-intro after) ; RET after first content of a {} list
+                                                      (defun-open before) ; RET after closing ) of function def
+                                                      (defun-close nil) ; nil because we put semicolon after it
+                                                      (class-open before) ; this is C++ but same result as defun-open
+                                                      (class-close nil) ; C++ but defun-close logic
+                                                      (block-open before) ; defun-open logic
+                                                      (block-close nil) ; defun-close logic
+                                                      (statement-cont before) ; idk this is for statement continuation like uwu = \n a + b + c ...
+                                                      (substatement-open before) ; defun-open logic
+                                                      (statement-case-open before) ; defun-open logic
+                                                      (brace-list-open nil) ; keep {} list connected to the =
+                                                      (brace-list-close nil) ; nil because we put comma after it
+                                                      (brace-entry-open before) ; defun-open logic
+                                                      (extern-lang-open before) ; defun-open logic
+                                                      (extern-lang-close nil) ; defun-close logic
+                                                      (namespace-open before) ; C++ but extern logic
+                                                      (namespace-close after) ; C++ but extern logic
+                                                      (module-open before) ; CORBA IDL, extern logic
+                                                      (module-close after) ; CORBA IDL, extern logic
+                                                      (composition-open before) ; CORBA IDL, extern logic
+                                                      (composition-close after) ; CORBA IDL, extern logic
+                                                      (inexpr-class-open before) ; Java, but C++ class logic
+                                                      (inexpr-class-close nil) ; Java, but C++ class logic
+                                                      (inline-open before) ; C++ but defun-open logic
+                                                      (inline-close nil) ; C++ but defun-close logic
+                                                      (arglist-cont-nonempty before))) ; lines up arguments vertically
+                           
+                           (c-hanging-colons-alist . ((case-label after) ; RET after : of a case label
+                                                      (label after) ; RET after : of a goto label
+                                                      (access-label after) ; C++ RET after visibility keyword ( public, private, etc.)
+                                                      (member-init-intro after) ; C++ no idea but looks like a label
+                                                      (inher-intro after))) ; C++ no idea but looks like a label
+                           
+                           ;; We don't want a ret when we're about to close the scope, but, we can't distinguish "usual" ; from ;} before we type it
+                           ;; As such, we just prevent the insertion of newlines after a , or ; altogether
+                           (c-hanging-semi&comma-criteria . ((lambda () 'stop)
+                                                             c-semi&comma-inside-parenlist
+                                                             c-semi&comma-no-newlines-for-oneline-inliners
+                                                             c-semi&comma-no-newlines-before-nonblanks))
+                           
+                           ;; Cleanup
+                           (c-max-one-liner-length 100)
+                           
+                           (c-cleanup-list . (defun-close-semi
+                                              list-close-comma
+                                              scope-operator
+                                              one-liner-defun
+                                              compact-empty-funcall
+                                              comment-close-slash))
+                           
+                           ;; Indenting
+                           (c-label-minimum-indentation 0)
+                           (c-basic-offset 1)
+                           
+                           (c-offsets-alist . ((string . -1000)
+                                               (c . (first
+                                                     c-lineup-C-comments))
+                                               (defun-open . 2)
+                                               (defun-close . (first
+                                                               c-lineup-close-paren
+                                                               0))
+                                               (defun-block-intro . (first
+                                                                     c-lineup-arglist-intro-after-paren
+                                                                     0))
+                                               (class-open . 2)
+                                               (class-close . (first
+                                                               c-lineup-close-paren
+                                                               0))
+                                               (inline-open . 2)
+                                               (inline-close . (first
+                                                                c-lineup-close-paren
+                                                                0))
+                                               (func-decl-cont . (first
+                                                                  c-lineup-java-throws
+                                                                  1))
+                                               (knr-argdecl-intro . 1)
+                                               (knr-argdecl . 0)
+                                               (topmost-intro . 0)
+                                               (topmost-intro-cont . (first
+                                                                      c-lineup-string-cont
+                                                                      c-lineup-assignments
+                                                                      c-lineup-cascaded-calls
+                                                                      c-lineup-topmost-intro-cont))
+                                               (constraint-cont . (first
+                                                                   c-lineup-item-after-paren-at-boi
+                                                                   2))
+                                               (annotation-top-cont . 0)
+                                               (annotation-var-cont . 0)
+                                               (member-init-intro . 1)
+                                               (member-init-cont . (first
+                                                                    c-lineup-multi-inher))
+                                               (class-field-cont . (first
+                                                                    c-lineup-java-inher))
+                                               (inher-intro . 1)
+                                               (inher-cont . (first
+                                                              c-lineup-multi-inher
+                                                              c-lineup-java-inher))
+                                               (block-open . 0)
+                                               (block-close . (first
+                                                               c-lineup-close-paren
+                                                               0))
+                                               (brace-list-open . 2)
+                                               (brace-list-close . (first
+                                                                    c-lineup-arglist-close-under-paren
+                                                                    c-lineup-close-paren
+                                                                    0))
+                                               (brace-list-intro . (first
+                                                                    c-lineup-2nd-brace-entry-in-arglist
+                                                                    c-lineup-arglist-intro-after-paren
+                                                                    c-lineup-class-decl-init-after-brace
+                                                                    0))
+                                               (brace-list-entry . (first
+                                                                    c-lineup-arglist-close-under-paren
+                                                                    c-lineup-under-anchor))
+                                               (brace-entry-open . 0)
+                                               (enum-open . 2)
+                                               (enum-close . (first
                                                               c-lineup-close-paren
                                                               0))
-                                             (func-decl-cont . (first
-                                                                c-lineup-java-throws
-                                                                1))
-                                             (knr-argdecl-intro . 1)
-                                             (knr-argdecl . 0)
-                                             (topmost-intro . 0)
-                                             (topmost-intro-cont . (first
-                                                                    c-lineup-string-cont
-                                                                    c-lineup-assignments
-                                                                    c-lineup-cascaded-calls
-                                                                    c-lineup-topmost-intro-cont))
-                                             (constraint-cont . (first
-                                                                 c-lineup-item-after-paren-at-boi
-                                                                 2))
-                                             (annotation-top-cont . 0)
-                                             (annotation-var-cont . 0)
-                                             (member-init-intro . 1)
-                                             (member-init-cont . (first
-                                                                  c-lineup-multi-inher))
-                                             (class-field-cont . (first
-                                                                  c-lineup-java-inher))
-                                             (inher-intro . 1)
-                                             (inher-cont . (first
-                                                            c-lineup-multi-inher
-                                                            c-lineup-java-inher))
-                                             (block-open . 0)
-                                             (block-close . (first
-                                                             c-lineup-close-paren
-                                                             0))
-                                             (brace-list-open . 2)
-                                             (brace-list-close . (first
-                                                                  c-lineup-arglist-close-under-paren
-                                                                  c-lineup-close-paren
-                                                                  0))
-                                             (brace-list-intro . (first
-                                                                  c-lineup-2nd-brace-entry-in-arglist
-                                                                  c-lineup-arglist-intro-after-paren
-                                                                  c-lineup-class-decl-init-after-brace
-                                                                  0))
-                                             (brace-list-entry . (first
-                                                                  c-lineup-arglist-close-under-paren
-                                                                  c-lineup-under-anchor))
-                                             (brace-entry-open . 0)
-                                             (enum-open . 2)
-                                             (enum-close . (first
-                                                            c-lineup-close-paren
-                                                            0))
-                                             (enum-intro . (first
-                                                            c-lineup-arglist-intro-after-paren
-                                                            1))
-                                             (enum-entry . (first
-                                                            c-lineup-under-anchor))
-                                             (statement . (first
-                                                           c-lineup-runin-statements))
-                                             (statement-cont . (first
+                                               (enum-intro . (first
+                                                              c-lineup-arglist-intro-after-paren
+                                                              1))
+                                               (enum-entry . (first
+                                                              c-lineup-under-anchor))
+                                               (statement . (first
+                                                             c-lineup-runin-statements))
+                                               (statement-cont . (first
+                                                                  c-lineup-string-cont
+                                                                  c-lineup-ternary-bodies
+                                                                  c-lineup-cascaded-calls
+                                                                  c-lineup-assignments
+                                                                  1))
+                                               (statement-block-intro . (first
+                                                                         c-lineup-arglist-intro-after-paren
+                                                                         1))
+                                               (statement-case-intro . (first
+                                                                        c-lineup-arglist-intro-after-paren
+                                                                        2))
+                                               (statement-case-open . 0)
+                                               (substatement . 1)
+                                               (substatement-open . 2)
+                                               (substatement-label . 2)
+                                               (case-label . (first
+                                                              c-lineup-runin-statements))
+                                               (access-label . -1)
+                                               (label . 2)
+                                               (do-while-closure . 0)
+                                               (else-clause . 0)
+                                               (catch-clause . 0)
+                                               (comment-intro . (first
+                                                                 c-lineup-knr-region-comment
+                                                                 c-lineup-comment))
+                                               (arglist-intro . (first
+                                                                 c-lineup-arglist-intro-after-paren
+                                                                 1))
+                                               (arglist-cont . (first
+                                                                c-lineup-gcc-asm-reg
                                                                 c-lineup-string-cont
-                                                                c-lineup-ternary-bodies
                                                                 c-lineup-cascaded-calls
+                                                                c-lineup-ternary-bodies
+                                                                c-lineup-arglist-operators
                                                                 c-lineup-assignments
-                                                                1))
-                                             (statement-block-intro . (first
-                                                                       c-lineup-arglist-intro-after-paren
-                                                                       1))
-                                             (statement-case-intro . (first
-                                                                      c-lineup-arglist-intro-after-paren
-                                                                      2))
-                                             (statement-case-open . 0)
-                                             (substatement . 1)
-                                             (substatement-open . 2)
-                                             (substatement-label . 2)
-                                             (case-label . (first
-                                                            c-lineup-runin-statements))
-                                             (access-label . -1)
-                                             (label . 2)
-                                             (do-while-closure . 0)
-                                             (else-clause . 0)
-                                             (catch-clause . 0)
-                                             (comment-intro . (first
-                                                               c-lineup-knr-region-comment
-                                                               c-lineup-comment))
-                                             (arglist-intro . (first
-                                                               c-lineup-arglist-intro-after-paren
-                                                               1))
-                                             (arglist-cont . (first
-                                                              c-lineup-gcc-asm-reg
-                                                              c-lineup-string-cont
-                                                              c-lineup-cascaded-calls
-                                                              c-lineup-ternary-bodies
-                                                              c-lineup-arglist-operators
-                                                              c-lineup-assignments
-                                                              (add c-lineup-argcont -2)
-                                                              c-lineup-arglist
-                                                              c-lineup-arglist-close-under-paren
-                                                              c-lineup-gcc-asm-reg
-                                                              0))
-                                             (arglist-cont-nonempty . (first
-                                                                       c-lineup-gcc-asm-reg
-                                                                       c-lineup-string-cont
-                                                                       c-lineup-cascaded-calls
-                                                                       c-lineup-ternary-bodies
-                                                                       c-lineup-arglist
-                                                                       c-lineup-assignments
-                                                                       (add c-lineup-argcont -2)
-                                                                       c-lineup-arglist-operators
-                                                                       c-lineup-arglist-close-under-paren
-                                                                       c-lineup-arglist))
-                                             (arglist-close . (first
-                                                               c-lineup-arglist
-                                                               c-lineup-arglist-close-under-paren
-                                                               c-lineup-close-paren))
-                                             (stream-op . (first
-                                                           c-lineup-streamop))
-                                             (inclass . 1)
-                                             (cpp-macro . -1000)
-                                             (cpp-macro-cont . 1)
-                                             (cpp-define-intro . 2)
-                                             (friend . 0)
-                                             (objc-method-intro .
-                                                                [0])
-                                             (objc-method-args-cont . (first
-                                                                       c-lineup-ObjC-method-args-2))
-                                             (objc-method-call-cont . (c-lineup-ObjC-method-call-colons
-                                                                       c-lineup-ObjC-method-call
-                                                                       1))
-                                             (extern-lang-open . 0)
-                                             (namespace-open . 0)
-                                             (module-open . 0)
-                                             (composition-open . 0)
-                                             (extern-lang-close . (first
+                                                                (add c-lineup-argcont -2)
+                                                                c-lineup-arglist
+                                                                c-lineup-arglist-close-under-paren
+                                                                c-lineup-gcc-asm-reg
+                                                                0))
+                                               (arglist-cont-nonempty . (first
+                                                                         c-lineup-gcc-asm-reg
+                                                                         c-lineup-string-cont
+                                                                         c-lineup-cascaded-calls
+                                                                         c-lineup-ternary-bodies
+                                                                         c-lineup-arglist
+                                                                         c-lineup-assignments
+                                                                         (add c-lineup-argcont -2)
+                                                                         c-lineup-arglist-operators
+                                                                         c-lineup-arglist-close-under-paren
+                                                                         c-lineup-arglist))
+                                               (arglist-close . (first
+                                                                 c-lineup-arglist
+                                                                 c-lineup-arglist-close-under-paren
+                                                                 c-lineup-close-paren))
+                                               (stream-op . (first
+                                                             c-lineup-streamop))
+                                               (inclass . 1)
+                                               (cpp-macro . -1000)
+                                               (cpp-macro-cont . 1)
+                                               (cpp-define-intro . 2)
+                                               (friend . 0)
+                                               (objc-method-intro .
+                                                                  [0])
+                                               (objc-method-args-cont . (first
+                                                                         c-lineup-ObjC-method-args-2))
+                                               (objc-method-call-cont . (c-lineup-ObjC-method-call-colons
+                                                                         c-lineup-ObjC-method-call
+                                                                         1))
+                                               (extern-lang-open . 0)
+                                               (namespace-open . 0)
+                                               (module-open . 0)
+                                               (composition-open . 0)
+                                               (extern-lang-close . (first
+                                                                     c-lineup-close-paren
+                                                                     0))
+                                               (namespace-close . (first
                                                                    c-lineup-close-paren
                                                                    0))
-                                             (namespace-close . (first
-                                                                 c-lineup-close-paren
-                                                                 0))
-                                             (module-close . (first
-                                                              c-lineup-close-paren
-                                                              0))
-                                             (composition-close . (first
-                                                                   c-lineup-close-paren
-                                                                   0))
-                                             (inextern-lang . 1)
-                                             (innamespace . 1)
-                                             (inmodule . 1)
-                                             (incomposition . 1)
-                                             (template-args-cont . (first
-                                                                    c-lineup-template-args
-                                                                    1))
-                                             (inlambda . (first
-                                                          c-lineup-inexpr-block))
-                                             (lambda-intro-cont . 1)
-                                             (inexpr-statement . (first
-                                                                  c-lineup-inexpr-block
-                                                                  2))
-                                             (inexpr-class . (first
-                                                              c-lineup-inexpr-block
-                                                              2))))
-                         
-                         ;; Preprocessor
-                         (c-syntactic-indentation-in-macros t)
-                         (c-backslash-column 30)
-                         (c-backslash-max-column 200)
-                         (c-auto-align-backslashes t)
-                         (c-cpp-indent-to-body-directives . ("pragma"
-                                                             "ifdef"
-                                                             "endif"
-                                                             "if"
-                                                             "ifndef"
-                                                             "else"
-                                                             "elif"
-                                                             "define"
-                                                             "undef"))))
-    :custom
-    (c-default-style '((c-mode . "ana") ;; we could also use hooks.
-                       (java-mode . "ana")
-                       (other . "ana")))
-    (c-style-variables-are-local-p nil)
-    (c-tab-always-indent t)
-    (c-progress-interval 10)
-    (c-asymmetry-fontification-flag t)
-    (c-guess-region-max nil) ; entire buffer
-    (c-guess-offset-threshold 5)
-    (c-defun-tactic 'go-outward) ; detect functions declaration inside functions (gcc extension).
-    (c-electric-pound-behavior '(alignleft))
-    (c-ignore-auto-fill '(string cpp code))
-    (c-require-final-newline '((c-mode . t)
-                               (c++-mode . t)
-                               (objc-mode . t)
-                               (java-mode . t)
-                               (idl-mode . t)
-                               (pike-mode . t)
-                               (awk-mode . t))))
+                                               (module-close . (first
+                                                                c-lineup-close-paren
+                                                                0))
+                                               (composition-close . (first
+                                                                     c-lineup-close-paren
+                                                                     0))
+                                               (inextern-lang . 1)
+                                               (innamespace . 1)
+                                               (inmodule . 1)
+                                               (incomposition . 1)
+                                               (template-args-cont . (first
+                                                                      c-lineup-template-args
+                                                                      1))
+                                               (inlambda . (first
+                                                            c-lineup-inexpr-block))
+                                               (lambda-intro-cont . 1)
+                                               (inexpr-statement . (first
+                                                                    c-lineup-inexpr-block
+                                                                    2))
+                                               (inexpr-class . (first
+                                                                c-lineup-inexpr-block
+                                                                2))))
+                           
+                           ;; Preprocessor
+                           (c-syntactic-indentation-in-macros t)
+                           (c-backslash-column 30)
+                           (c-backslash-max-column 200)
+                           (c-auto-align-backslashes t)
+                           (c-cpp-indent-to-body-directives . ("pragma"
+                                                               "ifdef"
+                                                               "endif"
+                                                               "if"
+                                                               "ifndef"
+                                                               "else"
+                                                               "elif"
+                                                               "define"
+                                                               "undef"))))
+      :custom
+      (c-default-style '((c-mode . "ana") ;; we could also use hooks.
+                         (java-mode . "ana")
+                         (other . "ana")
+                         (csharp-mode . "ana")))
+      (c-style-variables-are-local-p nil)
+      (c-tab-always-indent t)
+      (c-progress-interval 10)
+      (c-asymmetry-fontification-flag t)
+      (c-guess-region-max nil) ; entire buffer
+      (c-guess-offset-threshold 5)
+      (c-defun-tactic 'go-outward) ; detect functions declaration inside functions (gcc extension).
+      (c-electric-pound-behavior '(alignleft))
+      (c-ignore-auto-fill '(string cpp code))
+      (c-require-final-newline '((c-mode . t)
+                                 (c++-mode . t)
+                                 (objc-mode . t)
+                                 (java-mode . t)
+                                 (idl-mode . t)
+                                 (pike-mode . t)
+                                 (awk-mode . t))))
 #+end_src
 ***** Notes
 We use `c-mode-common-hook` instead of `c-initialization-hook` to prevent (elisp from not being fontified.)[https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-11/msg00088.html]
+*** C# !
+csharp-mode.el defines both csharp-mode and csharp-ts-mode.
+#+begin_src elisp :tangle "no"
+      (defcustom csharp-codedoc-tag-face 'c-doc-markup-face-name
+      "Face to be used on the codedoc docstring tags.
+
+    Should be one of the font lock faces, such as
+    `font-lock-variable-name-face' and friends.
+
+    Needs to be set before `csharp-mode' is loaded, because of
+    compilation and evaluation time conflicts."
+      :type 'symbol)
+
+    (defcustom csharp-font-lock-extra-types
+    (list csharp--regex-type-name)
+    (c-make-font-lock-extra-types-blurb "C#" "csharp-mode" (concat))
+    :type 'c-extra-types-widget
+    :group 'c)
+  ;; csharp-ts-mode
+    (csharp-ts-indent-offset 2)
+
+  (defface csharp-ts-mode-attribute-face
+  '((t . (:inherit font-lock-property-use-face)))
+  "Font face used for fontification of attributes."
+  :group 'csharp-ts-mode-faces)
+#+end_src
 *** LATEX !
 https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/, it also talks of "calc", seems interesting.
 www.emacswiki.org/emacs/WhizzyTeX
