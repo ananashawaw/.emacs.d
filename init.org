@@ -1932,30 +1932,31 @@ We use `c-mode-common-hook` instead of `c-initialization-hook` to prevent (elisp
     (cwarn-mode-text ""))
 #+end_src
 *** C# !
+#+begin_src elisp :tangle "yes"
+  (use-package csharp-mode
+    :ensure nil
+    :custom
+    ;; csharp-ts-mode
+    (csharp-ts-indent-offset 2))
+#+end_src
 csharp-mode.el defines both csharp-mode and csharp-ts-mode.
 #+begin_src elisp :tangle "no"
-      (defcustom csharp-codedoc-tag-face 'c-doc-markup-face-name
-      "Face to be used on the codedoc docstring tags.
+  (defcustom csharp-codedoc-tag-face 'c-doc-markup-face-name
+    "Face to be used on the codedoc docstring tags.
 
-    Should be one of the font lock faces, such as
-    `font-lock-variable-name-face' and friends.
+  Should be one of the font lock faces, such as
+  `font-lock-variable-name-face' and friends.
 
-    Needs to be set before `csharp-mode' is loaded, because of
-    compilation and evaluation time conflicts."
-      :type 'symbol)
+  Needs to be set before `csharp-mode' is loaded, because of
+  compilation and evaluation time conflicts."
+    :type 'symbol)
 
-    (defcustom csharp-font-lock-extra-types
-    (list csharp--regex-type-name)
-    (c-make-font-lock-extra-types-blurb "C#" "csharp-mode" (concat))
-    :type 'c-extra-types-widget
-    :group 'c)
   ;; csharp-ts-mode
-    (csharp-ts-indent-offset 2)
 
   (defface csharp-ts-mode-attribute-face
-  '((t . (:inherit font-lock-property-use-face)))
-  "Font face used for fontification of attributes."
-  :group 'csharp-ts-mode-faces)
+    '((t . (:inherit font-lock-property-use-face)))
+    "Font face used for fontification of attributes."
+    :group 'csharp-ts-mode-faces)
 #+end_src
 *** LATEX !
 https://michaelneuper.com/posts/efficient-latex-editing-with-emacs/, it also talks of "calc", seems interesting.
