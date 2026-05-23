@@ -126,8 +126,8 @@
         - [[#gradle-mode][Gradle-mode]]
       - [[#jdtls][JDTLS]]
       - [[#javadoc-lookup-][Javadoc-lookup !]]
-  - [[#gentoo][Gentoo]]
-    - [[#ebuilds-][Ebuilds !]]
+  - [[#gentoo-][Gentoo !]]
+    - [[#ebuilds][Ebuilds]]
     - [[#portage-][Portage !]]
     - [[#portage-navi-][Portage-navi !]]
     - [[#eselect-news-][Eselect-news !]]
@@ -2428,8 +2428,8 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
     ;;(javadoc-add-roots "/usr/share/doc/openjdk-*/api");; maybe need more work to make sure we locate it.
     )
 #+end_src
-** Gentoo
-*** Ebuilds !
+** Gentoo !
+*** Ebuilds
 #+begin_src elisp :tangle "yes"
   (use-package ebuild-mode
     :ensure (ebuild-mode :repo "https://gitweb.gentoo.org/proj/ebuild-mode.git"))
