@@ -79,6 +79,7 @@
       - [[#gobolt-][Gobolt !]]
       - [[#cc-mode-][CC-mode !]]
         - [[#notes-1][Notes]]
+      - [[#cwarn][CWarn]]
     - [[#c--1][C# !]]
     - [[#latex-][LATEX !]]
       - [[#auctex-][Auctex !]]
@@ -1908,6 +1909,28 @@ TODO :
 #+end_src
 ***** Notes
 We use `c-mode-common-hook` instead of `c-initialization-hook` to prevent (elisp from not being fontified.)[https://lists.gnu.org/archive/html/bug-gnu-emacs/2025-11/msg00088.html]
+**** CWarn
+:PROPERTIES:
+:EMACS: 21.1
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: c31f6adc31d48076c63ad82b83b2970e1b0d7b9b
+:END:
+#+begin_src elisp :tangle "yes"
+  (use-package cwarn
+    :ensure nil
+    :config
+    (global-cwarn-mode 1)
+    :custom
+    (cwarn-configuration '((c-mode (not reference))
+                           (csharp-mode (not reference))
+                           (java-mode (not reference))
+                           (c++-mode t)))
+    (cwarn-verbose nil)
+    (cwarn-mode-text ""))
+#+end_src
 *** C# !
 csharp-mode.el defines both csharp-mode and csharp-ts-mode.
 #+begin_src elisp :tangle "no"
