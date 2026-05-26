@@ -1474,7 +1474,7 @@ Not used but, it looks very good with the fonts, and it can be a great source of
     :ensure (screenshot :host github :repo "tecosaur/screenshot"))
 #+end_src
 *** PDF
-#+begin_src elisp :tangle "yes"
+#+begin_src elisp :tangle "no"
   (use-package reader
     :ensure (reader :host codeberg :repo "MonadicSheep/emacs-reader"
                     :files ("*.el" "render-core.so")
@@ -1482,7 +1482,7 @@ Not used but, it looks very good with the fonts, and it can be a great source of
 #+end_src
 *** Video
 **** Pale
-#+begin_src elisp :tangle "yes"
+#+begin_src elisp :tangle "no"
   (use-package pale
     :ensure (pale :host codeberg :repo "MonadicSheep/pale"
                   :files ("lisp/*.el" "src/pale-module.so")
@@ -2176,7 +2176,7 @@ Would need to see the overlaps between say, this, and  [[Opam-Switch]].
 #+begin_src elisp :tangle "yes"
   (use-package opam-switch-mode
     :ensure (opam-switch-mode :host github :repo "ProofGeneral/opam-switch-mode")
-    :hook ((coq-mode tuareg-mode merlin-mode  caml-mode) . opam-switch-mode))
+    :hook ((coq-mode tuareg-mode merlin-mode caml-mode) . opam-switch-mode))
 #+end_src
 **** Caml !
 #+begin_src elisp :tangle "yes"
