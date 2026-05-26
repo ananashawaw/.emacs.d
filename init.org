@@ -2465,7 +2465,7 @@ How to install the java lsp , note you need a jdk about java 21 as of september 
 #+end_src
 *** Portage-navi !
 This is a fork.
-#+begin_src elisp :tangle "yes"
+#+begin_src elisp :tangle "no"
   (use-package portage-navi
     :ensure (portage-navi :host github :repo "yusi1/emacs-portage-navi"))
 #+end_src
