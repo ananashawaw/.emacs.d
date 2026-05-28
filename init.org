@@ -166,7 +166,8 @@ We have to turn off `Package.el` because it'll autoload all packages, which is p
 :REQ_EXT: git
 :REQ_INT: None
 :OPT_EXT: None
-:OPT_INT: ba0d884338f2aef107602951671a67742b83c829
+:OPT_INT: None
+:LASTCHECKED: 27c2889f66368bde12b4e243582e343ed9cb75e3
 :END:
 #+begin_src elisp :tangle "yes"
   (defvar elpaca-installer-version 0.12)
