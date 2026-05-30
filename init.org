@@ -116,6 +116,7 @@
     - [[#python-][Python !]]
       - [[#jupyter-emacs-][jupyter-emacs !]]
       - [[#code-cells-][code cells !]]
+      - [[#renpy][Renpy]]
     - [[#yaml-][Yaml !]]
       - [[#yaml-mode-][Yaml-mode !]]
       - [[#yaml-pro-][Yaml-pro !]]
@@ -2343,6 +2344,30 @@ Contribute to it by letting users change the fonts ?
     :ensure (code-cells :host github :repo "astoff/code-cells.el"))
 #+end_src
 https://github.com/astoff/code-cells.el/issues/40
+**** Renpy
+:PROPERTIES:
+:EMACS: 27.1
+:REQ_EXT: None
+:REQ_INT: None
+:OPT_EXT: Renpy for compile / run / lint.
+:OPT_INT: None
+:LASTCHECKED: f4b7512af930efbf6a9be8dd7d43f47031acba40
+:END:
+From the readme :
+The package comes with the =emacs.edit.py= script that configures Ren’py
+integration with Emacs. Having the =RENPY_EDIT_PY= environment variable
+set to the path of the file would force Ren’py launcher to use Emacs
+as a default editor.
+#+begin_src elisp :tangle "yes"
+  (use-package renpy-mode
+    :ensure (renpy-mode :host github :repo "Reagankm/renpy-mode")
+    :custom
+    ;; several lines of comments of the form "# .*" (so it requires a space),
+    ;; will automatically be indented on the same col.
+    (renpy-honour-comment-identation t)
+    (renpy-continuation-offset 0) ;; no extra indent when we break a line with \
+    (renpy-indent 4))
+#+end_src
 *** Yaml !
 **** Yaml-mode !
 #+begin_src elisp :tangle "yes"
