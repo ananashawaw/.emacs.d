@@ -907,7 +907,7 @@ for cargo :
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
-:LASTCHECKED: 30.0.50
+:LASTCHECKED: 32.0.50 : c31f6adc31d48076c63ad82b83b2970e1b0d7b9b
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package novice
