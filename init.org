@@ -154,7 +154,7 @@
 :OPT_INT: None
 :LASTCHECKED: None
 :END:
-We have to turn off `Package.el` because it'll autoload all packages, which is pretty terrible.
+We have to turn off `package.el' because it'll autoload all packages, which is pretty terrible.
 #+begin_src elisp :tangle "yes"
   ;; -*- lexical-binding: t; -*-
   (setq package-enable-at-startup nil)
@@ -167,7 +167,7 @@ We have to turn off `Package.el` because it'll autoload all packages, which is p
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
-:LASTCHECKED: 27c2889f66368bde12b4e243582e343ed9cb75e3
+:LASTCHECKED: 6530ffa73b18ccee858e7c471415ab7e0c0d8ce1
 :END:
 #+begin_src elisp :tangle "yes"
   (defvar elpaca-installer-version 0.12)
