@@ -854,6 +854,15 @@ for cargo :
   (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 #+end_src
 *** ARXIV !
+:PROPERTIES:
+:EMACS: 27.1
+:REQ_EXT: None
+:REQ_INT: (hydra "0")
+:OPT_EXT: None
+:OPT_INT: None
+:LASTCHECKED: f629ec64f8bbac0cadb472c6741f8f33d49e9160
+:END:
+Need to customize faces.
 #+begin_src elisp :tangle "yes"
   (use-package arxiv-mode
     :ensure (arxiv-mode :host github :repo "fizban007/arxiv-mode")
@@ -863,6 +872,7 @@ for cargo :
     (arxiv-author-list-maximum 0)
     (arxiv-default-download-folder "~/Documents/arxiv")
     (arxiv-default-bibliography "~/Documents/arxiv/bibliography")
+    (arxiv-default-category "Math.LO")
     (arxiv-startup-with-abstract-window t))
 #+end_src
 *** treesit !
