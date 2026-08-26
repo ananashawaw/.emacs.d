@@ -9,7 +9,7 @@
       - [[#elpaca-build-if-new][Elpaca build if new]]
       - [[#elpaca-customisation][Elpaca Customisation]]
         - [[#config][Config]]
-    - [[#init-benchmark-][init benchmark !]]
+    - [[#init-benchmark][Init Benchmark]]
     - [[#magit-][Magit !]]
       - [[#with-editor][With-Editor]]
       - [[#transient-][Transient !]]
@@ -242,18 +242,19 @@ We have to turn off `package.el' because it'll autoload all packages, which is p
     :ensure nil
     :hook (elpaca-after-init . (lambda () (find-file "~/.emacs.d/init.org"))))
 #+end_src
-*** init benchmark !
+*** Init Benchmark
 :PROPERTIES:
-:EMACS: 24.3
+:EMACS: 24.4
 :REQ_EXT: None
 :REQ_INT: None
 :OPT_EXT: None
 :OPT_INT: None
-:LASTCHECKED: None
+:LASTCHECKED: 54b9703389f25012e4cc20fe4a0d4ea253ce4820
 :END:
 #+begin_src elisp :tangle "yes"
   (use-package benchmark-init
-    :ensure t
+    :ensure (benchmark-init :host github :repo "dholm/benchmark-init-el")
+    ;;:init (benchmark-init/activate) ;; (un)comment to (de)activate.
     ;; To disable collection of benchmark data __after__ init is done
     :hook (elpaca-after-init . benchmark-init/deactivate))
 #+end_src
